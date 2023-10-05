@@ -2,7 +2,7 @@
 
 Here are our App Map, WireFrame and Prototype:
 
-- [app map](ux-design/App-Map.fig)
+- [App map](ux-design/App-Map.fig)
 - [Wireframe & Prototype](ux-design/Wireframe_Prototype.fig)
 - [Prototype link](https://www.figma.com/proto/5tDOUNV9ECZHvuCGB9fXJr/Wireframe%2FPrototype?page-id=0%3A1&type=design&node-id=9-2&viewport=48%2C243%2C0.48&t=QSTusxumWD3JKbJm-1&scaling=scale-down&mode=design)
   
