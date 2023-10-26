@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./login.css";
 
-export const SignIn = () => {
+const Login = () => {
   return (
-    <div className="SIGN-IN">
+    <div className="Login">
       <div className="div">
         <div className="forgot-password-sign">
           <div className="text-wrapper">Forgot Password?</div>
@@ -28,10 +29,12 @@ export const SignIn = () => {
         <div className="create-account">
           <p className="don-t-have-an">
             <span className="span">Don’t have an account? </span>
-            <span className="text-wrapper-5">Sign Up</span>
+            <Link to="/signup" className="text-wrapper-5">Sign Up</Link> {/* Link to CreateAccount component */}
           </p>
         </div>
       </div>
     </div>
   );
 };
+
+export default Login;

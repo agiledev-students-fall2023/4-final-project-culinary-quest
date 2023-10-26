@@ -1,15 +1,19 @@
-// App.js
 import React from 'react';
-//import { Link } from "react-router-dom";
-import './header_style.css';          // Import the styles
-import Header from './header';  // Import the header component
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './login';
+import CreateAccount from './createAccount'; // Import your CreateAccount component
 
 function App() {
   return (
-    <div className="App">
-      <Header />              
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<CreateAccount />} /> {/* Route for CreateAccount component */}
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
-export default App; 
+export default App;
