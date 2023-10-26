@@ -1,7 +1,7 @@
 .header {
   height: 72px;
   position: relative;
-  width: 393px;
+  width: 100%;
 }
 
 .header .full-header {
@@ -15,7 +15,7 @@
   left: 0;
   position: fixed;
   top: 0;
-  width: 393px;
+  width: 100%;
 }
 
 .header .hamburger-button {
@@ -31,15 +31,15 @@
 
 .header .line {
   height: 4px;
-  background-color: white;  /* Adjust the color as needed */
+  background-color: white;
   width: 100%;
  }
 
-.header .LOGO-SPACE {
+ .header .LOGO-SPACE {
   height: 54px;
-  left: 327px;
   object-fit: cover;
   position: absolute;
   top: 9px;
+  right: 14px;
   width: 59px;
-} 
+}
