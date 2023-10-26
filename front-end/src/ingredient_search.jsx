@@ -1,10 +1,14 @@
 import React from "react";
 import "./ingredient_inventory.css";
 
-export const Ingredient_Inventory = () => {
+export const Ingredient_Search = () => {
   return (
     <div className="index">
-        <h1>YOUR INGREDIENTS</h1>
+      <div className="search-bar">
+        {/* Your search bar code here */}
+        <input type="text" placeholder="Search" />
+        <button className="submit-button">Search</button>
+      </div>
       <div className="columns">
         <div className="column">
           <img src="image_url" alt="Ingredient Image" />
@@ -33,4 +37,4 @@ export const Ingredient_Inventory = () => {
 };
 
 
-export default Ingredient_Inventory;
+export default Ingredient_Search;
