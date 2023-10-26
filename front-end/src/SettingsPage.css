@@ -1,0 +1,74 @@
+/* src/SettingsPage.css */
+.settings-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: white;
+}
+
+input {
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid black; /* Black border */
+    background-color: grey; /* Grey background */
+    color: white; /* Text color */
+    outline: none;
+    font-size: 16px; /* Adjust as needed */
+    transition: 0.3s; /* Optional: for a smoother focus effect */
+}
+
+input::placeholder { /* Most modern browsers */
+    color: white;
+}
+
+input:focus {
+    border-color: #4CAF50; /* Optional: Change border color on focus, adjust as needed */
+    color: white;
+}
+
+.input-box {
+    margin-bottom: 20px;
+    color: white;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    color: white;
+}
+
+.button-group {
+    text-align: center;  /* This will center the buttons */
+    padding-top: 20px;   /* Optional: Add some space at the top */
+    color: white;
+}
+
+button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    display: inline-block;  /* Change this to inline-block */
+    margin-bottom: 10px; 
+    margin-left: auto;  /* Add these lines to center the block buttons */
+    margin-right: auto; 
+}
+
+button:not(.danger) { /* Targets the Logout button */
+    margin-right: 15px;
+}
+
+button.danger {
+    background-color: #f44336;
+    margin-left: 15px;
+}
