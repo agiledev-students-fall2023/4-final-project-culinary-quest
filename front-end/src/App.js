@@ -1,19 +1,16 @@
+// App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './login';
-import CreateAccount from './createAccount'; // Import your CreateAccount component
+//import { Link } from "react-router-dom";
+import Header from './header';  // Import the header component
+import IndvRecipe from './indv_recipe';
 
 function App() {
+  IndvRecipe()
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<CreateAccount />} /> {/* Route for CreateAccount component */}
-        </Routes>
-      </div>
-    </Router>
+    <div className="App"> 
+      <IndvRecipe />
+    </div>
   );
 }
 
-export default App;
+export default App; 
