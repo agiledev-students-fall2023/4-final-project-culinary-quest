@@ -8,7 +8,7 @@ function SettingsPage() {
     return (
         <div className="settings-container">
             <input type="text" placeholder="Change username" />
-            <input type="password" placeholder="Change password" />
+            <button className="input-like-button" onClick={() => navigate('/change-password')}>Change Password</button>
             <input type="text" placeholder="Update contact information" />
             <div className="button-group">
                 <button onClick={() => navigate('/')}>Logout</button>
