@@ -1,4 +1,4 @@
-.INDV-RECIPE {
+.INDIV-RECIPE {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,12 +7,12 @@
     padding-top: 25px;
 }
 
-.INDV-RECIPE .name {
+.INDIV-RECIPE .name {
     text-align:center;
     /*background-color: deeppink;*/
 }
 
-.INDV-RECIPE .photo {
+.INDIV-RECIPE .photo {
     width: 250px;
     height: 250px;
     background-color: gray;
@@ -21,12 +21,12 @@
     margin-bottom: 15px;
 }
 
-.INDV-RECIPE .recipe-text {
+.INDIV-RECIPE .recipe-text {
     width: 75%;
     /*background-color: deeppink;*/
 }
 
-.INDV-RECIPE .recipe-text .description {
+.INDIV-RECIPE .recipe-text .description {
     font-style: italic;
     text-align: center;
     /*background-color:aquamarine;*/
@@ -34,14 +34,14 @@
     padding: 5px;
 }
 
-.INDV-RECIPE .recipe-text .main-text {
+.INDIV-RECIPE .recipe-text .main-text {
     /*background-color: cornflowerblue;*/
     margin: 10px;
     padding: 5px;
     text-align: left;
 }
 
-.INDV-RECIPE .button {
+.INDIV-RECIPE .button {
     background-color: gray;
     margin: 10px;
     width: 20%;

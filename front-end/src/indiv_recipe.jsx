@@ -1,10 +1,10 @@
 import React from "react";
-import "./indv_recipe.css";
+import "./indiv_recipe.css";
 import Header from "./header"
 
-const IndvRecipe = props => {
+const IndivRecipe = props => {
     return (
-        <div className = "INDV-RECIPE">
+        <div className = "INDIV-RECIPE">
             {/*<Header />*/}
             <div className = "name">
                 <h1>[Recipe Name]</h1>
@@ -37,4 +37,4 @@ const IndvRecipe = props => {
     );
 }
 
-export default IndvRecipe;
+export default IndivRecipe;
