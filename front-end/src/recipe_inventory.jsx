@@ -2,7 +2,7 @@ import React from "react";
 import "./recipe_inventory.css";
 import Header from "./header"
 
-const recipeInv = props => {
+const RecipeInv = props => {
     return (
         <div className = "RECIPE-INV">
             {/*<Header />*/}
@@ -15,7 +15,9 @@ const recipeInv = props => {
 
                 <div className = "search-tools"> {/* Should be a row flexbox (row of elements) */}
                     <div className = "square" /> {/* The filter toggle button */}
-                    <p>Filter by available ingredients</p> {/* The text next to the filter toggle button */}
+                    <div className = "filter-text">
+                        <p>Filter by available ingredients</p> {/* The text next to the filter toggle button */}
+                    </div>
                     <div className = "search-button"> {/* Search button placeholder */}
                         <p>Search</p>
                     </div>
@@ -24,10 +26,10 @@ const recipeInv = props => {
 
             {/* --- RECIPE LIST --- */}
             <div className = "recipe-list"> {/* Should be a column flexbox */}
-                
+                <p>[PLACEHOLDER]</p>
             </div>
         </div>
     );
 };
 
-export default recipeInv;
+export default RecipeInv;
