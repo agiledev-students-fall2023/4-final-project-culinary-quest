@@ -1,6 +1,7 @@
-import React from "react";
+import React from 'react';
 import "./recipe_inventory.css";
 import Header from "./header"
+import Burger from "./burger";
 
 {/* Temporary store of recipes for display and testing purposes */}
 const TempRecipes = [
@@ -33,9 +34,8 @@ const RecipeInv = props => {
                         <p>Filter by available ingredients</p>
                     </div>
                     {/* Placeholder for the search button */}
-                    <div className = "search-button">
-                        <p>Search</p>
-                    </div>
+                    {/* Also placeholder for the header's burger menu button; on click it sets the state to either 1 or 0 */}
+                    <button>Search</button>
                 </div>
             </div>
 
