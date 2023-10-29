@@ -1,5 +1,5 @@
 .RECIPE-INV {
-    background-color: chartreuse;
+    /* background-color: chartreuse; */
     padding-top: 25px;
     margin: auto;
     display: flex;
@@ -12,20 +12,20 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: deeppink;
+    /* background-color: deeppink; */
     align-items:center;
 }
 
 .RECIPE-INV .search .search-bar {
     display: flex;
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     min-width: 550px;
 }
 
 .RECIPE-INV .search .search-tools {
     display: flex;
     flex-direction: row;
-    background-color: darkorange;
+    /* background-color: darkorange; */
     min-width: 500px;
     margin-top: 15px;
 }
@@ -41,7 +41,7 @@
 
 .RECIPE-INV .search .search-tools .filter-text {
     flex-grow: 2;
-    background-color: bisque;
+    /* background-color: bisque; */
     text-align: left;
     margin: auto;
 }
@@ -54,13 +54,13 @@
 }
 
 .RECIPE-INV .recipe-list {
-    background-color: aqua;
+    /* background-color: aqua; */
     width: 50%;
     margin-top: 15px;
 }
 
 .RECIPE-INV .recipe-list .recipe-tile {
-    background-color: firebrick;
+    /* background-color: firebrick; */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -77,7 +77,7 @@
 }
 
 .RECIPE-INV .recipe-list .recipe-tile .recipe-text {
-    background-color: bisque;
+    /* background-color: bisque; */
     flex-grow: 3;
     padding-left: 15px;
     overflow: hidden;
@@ -89,12 +89,12 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     max-width: 85%;
-    background-color: aqua;
+    /* background-color: aqua; */
     margin: 1.5px;
 }
 
 h1 {
-    background-color: aqua;
+    /* background-color: aqua; */
     margin: 1.5px;
 }
 
