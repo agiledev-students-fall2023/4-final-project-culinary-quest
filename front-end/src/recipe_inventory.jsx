@@ -2,6 +2,7 @@ import React from "react";
 import "./recipe_inventory.css";
 import Header from "./header"
 
+{/* Temporary store of recipes for display and testing purposes */}
 const TempRecipes = [
     {
         id: '0', name: 'food 1', size: '2', time: '15', desc: 'desc 1'
@@ -19,32 +20,40 @@ const RecipeInv = props => {
         <div className = "RECIPE-INV">
             {/*<Header />*/}
 
-            {/* --- SEARCH BAR & FILTERS--- */}
-            <div className = "search"> {/* Should be a column flexbox */}
+            {/* --- SEARCH BAR & FILTERS --- */}
+            <div className = "search">
                 <div className = "search-bar">
                     <input type="text" placeholder="Search for a recipe" />
                 </div>
 
-                <div className = "search-tools"> {/* Should be a row flexbox (row of elements) */}
-                    <div className = "square" /> {/* The filter toggle button */}
+                <div className = "search-tools">
+                    {/* Placeholder for the toggleable filter button */}
+                    <div className = "square" />
                     <div className = "filter-text">
-                        <p>Filter by available ingredients</p> {/* The text next to the filter toggle button */}
+                        <p>Filter by available ingredients</p>
                     </div>
-                    <div className = "search-button"> {/* Search button placeholder */}
+                    {/* Placeholder for the search button */}
+                    <div className = "search-button">
                         <p>Search</p>
                     </div>
                 </div>
             </div>
 
             {/* --- RECIPE LIST --- */}
-            <div className = "recipe-list"> {/* Should be a column flexbox */}
+            <div className = "recipe-list">
+                {/* A function to map an array of recipes */}
                 {TempRecipes.map(function(recipe) {
                     return (
+                        // Displays each recipe (object) in its own tile
                         <div className = "recipe-tile">
+                            {/* Placeholder for the photo */}
                             <div className = "recipe-photo">
                                <p>PLACEHOLDER</p>
                             </div>
+
                             <div className = "recipe-text">
+                                {/* The actual text of the recipe */}
+                                {/* Spans exist to change weight of text without weirdness of divs */}
                                 <h2>{recipe.name}</h2>
                                 <p><span className = "bold">Serves: </span> {recipe.size}</p>
                                 <p><span className = "bold">Cooking Time:</span> {recipe.time}</p>
