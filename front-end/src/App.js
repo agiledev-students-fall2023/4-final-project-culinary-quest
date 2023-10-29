@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './header';
 import SettingsPage from './SettingsPage';
-import IndvRecipe from './indv_recipe';
+import IndivRecipe from './indiv_recipe';
 import CreateAccount from './createAccount';
 import Login from './login';
 import ForgotPassword from './forgotPassword';
@@ -19,7 +19,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/create-account" element={<CreateAccount />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/recipe" element={<IndvRecipe />} />
+          <Route path="/recipe" element={<IndivRecipe />} />
           <Route path="/inventory" element={<Ingredient_Inventory />} />
           <Route path="/search" element={<Ingredient_Search />} />
           <Route path="/settings" element={<SettingsPage />} />
