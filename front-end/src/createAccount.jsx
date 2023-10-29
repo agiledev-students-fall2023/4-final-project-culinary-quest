@@ -1,43 +1,46 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./createAccount.css";
+import { FaArrowLeft } from "react-icons/fa";
 
 const CreateAccount = () => {
   return (
-    <div className="CREATE-ACCOUNT">
-      <div className="div">
-        <div className="create-account">
-          <div className="overlap-group">
-            <div className="text-wrapper">Create Account</div>
-          </div>
+    <div className="CreateAccountPage">
+      <div className="CreateAccountContainer">
+        <div className="CreateName">
+          <input type="text" placeholder="Name" />
         </div>
-        <div className="RE-ENTER-PASSWORD">
-          <div className="overlap">
-            <div className="text-wrapper-2">[RE-ENTER PASSWORD]</div>
-          </div>
+        <div className="CreateEmail">
+          <input type="text" placeholder="Email" />
         </div>
-        <div className="PASSWORD">
-          <div className="overlap">
-            <div className="text-wrapper-3">[PASSWORD]</div>
-          </div>
+        <div className="CreatePassword">
+          <input type="password" placeholder="Password" />
         </div>
-        <div className="EMAIL">
-          <div className="overlap">
-            <div className="text-wrapper-4">[EMAIL]</div>
-          </div>
+        <div className="Re-enterPassword">
+          <input type="password" placeholder="Re-enter Password" />
         </div>
-        <div className="NAME">
-          <div className="overlap">
-            <div className="text-wrapper-5">[NAME]</div>
-          </div>
+        <span className="PasswordRequirement">
+            <em>
+            - Must be at least 8 characters long.<br />
+            - Must contain at least one number. <br />
+            - Must contain at least one special character. <br />
+            - Must contain at least one uppercase letter.
+            </em>
+          </span>
+        <div className="CreateButton">
+          <Link to="/login" className="Create">
+            Create Account
+          </Link>
         </div>
-        <div className="app-logo" />
-        <button className="back-button">
-          <div className="div-wrapper">
-            <div className="text-wrapper-6">Back</div>
-          </div>
-        </button>
+        <div className="BackButton">
+          <Link to="/login" className="Back">
+            <FaArrowLeft />
+          </Link>
+        </div>
+        <div className="AppLogo" />
       </div>
     </div>
   );
 };
+
 export default CreateAccount;
