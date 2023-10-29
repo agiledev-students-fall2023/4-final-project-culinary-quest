@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from 'react';
 import "./recipe_inventory.css";
 import Header from "./header"
+import Burger from "./burger";
 
 {/* Temporary store of recipes for display and testing purposes */}
 const TempRecipes = [
@@ -16,9 +17,12 @@ const TempRecipes = [
 ];
 
 const RecipeInv = props => {
+    const [count, setCount] = useState(0);
+    
     return (
         <div className = "RECIPE-INV">
             {/*<Header />*/}
+            <Burger count = {count} />
 
             {/* --- SEARCH BAR & FILTERS --- */}
             <div className = "search">
@@ -33,9 +37,8 @@ const RecipeInv = props => {
                         <p>Filter by available ingredients</p>
                     </div>
                     {/* Placeholder for the search button */}
-                    <div className = "search-button">
-                        <p>Search</p>
-                    </div>
+                    <button onClick={() => {count != 1? setCount(1) : setCount(0)}}>Search</button>
+
                 </div>
             </div>
 

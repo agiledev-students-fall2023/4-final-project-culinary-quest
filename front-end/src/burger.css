@@ -1,0 +1,6 @@
+.SIDEBAR {
+    position: absolute;
+    width: 500px;
+    background-color: aquamarine;
+    overflow: hidden;
+}

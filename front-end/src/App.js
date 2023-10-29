@@ -9,6 +9,7 @@ import ForgotPassword from './forgotPassword';
 import Ingredient_Inventory from './ingredient_inventory';
 import Ingredient_Search from './ingredient_search';
 import ChangePassword from './ChangePassword';
+import RecipeInv from './recipe_inventory';
 
 function App() {
   return (
@@ -24,8 +25,8 @@ function App() {
           <Route path="/search" element={<Ingredient_Search />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/change-password" element={<ChangePassword />} />
-          <Route path="/" element={<Login />} exact />  {/* This is the default route */}
-          {/* <Route path="/home" element={<Home />} /> */}
+          <Route path="/" element={<Login />} exact />  {/*This is the default route*/}
+          {/* <Route path="/" element={<RecipeInv />} /> */}
         </Routes>
       </Router>
     </div>
