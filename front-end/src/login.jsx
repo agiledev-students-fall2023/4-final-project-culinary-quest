@@ -1,35 +1,34 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./login.css";
 
 const Login = () => {
   return (
-    <div className="Login">
-      <div className="div">
-        <div className="forgot-password-sign">
-          <div className="text-wrapper">Forgot Password?</div>
+    <div className="LoginPage">
+      <div className="LoginContainer">
+        <div className="InputEmail">
+          <input type="text" placeholder="Email"/>
         </div>
-        <div className="sign-in-button">
-          <div className="overlap-group">
-            <div className="text-wrapper-2">Log In</div>
-          </div>
+        <div className="InputPassword">
+          <input type="password" placeholder="Password"/>
         </div>
-        <div className="PASSWORD-sign-in">
-          <div className="overlap">
-            <div className="text-wrapper-3">Password</div>
-          </div>
+        <Link to="/forgot-password" className="ForgotPasswordLink">
+          Forgot Password?
+        </Link>
+        <div className="LoginButton">
+          <Link to="/home" className="Login">
+            Log In
+          </Link>
         </div>
-        <div className="EMAIL-sign-in">
-          <div className="overlap-2">
-            <div className="rectangle" />
-            <div className="text-wrapper-4">Email</div>
-          </div>
+        <div className="SignUpLink">
+          <span className="CreateMessage">
+            Don’t have an account? {" "}
+          </span>
+          <Link to="/create-account" className="SignUpText">
+            Sign Up
+          </Link>
         </div>
-        <div className="app-logo" />
-        <div className="create-account">
-          <p className="don-t-have-an">
-            <span className="span">Don’t have an account? </span>
-          </p>
-        </div>
+        <div className="AppLogo" />
       </div>
     </div>
   );
