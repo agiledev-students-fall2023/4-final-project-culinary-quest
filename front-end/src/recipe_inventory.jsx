@@ -37,8 +37,8 @@ const RecipeInv = props => {
                         <p>Filter by available ingredients</p>
                     </div>
                     {/* Placeholder for the search button */}
+                    {/* Also placeholder for the header's burger menu button; on click it sets the state to either 1 or 0 */}
                     <button onClick={() => {count != 1? setCount(1) : setCount(0)}}>Search</button>
-
                 </div>
             </div>
 
