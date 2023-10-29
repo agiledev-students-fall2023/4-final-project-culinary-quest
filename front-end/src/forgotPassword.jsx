@@ -1,32 +1,29 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./forgotPassword.css";
-import { FaArrowLeft } from "react-icons/fa";
 
 const ForgotPassword = () => {
   return (
-    <div className="ForgotPasswordPage">
-      <div className="ForgotPasswordContainer">
-        <div className="EnterEmail">
-          <input type="text" placeholder="Email" />
+    <div className="FORGOT-PASSWORD">
+      <div className="div">
+        <div className="reset-password">
+          <div className="overlap-group">
+            <div className="text-wrapper">Reset Password</div>
+          </div>
         </div>
-        <span className="ResetMessage">
-          Please enter email to reset password
-        </span>
-        <div className="ResetButton">
-          <Link to="/change-password" className="Reset">
-            Reset Password
-          </Link>
+        <div className="EMAIL">
+          <div className="overlap">
+            <div className="text-wrapper-2">[EMAIL]</div>
+          </div>
         </div>
-        <div className="BackButton">
-          <Link to="/login" className="Back">
-            <FaArrowLeft />
-          </Link>
-        </div>
-        <div className="AppLogo" />
+        <p className="p">Enter account email to reset password</p>
+        <div className="app-logo" />
+        <button className="back-button">
+          <div className="div-wrapper">
+            <div className="text-wrapper-3">Back</div>
+          </div>
+        </button>
       </div>
     </div>
   );
 };
-
 export default ForgotPassword;

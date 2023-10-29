@@ -1,132 +1,177 @@
-.LoginPage {
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-}
-
-.LoginContainer {
-  background-color: #ffffff;
-  height: 844px;
-  position: relative;
-  width: 390px;
-}
-
-.InputEmail {
-  height: 25px;
-  left: 83px;
-  position: absolute;
-  top: 360px;
-  width: 230px;
-}
-
-.InputEmail input{
-  width: 100%;
-  height: 150%;
-  padding: 8px;
-  font-size: 15px;
-  color: #000000;
-  background-color: #989898; 
-  border: none; 
-  border-radius: 10px;
-}
-
-.InputPassword {
-  height: 25px;
-  left: 83px;
-  position: absolute;
-  top: 410px;
-  width: 230px;
-}
-
-.InputPassword input{
-  width: 100%;
-  height: 150%;
-  padding: 8px;
-  font-size: 15px;
-  color: #000000;
-  background-color: #989898; 
-  border: none; 
-  border-radius: 10px; 
-}
-
-.ForgotPasswordLink {
-  color: #476ae9;
-  font-family: "Inter-Regular", Helvetica;
-  font-size: 15px;
-  font-weight: 400;
-  height: 26px;
-  left: 80px;
-  position: absolute;
-  text-align: right;
-  top: 465px;
-  width: 230px;
-  text-decoration: underline;
-}
-
-.ForgotPasswordLink:hover {
-  color: #15e0e3;
-}
-
-.LoginButton {
-  height: 39px;
-  left: 105px;
-  position: absolute;
-  top: 529px;
-  width: 234px;
-}
-
 .Login {
-  background-color: #DC4733;
-  border-radius: 20px;
-  color: #000000;
-  font-family: "Inter-Regular", Helvetica;
-  font-size: 15px;
-  font-weight: 400;
-  height: 39px;
-  line-height: 39px;
-  text-align: center;
-  width: 80%;
-  text-decoration: none;
-  display: block;
-}
-
-.Login:hover {
-  box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
-  background-color: #ff5a3c;
-}
-
-.SignUpLink {
-  height: 24px;
-  left: 93px;
-  position: absolute;
-  top: 788px;
-  width: 334px;
-  font-family: "Inter-Regular", Helvetica;
-  font-size: 15px;
-  font-weight: 400;
-}
-
-.CreateMessage {
-  color: #000000;
-}
-
-.SignUpText {
-  color: #476ae9;
-}
-
-.SignUpText:hover {
-  color: #15e0e3;
-}
-
-.AppLogo {
-  background-image: url(../public/IMG_1702.jpg);
-  background-size: 100% 100%;
-  height: 140px;
-  left: 125px;
-  position: absolute;
-  top: 125px;
-  width: 140px;
-  border-radius: 20px;
-}
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .Login .div {
+    background-color: #ffffff;
+    height: 844px;
+    position: relative;
+    width: 390px;
+  }
+  
+  .Login .forgot-password-sign {
+    height: 26px;
+    left: 207px;
+    position: absolute;
+    top: 465px;
+    width: 113px;
+  }
+  
+  .Login .text-wrapper {
+    color: #476ae9;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    height: 26px;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    text-decoration: underline;
+    top: 0;
+    width: 111px;
+  }
+  
+  .Login .sign-in-button {
+    height: 39px;
+    left: 83px;
+    position: absolute;
+    top: 529px;
+    width: 234px;
+  }
+  
+  .Login .overlap-group {
+    background-color: #eb3624;
+    border-radius: 20px;
+    height: 39px;
+    position: relative;
+    width: 232px;
+  }
+  
+  .Login .text-wrapper-2 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    height: 25px;
+    left: 29px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 6px;
+    width: 166px;
+  }
+  
+  .Login .PASSWORD-sign-in {
+    height: 31px;
+    left: 83px;
+    position: absolute;
+    top: 422px;
+    width: 234px;
+  }
+  
+  .Login .overlap {
+    background-color: #d9d9d9;
+    height: 31px;
+    position: relative;
+    width: 232px;
+  }
+  
+  .Login .text-wrapper-3 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    height: 22px;
+    left: 7px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 4px;
+    width: 131px;
+  }
+  
+  .Login .EMAIL-sign-in {
+    height: 30px;
+    left: 46px;
+    position: absolute;
+    top: 381px;
+    width: 271px;
+  }
+  
+  .Login .overlap-2 {
+    height: 30px;
+    position: relative;
+    width: 269px;
+  }
+  
+  .Login .rectangle {
+    background-color: #d9d9d9;
+    height: 30px;
+    left: 37px;
+    position: absolute;
+    top: 0;
+    width: 232px;
+  }
+  
+  .Login .text-wrapper-4 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    height: 25px;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 3px;
+    width: 122px;
+  }
+  
+  .Login .app-logo {
+    background-image: url(../public/IMG_1702.jpg);
+    background-size: 100% 100%;
+    height: 140px;
+    left: 125px;
+    position: absolute;
+    top: 125px;
+    width: 140px;
+  }
+  
+  .Login .create-account {
+    height: 24px;
+    left: 35px;
+    position: absolute;
+    top: 788px;
+    width: 334px;
+  }
+  
+  .Login .don-t-have-an {
+    color: transparent;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    height: 24px;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 332px;
+  }
+  
+  .Login .span {
+    color: #000000;
+  }
+  
+  .Login .text-wrapper-5 {
+    color: #476ae9;
+  }

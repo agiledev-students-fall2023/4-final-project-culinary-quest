@@ -1,165 +1,187 @@
-.CreateAccountPage {
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-}
-
-.CreateAccountContainer {
-  background-color: #ffffff;
-  height: 844px;
-  position: relative;
-  width: 390px;
-}
-
-.CreateName {
-  height: 25px;
-  left: 83px;
-  position: absolute;
-  top: 360px;
-  width: 230px;
-}
-
-.CreateName input{
-  width: 100%;
-  height: 150%;
-  padding: 8px;
-  font-size: 15px;
-  color: #000000;
-  background-color: #989898; 
-  border: none; 
-  border-radius: 10px; 
-}
-
-.CreateEmail {
-  height: 25px;
-  left: 83px;
-  position: absolute;
-  top: 410px;
-  width: 230px;
-}
-
-.CreateEmail input{
-  width: 100%;
-  height: 150%;
-  padding: 8px;
-  font-size: 15px;
-  color: #000000;
-  background-color: #989898; 
-  border: none; 
-  border-radius: 10px; 
-  left: 10px;
-}
-
-.PasswordRequirement {
-  height: 25px;
-  left: 90px;
-  position: absolute;
-  top: 515px;
-  width: 230px;
-  color: #000000;
-  font-family: "Inter-Regular", Helvetica;
-  font-size: 12px;
-}
-
-.CreatePassword {
-  height: 25px;
-  left: 83px;
-  position: absolute;
-  top: 460px;
-  width: 230px;
-}
-
-.CreatePassword input{
-  width: 100%;
-  height: 150%;
-  padding: 8px;
-  font-size: 15px;
-  color: #000000;
-  background-color: #989898; 
-  border: none; 
-  border-radius: 10px; 
-}
-
-.Re-enterPassword {
-  height: 25px;
-  left: 83px;
-  position: absolute;
-  top: 595px;
-  width: 230px;
-}
-
-.Re-enterPassword input{
-  width: 100%;
-  height: 150%;
-  padding: 8px;
-  font-size: 15px;
-  color: #000000;
-  background-color: #989898; 
-  border: none; 
-  border-radius: 10px; 
-}
-
-.CreateButton {
-  height: 39px;
-  left: 105px;
-  position: absolute;
-  top: 720px;
-  width: 234px;
-}
-
-.Create {
-  background-color: #DC4733;
-  border-radius: 20px;
-  color: #000000;
-  font-family: "Inter-Regular", Helvetica;
-  font-size: 15px;
-  font-weight: 400;
-  height: 39px;
-  line-height: 39px;
-  text-align: center;
-  width: 80%;
-  text-decoration: none;
-  display: block;
-}
-
-.Create:hover {
-  box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
-  background-color: #ff5a3c;
-}
-
-.BackButton {
-  height: 39px;
-  left: 20px;
-  position: absolute;
-  top: 20px;
-  width: 234px;
-}
-
-.Back {
-  background-color: #DC4733;
-  border-radius: 20px;
-  color: #000000;
-  height: 35px;
-  line-height: 39px;
-  text-align: center;
-  width: 25%;
-  display: block;
-}
-
-.Back:hover {
-  box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
-  background-color: #ff5a3c;
-}
-
-.AppLogo {
-  background-image: url(../public/IMG_1702.jpg);
-  background-size: 100% 100%;
-  height: 140px;
-  left: 125px;
-  position: absolute;
-  top: 125px;
-  width: 140px;
-  border-radius: 20px;
-}
+.CREATE-ACCOUNT {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .CREATE-ACCOUNT .div {
+    background-color: #ffffff;
+    height: 852px;
+    position: relative;
+    width: 393px;
+  }
+  
+  .CREATE-ACCOUNT .create-account {
+    height: 39px;
+    left: 88px;
+    position: absolute;
+    top: 662px;
+    width: 234px;
+  }
+  
+  .CREATE-ACCOUNT .overlap-group {
+    background-color: #eb3624;
+    border-radius: 20px;
+    height: 39px;
+    position: relative;
+    width: 232px;
+  }
+  
+  .CREATE-ACCOUNT .text-wrapper {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    height: 24px;
+    left: 52px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 8px;
+    width: 121px;
+  }
+  
+  .CREATE-ACCOUNT .RE-ENTER-PASSWORD {
+    height: 30px;
+    left: 116px;
+    position: absolute;
+    top: 497px;
+    width: 172px;
+  }
+  
+  .CREATE-ACCOUNT .overlap {
+    background-color: #d9d9d9;
+    height: 30px;
+    position: relative;
+    width: 170px;
+  }
+  
+  .CREATE-ACCOUNT .text-wrapper-2 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    height: 20px;
+    left: 14px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 5px;
+    width: 143px;
+  }
+  
+  .CREATE-ACCOUNT .PASSWORD {
+    height: 30px;
+    left: 116px;
+    position: absolute;
+    top: 442px;
+    width: 172px;
+  }
+  
+  .CREATE-ACCOUNT .text-wrapper-3 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    height: 22px;
+    left: 37px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 4px;
+    width: 96px;
+  }
+  
+  .CREATE-ACCOUNT .EMAIL {
+    height: 30px;
+    left: 116px;
+    position: absolute;
+    top: 387px;
+    width: 172px;
+  }
+  
+  .CREATE-ACCOUNT .text-wrapper-4 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    height: 25px;
+    left: 39px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 3px;
+    width: 89px;
+  }
+  
+  .CREATE-ACCOUNT .NAME {
+    height: 30px;
+    left: 116px;
+    position: absolute;
+    top: 332px;
+    width: 172px;
+  }
+  
+  .CREATE-ACCOUNT .text-wrapper-5 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    height: 15px;
+    left: 56px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 7px;
+    width: 56px;
+  }
+  
+  .CREATE-ACCOUNT .app-logo {
+    background-image: url(../public/IMG_1702.jpg);
+    background-size: 100% 100%;
+    height: 140px;
+    left: 127px;
+    position: absolute;
+    top: 114px;
+    width: 140px;
+  }
+  
+  .CREATE-ACCOUNT .back-button {
+    all: unset;
+    box-sizing: border-box;
+    height: 30px;
+    left: 20px;
+    position: absolute;
+    top: 20px;
+    width: 72px;
+  }
+  
+  .CREATE-ACCOUNT .div-wrapper {
+    background-color: #eb3624;
+    border-radius: 20px;
+    height: 30px;
+    position: relative;
+    width: 70px;
+  }
+  
+  .CREATE-ACCOUNT .text-wrapper-6 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    height: 26px;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 2px;
+    width: 70px;
+  }

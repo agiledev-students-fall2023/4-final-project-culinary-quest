@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import Header from './header';
 import SettingsPage from './SettingsPage';
 import IndivRecipe from './indiv_recipe';
@@ -9,6 +10,22 @@ import ForgotPassword from './forgotPassword';
 import Ingredient_Inventory from './ingredient_inventory';
 import Ingredient_Search from './ingredient_search';
 import ChangePassword from './ChangePassword';
+
+// function App() {
+//   return (
+//     <div className="App"> 
+//       <Header />
+//       <Login />
+//       <CreateAccount />
+//       <ForgotPassword />
+//       <IndivRecipe />
+//       <Ingredient_Inventory />
+//       <Ingredient_Search />
+//       <SettingsPage />
+//       <ChangePassword />
+//     </div>
+//   );
+// }
 
 function App() {
   return (
@@ -25,7 +42,6 @@ function App() {
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/" element={<Login />} exact />  {/* This is the default route */}
-          {/* <Route path="/home" element={<Home />} /> */}
         </Routes>
       </Router>
     </div>
