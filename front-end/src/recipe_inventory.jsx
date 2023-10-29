@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import "./recipe_inventory.css";
 import Header from "./header"
 import Burger from "./burger";
@@ -17,12 +17,9 @@ const TempRecipes = [
 ];
 
 const RecipeInv = props => {
-    const [count, setCount] = useState(0);
-    
     return (
         <div className = "RECIPE-INV">
             {/*<Header />*/}
-            <Burger count = {count} />
 
             {/* --- SEARCH BAR & FILTERS --- */}
             <div className = "search">
@@ -38,7 +35,7 @@ const RecipeInv = props => {
                     </div>
                     {/* Placeholder for the search button */}
                     {/* Also placeholder for the header's burger menu button; on click it sets the state to either 1 or 0 */}
-                    <button onClick={() => {count != 1? setCount(1) : setCount(0)}}>Search</button>
+                    <button>Search</button>
                 </div>
             </div>
 

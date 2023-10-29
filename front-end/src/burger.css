@@ -1,6 +1,7 @@
 .SIDEBAR {
     position: absolute;
-    width: 500px;
+    width: 85%;
+    max-width: 500px;
+    height: 100%;
     background-color: aquamarine;
-    overflow: hidden;
 }

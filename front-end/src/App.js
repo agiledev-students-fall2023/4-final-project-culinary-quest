@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './header';
 import SettingsPage from './SettingsPage';
@@ -10,12 +10,15 @@ import Ingredient_Inventory from './ingredient_inventory';
 import Ingredient_Search from './ingredient_search';
 import ChangePassword from './ChangePassword';
 import RecipeInv from './recipe_inventory';
+import Burger from "./burger";
 
 function App() {
+  const [menuState, activateMenu] = useState(0);
   return (
     <div className="App">
+      <Burger count = {menuState} />
+      <Header menuState = {menuState} activateMenu = {activateMenu} />
       <Router>
-        <Header />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/create-account" element={<CreateAccount />} />
