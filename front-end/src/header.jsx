@@ -9,7 +9,7 @@ const Header = props => {
         <div className="MenuLine"></div>
         <div className="MenuLine"></div>
       </button>
-      <a href="/login" className="LogoButton" />
+      <a href="/home" className="LogoButton" />
     </div>
   );
 };
