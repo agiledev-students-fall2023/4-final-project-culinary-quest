@@ -2,9 +2,11 @@
   background-color: #ffffff;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
+  align-items: center;
   position: fixed;
+  left: 350px;
   z-index: 1000;
 }
 
@@ -12,7 +14,6 @@
   background-color: #dc4733;
   border-radius: 10px;
   height: 50px;
-  left: 680px;
   position: absolute;
   top: 20px;
   width: 50px;
@@ -38,7 +39,7 @@
   background-image: url(../public/IMG_1702.jpg);
   background-size: 100% 100%;
   height: 50px;
-  left: 980px;
+  left: 300px;
   position: absolute;
   top: 20px;
   width: 50px;
