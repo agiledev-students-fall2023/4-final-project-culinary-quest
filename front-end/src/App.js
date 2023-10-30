@@ -13,7 +13,9 @@ import RecipeInv from './recipe_inventory';
 import Burger from "./burger";
 import IngredientAdd from './IngredientAdd';
 import RecipeAdd from './RecipeAdd';
+
 import RecipeEdit from './RecipeEdit';
+
 
 
 import "./App.css";
@@ -28,6 +30,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/create-account" element={<CreateAccount />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/recipe" element={<IndivRecipe />} />
