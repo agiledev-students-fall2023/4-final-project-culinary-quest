@@ -13,11 +13,8 @@ import RecipeInv from './recipe_inventory';
 import Burger from "./burger";
 import IngredientAdd from './IngredientAdd';
 import RecipeAdd from './RecipeAdd';
-
+import Home from './home';
 import RecipeEdit from './RecipeEdit';
-
-
-
 import "./App.css";
 
 function App() {
@@ -49,4 +46,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;
