@@ -12,26 +12,29 @@ import ChangePassword from './ChangePassword';
 import RecipeInv from './recipe_inventory';
 import Burger from "./burger";
 
+import "./App.css";
+
 function App() {
   const [menuState, activateMenu] = useState(0);
   return (
     <div className="App">
-      <Burger count = {menuState} />
-      <Header menuState = {menuState} activateMenu = {activateMenu} />
-      <Router>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/create-account" element={<CreateAccount />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/recipe" element={<IndivRecipe />} />
-          <Route path="/inventory" element={<Ingredient_Inventory />} />
-          <Route path="/search" element={<Ingredient_Search />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          <Route path="/change-password" element={<ChangePassword />} />
-          <Route path="/" element={<Login />} exact />  {/*This is the default route*/}
-          {/* <Route path="/" element={<RecipeInv />} /> */}
-        </Routes>
-      </Router>
+      <div className = "app-window">
+        <Burger count = {menuState} />
+        <Header menuState = {menuState} activateMenu = {activateMenu} />
+        <Router>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/create-account" element={<CreateAccount />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/recipe" element={<IndivRecipe />} />
+            <Route path="/inventory" element={<Ingredient_Inventory />} />
+            <Route path="/search" element={<Ingredient_Search />} />
+            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/change-password" element={<ChangePassword />} />
+            <Route path="/" element={<Login />} exact />  {/*This is the default route*/}
+          </Routes>
+        </Router>
+      </div>
     </div>
   );
 }

@@ -5,7 +5,7 @@
   justify-content: space-between;
   width: 100%;
   align-items: center;
-  position: fixed;
+  position: relative;
   left: 350px;
   z-index: 1000;
 }
