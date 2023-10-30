@@ -56,9 +56,9 @@ const RecipeEdit = () => {  {/* will be prefilled with previous recipe infor*/}
                 />
             </div>
 
-            <div className="add-button">
-                <Link to="/recipe" className="add">Save Recipe</Link>  {/* for now home should point to recipe inventory later*/}
-            </div>
+            
+            <Link to="/recipe" className="add-button">Save Recipe</Link>  {/* for now home should point to recipe inventory later*/}
+
         </div>
     );
 };

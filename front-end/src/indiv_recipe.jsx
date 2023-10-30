@@ -18,12 +18,9 @@ const IndivRecipe = () => {
             <label className="text-box">[Recipe Steps Here]</label>
 
             <div className="button-container">
-                <div className="button">
-                    <Link to="/recipe-edit" className="add">Edit Recipe</Link>
-                </div>
-                <div className="button">
-                    <Link to="/home" className="add">Return to Recipe Inventory</Link> {/* for now home should point to recipe inventory later*/}
-                </div>
+                <Link to="/recipe-edit" className="button">Edit Recipe</Link>
+
+                <Link to="/home" className="button">Return to Recipe Inventory</Link> {/* for now home should point to recipe inventory later*/}
             </div>
         </div>
     );

@@ -33,9 +33,7 @@ const IngredientAdd = () => {
                 <input type="text" placeholder="Enter Ingredient Amount Here"/>
             </div>
 
-            <div className="add-button">
-                <Link to="/inventory" className="add">Add Ingredient</Link>
-            </div>
+            <Link to="/inventory" className="add-button">Add Ingredient</Link>
         </div>
     );
 };
