@@ -23,7 +23,6 @@ const IngredientAdd = () => {
                 <div className="image-section">INGREDIENT IMAGE<br />take a picture / upload a picture</div>}
                 <input type="file" className="image-upload-input" accept="image/*" onChange={handleImageChange} />
             </label>
-            
             <label className="input-label">Ingredient Name:</label>
             <div className="input-box">
                 <input type="text" placeholder="Enter Ingredient Name Here"/>
