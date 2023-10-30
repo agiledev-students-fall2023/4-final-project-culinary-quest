@@ -1,20 +1,15 @@
-import React, { useState } from 'react';
+import React from "react";
 import "./header.css";
-import Burger from "./burger";
 
-const Header = props => {
+const Header = () => {
   return (
-    <div className="header">
-      <div className="full-header">
-        <div className="hamburger-button">
-          <button onClick = {() => props.activateMenu(!props.menuState)}>
-            <div className="line"></div>
-            <div className="line"></div>
-            <div className="line"></div>
-          </button>
-        </div>
-        <img className="LOGO-SPACE" alt="Logo SPACE" src="LOGO-SPACE.png" />
-      </div>
+    <div className="Header">  
+      <a href="/burger" className="MenuButton">
+        <div className="MenuLine"></div>
+        <div className="MenuLine"></div>
+        <div className="MenuLine"></div>
+      </a>
+      <a href="/home" className="LogoButton" />
     </div>
   );
 };
