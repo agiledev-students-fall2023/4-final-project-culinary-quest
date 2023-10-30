@@ -1,5 +1,13 @@
 .App {
-  text-align: center;
+  background-color: black;
+  width: 100%;
+}
+
+.App .app-window {
+  aspect-ratio: 9 / 16;
+  height: 1080px;
+  margin: auto;
+  background-color: chartreuse;
 }
 
 .App-logo {
