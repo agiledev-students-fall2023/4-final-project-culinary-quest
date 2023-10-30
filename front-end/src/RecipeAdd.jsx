@@ -40,9 +40,7 @@ const RecipeAdd = () => {
                 <input type="text" placeholder="Enter Ingredient Steps Here"/>
             </div>
 
-            <div className="add-button">
-                <Link to="/home" className="add">Add Recipe</Link>  {/* for now home should point to recipe inventory later*/}
-            </div>
+            <Link to="/home" className="add-button">Add Recipe</Link>  {/* for now home should point to recipe inventory later*/}
         </div>
     );
 };
