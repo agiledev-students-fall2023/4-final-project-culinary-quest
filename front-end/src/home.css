@@ -12,3 +12,204 @@
   width: 390px;
 }
 
+.HomeTitle{
+  color: #000000;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 30px;
+  font-weight: bolder;
+  left: 160px;
+  position: absolute;
+  top: -32px;
+}
+
+.SearchBar {
+  height: 25px;
+  left: -88px;
+  position: absolute;
+  top: 20px;
+  width: 450px;
+}
+
+.SearchBar input{
+  width: 100%;
+  height: 150%;
+  padding: 8px;
+  font-size: 15px;
+  color: #000000;
+  background-color: #989898; 
+  border: none; 
+  border-radius: 10px;
+}
+
+.SearchButton {
+  left: 377px;
+  top: 30px;
+  position: absolute;
+}
+
+.Search {
+  background-color: #DC4733;
+  border-radius: 10px;
+  color: #000000;
+  height: 37px;
+  line-height: 38px;
+  text-align: center;
+  width: 105px;
+  display: block;
+  font-size: 18px;
+}
+
+.Search:hover {
+  box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
+  background-color: #ff5a3c;
+}
+
+.RecentIngredients {
+  color: #000000;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 20px;
+  font-weight: bolder;
+  left: -87px;
+  position: absolute;
+  top: 85px;
+}
+
+.AllIngredients {
+  color: #476ae9;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  font-size: 18px;
+  position: absolute;
+  text-decoration: none;
+  top: 85px;
+  left: 343px;
+}
+
+.Arrow {
+  margin-left: 5px;
+}
+
+.AllIngredients:hover {
+  color: #15e0e3;
+}
+
+.AddIngredientButton {
+  height: 39px;
+  left: 105px;
+  position: absolute;
+  top: 480px;
+  width: 234px;
+}
+
+.AddIngredient {
+  background-color: #DC4733;
+  border-radius: 20px;
+  color: #000000;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 15px;
+  font-weight: 400;
+  height: 39px;
+  line-height: 39px;
+  text-align: center;
+  width: 80%;
+  text-decoration: none;
+  display: block;
+}
+
+.AddIngredient:hover {
+  box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
+  background-color: #ff5a3c;
+}
+
+.column {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%; /* Each image takes a full row width */
+  max-width: 300px;
+  text-align: center;
+}
+
+.column img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.ingredient-description h3 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.ingredient-description p {
+  font-size: 1rem;
+  color: #333;
+}
+
+.spacer{
+  margin-top: 30px;
+}
+
+.RecentRecipes {
+  color: #000000;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 20px;
+  font-weight: bolder;
+  left: -87px;
+  position: absolute;
+  top: 540px;
+}
+
+.AllRecipes {
+  color: #476ae9;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 111px;
+  font-size: 18px;
+  position: absolute;
+  text-decoration: none;
+  top: 540px;
+  left: 370px;
+}
+
+.Arrow {
+  margin-left: 5px;
+}
+
+.AllRecipes:hover {
+  color: #15e0e3;
+}
+
+.AddRecipeButton {
+  height: 39px;
+  left: 105px;
+  position: absolute;
+  top: 950px;
+  width: 234px;
+}
+
+.AddRecipe {
+  background-color: #DC4733;
+  border-radius: 20px;
+  color: #000000;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 15px;
+  font-weight: 400;
+  height: 39px;
+  line-height: 39px;
+  text-align: center;
+  width: 80%;
+  text-decoration: none;
+  display: block;
+}
+
+.AddRecipe:hover {
+  box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
+  background-color: #ff5a3c;
+}
