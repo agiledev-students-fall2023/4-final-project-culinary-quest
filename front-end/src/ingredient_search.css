@@ -1,0 +1,56 @@
+.index {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+  }
+  
+  .search-bar {
+    margin-bottom: 20px;
+  }
+  
+  .submit-button {
+    background-color: #DC4733; /* Red background for the submit button */
+    color: #fff; /* Text color for the submit button */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-left: 75%;
+  }
+  
+  .columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .column {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    max-width: 300px; /* Adjust the max width as needed */
+    text-align: center;
+  }
+  
+  .column img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }
+  
+  .ingredient-description h3 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  .ingredient-description p {
+    font-size: 1rem;
+    color: #333;
+  }
+  
