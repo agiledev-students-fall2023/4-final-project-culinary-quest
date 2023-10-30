@@ -1,179 +1,45 @@
-.index {
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-  }
-  
-  .index .div {
-    background-color: #ffffff;
-    height: 844px;
-    position: relative;
-    width: 390px;
-  }
-  
-  .index .overlap {
-    background-color: #d9d9d9;
-    height: 46px;
-    left: 37px;
-    position: absolute;
-    top: 69px;
-    width: 327px;
-  }
-  
-  .index .text-wrapper-2 {
-    color: #000000;
-    font-family: "Inter", Helvetica;
-    font-size: 14px;
-    font-weight: 400;
-    left: 17px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 10px;
-    width: 294px;
-  }
-  
-  .index .frame {
-    all: unset;
-    box-sizing: border-box;
-    height: 38px;
-    left: 255px;
-    position: absolute;
-    top: 132px;
-    width: 118px;
-  }
-  
-  .index .submit-button {
-    all: unset;
-    box-sizing: border-box;
-    height: 38px;
-    width: 140px;
-  }
-  
-  .index .overlap-group {
-    height: 38px;
-    position: relative;
-    width: 138px;
-  }
-  
-  .index .submit-button-2 {
-    background-color: #d9d9d9;
-    border: 1px solid;
-    border-color: #000000;
-    height: 31px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 109px;
-  }
-  
-  .index .text-wrapper-3 {
-    color: #000000;
-    font-family: "Inter", Helvetica;
-    font-size: 14px;
-    font-weight: 400;
-    left: 30px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 8px;
-    width: 108px;
-  }
-  
-  .index .overlap-2 {
-    height: 573px;
-    left: 37px;
-    position: absolute;
-    top: 208px;
-    width: 278px;
-  }
-  
-  .index .ingredient-inventory {
-    height: 573px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 278px;
-  }
-  
-  .index .ingredients {
-    height: 91px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 280px;
-  }
-  
-  .index .rectangle {
-    background-color: #d9d9d9;
-    height: 91px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 91px;
-  }
-  
-  .index .INGREDIENT-NAME {
-    color: #000000;
-    font-family: "Inter", Helvetica;
-    font-size: 14px;
-    font-weight: 400;
-    left: 111px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 0;
-    width: 167px;
-  }
-  
-  .index .ingredients-2 {
-    height: 211px;
-    left: 0;
-    position: absolute;
-    top: 121px;
-    width: 280px;
-  }
-  
-  .index .ingredients-3 {
-    height: 91px;
-    left: 0;
-    position: absolute;
-    top: 120px;
-    width: 280px;
-  }
-  
-  .index .ingredients-4 {
-    height: 211px;
-    left: 0;
-    position: absolute;
-    top: 362px;
-    width: 280px;
-  }
-  
-  .index .INGREDIENT-NAME-2 {
-    color: #000000;
-    font-family: "Inter", Helvetica;
-    font-size: 14px;
-    font-weight: 400;
-    left: 111px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 361px;
-    width: 167px;
-  }
-  
-  .index .hamburger-instance {
-    left: 15px !important;
-    position: absolute !important;
-    top: 15px !important;
-  }
-  
-  .index .logo-button-instance {
-    left: 322px !important;
-    position: fixed !important;
-    top: 10px !important;
-  }
-  
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start; /* Align images at the leftmost edge */
+}
+
+.column {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%; /* Each image takes a full row width */
+  max-width: 300px;
+  text-align: center;
+}
+
+.column img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.ingredient-description h3 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.ingredient-description p {
+  font-size: 1rem;
+  color: #333;
+}
+
+.spacer{
+  margin-top: 30px;
+}

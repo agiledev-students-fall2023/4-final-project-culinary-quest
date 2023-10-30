@@ -1,37 +1,57 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./home.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FaArrowRight } from "react-icons/fa";
 
-const Login = () => {
+const Home = () => {
   return (
-    <div className="LoginPage">
-      <div className="LoginContainer">
-        <div className="InputEmail">
-          <input type="text" placeholder="Email"/>
+    <div className="HomePage">
+      <div className="HomePageContainer">
+        <span className="HomeTitle">
+          Home
+        </span>
+        <div className="SearchBar">
+          <input type="text" placeholder="Search ingredients or recipes"/>
         </div>
-        <div className="InputPassword">
-          <input type="password" placeholder="Password"/>
+        <div className="SearchButton">
+          <Link to="/inventory" className="Search">
+            <FontAwesomeIcon icon={faSearch} />
+          </Link>
         </div>
-        <Link to="/forgot-password" className="ForgotPasswordLink">
-          Forgot Password?
+        <span className="RecentIngredients">
+          Recent Ingredients: 
+        </span>
+        <div className="column">
+          <img src="https://shorturl.at/gHJ89" alt="Ingredient Image" />
+          <div className="ingredient-description">
+            <h3>Ingredient Name</h3>
+            <p>Description here</p>
+          </div>
+        </div>
+        <Link to="/inventory" className="AllIngredients">
+          All Ingredients<FaArrowRight className="Arrow"/>
         </Link>
-        <div className="LoginButton">
-          <Link to="/home" className="Login">
-            Log In
+        <div className="AddIngredientButton">
+          <Link to="/ingredient" className="AddIngredient">
+            Add Ingredient
           </Link>
         </div>
-        <div className="SignUpLink">
-          <span className="CreateMessage">
-            Don’t have an account? {" "}
-          </span>
-          <Link to="/create-account" className="SignUpText">
-            Sign Up
+        <span className="RecentRecipes">
+          Recent Recipes: 
+        </span>
+        <Link to="/recipe_inventory" className="AllRecipes">
+          All Recipes<FaArrowRight className="Arrow"/>
+        </Link>
+        <div className="AddRecipeButton">
+          <Link to="/recipe-add" className="AddRecipe">
+            Add Recipe
           </Link>
         </div>
-        <div className="AppLogo" />
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Home;

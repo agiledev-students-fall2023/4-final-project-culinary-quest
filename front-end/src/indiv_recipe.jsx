@@ -1,46 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./indiv_recipe.css";
-import Header from "./header"
 
-const IndivRecipe = props => {
+const IndivRecipe = () => {
+
     return (
-        <div className = "INDIV-RECIPE">
-            {/*<Header />*/}
+        <div className="recipe-view">
 
-            {/* Displays the recipe name and photo ontop of each other */}
-            <div className = "name">
-                <h1>[Recipe Name]</h1>
+            <label className="title-label">[Recipe Name]</label>
+
+            <div className="image-section">RECIPE IMAGE<br /></div>
+
+            <label className="text-label">Recipe Description:</label>
+            <label className="text-box">[Recipe Description Here]</label>
+
+            <label className="text-label">Recipe Steps:</label>
+            <label className="text-box">[Recipe Steps Here]</label>
+
+            <div className="button-container">
+                <Link to="/recipe-edit" className="button">Edit Recipe</Link>
+
+                <Link to="/home" className="button">Return to Recipe Inventory</Link> {/* for now home should point to recipe inventory later*/}
             </div>
-
-            <div className = "photo">
-                <p>RECIPE PHOTO</p>
-            </div>
-
-            {/* Main recipe text is kept in a separate div one ontop of the other */}
-            <div className = "recipe-text">
-                {/* Separate class to allow for italics and different font color/size */}
-                <div className = "description">
-                    <p>[Description]</p>
-                </div>
-
-                {/* Main ingredient list and steps can be displayed using standard text/article formating */}
-                <div className = "main-text">
-                    <h2>Ingredients</h2>
-                    <p>[Ingredients]</p>
-                    <br />
-
-                    <h2>Steps</h2>
-                    <p>[Steps]</p>
-                </div>
-            </div>
-            
-            {/* Button to return to recipe inventory -- CURRENTLY A NON-FUNCTIONAL PLACEHOLDER */}
-            <div className = "button">
-                <p>Return to Recipes</p>
-            </div>
-
         </div>
     );
-}
+};
 
 export default IndivRecipe;

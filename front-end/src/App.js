@@ -11,6 +11,12 @@ import Ingredient_Search from './ingredient_search';
 import ChangePassword from './ChangePassword';
 import RecipeInv from './recipe_inventory';
 import Burger from "./burger";
+import IngredientAdd from './IngredientAdd';
+import RecipeAdd from './RecipeAdd';
+import Home from './home';
+import RecipeEdit from './RecipeEdit';
+import Ingredient from './Ingredient';
+import IngredientEdit from './IngredientEdit';
 
 import "./App.css";
 
@@ -24,6 +30,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/create-account" element={<CreateAccount />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/recipe" element={<IndivRecipe />} />
@@ -31,6 +38,11 @@ function App() {
             <Route path="/search" element={<Ingredient_Search />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/change-password" element={<ChangePassword />} />
+            <Route path="/ingredient-add" element={<IngredientAdd />} />
+            <Route path="/recipe-add" element={<RecipeAdd />} />
+            <Route path="/recipe-edit" element={<RecipeEdit />} />
+            <Route path="/ingredient" element={<Ingredient />} />
+            <Route path="/ingredient-edit" element={<IngredientEdit />} />
             <Route path="/" element={<Login />} exact />  {/*This is the default route*/}
           </Routes>
         </Router>
@@ -39,4 +51,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;

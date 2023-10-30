@@ -10,9 +10,7 @@ A more organized way to keep track of ingredients and recipes, allowing one to a
 - Petra (https://github.com/PetraIvanovic8; Petra on Discord)
 
 # Short History
-A passion project started by Anna, the idea was born from her time as a struggling college student working with limited ingredients and limited time.
-
-Seeing a golden opportunity to develop her vision, she sprung into action, shooting her shot, and bestowing her dream upon the world.
+A passion project started by Anna, the idea was born from her time as a struggling college student working with limited ingredients and limited time. Seeing a golden opportunity to develop her vision, she sprung into action, shooting her shot, and bestowing her dream upon the world.
 
 Please contribute in any way you'd like, particularly focusing on any issues that have been raised.
 

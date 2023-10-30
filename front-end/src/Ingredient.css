@@ -1,4 +1,4 @@
-.recipe-view {
+.ingredient-view {
     background-color: #ffffff;
     display: flex;
     justify-content: center;
@@ -56,7 +56,7 @@
     border: 2px solid #DC4733;
     border-radius: 15px;
     height: 41px;
-    width: 200px;
+    width: 210px;
     margin-top: 50px;
     color: #000000;
     font-family: "Inter-Bold", Helvetica;
