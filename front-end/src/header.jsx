@@ -1,14 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import "./header.css";
 
-const Header = () => {
+const Header = props => {
   return (
     <div className="Header">  
-      <a href="/burger" className="MenuButton">
+      <button className="MenuButton" onClick={() => props.activateMenu(!props.menuState)}>
         <div className="MenuLine"></div>
         <div className="MenuLine"></div>
         <div className="MenuLine"></div>
-      </a>
+      </button>
       <a href="/home" className="LogoButton" />
     </div>
   );

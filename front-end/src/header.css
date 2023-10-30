@@ -23,11 +23,8 @@
   background-color: #000000;
   width: 34px;
   height: 5px;
-  margin: 6px 0;
+  margin: 6px;
   border-radius: 10px;
-  top: 6px;
-  left: 8.5px;
-  position: relative;
 }
 
 .MenuButton:hover {
