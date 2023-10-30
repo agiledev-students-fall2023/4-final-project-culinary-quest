@@ -11,6 +11,8 @@ import Ingredient_Search from './ingredient_search';
 import ChangePassword from './ChangePassword';
 import RecipeInv from './recipe_inventory';
 import Burger from "./burger";
+import IngredientAdd from './IngredientAdd';
+
 
 import "./App.css";
 
@@ -31,6 +33,7 @@ function App() {
             <Route path="/search" element={<Ingredient_Search />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/change-password" element={<ChangePassword />} />
+            <Route path="/ingredient-add" element={<IngredientAdd />} />
             <Route path="/" element={<Login />} exact />  {/*This is the default route*/}
           </Routes>
         </Router>
