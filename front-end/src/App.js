@@ -15,6 +15,9 @@ import IngredientAdd from './IngredientAdd';
 import RecipeAdd from './RecipeAdd';
 import Home from './home';
 import RecipeEdit from './RecipeEdit';
+import Ingredient from './Ingredient';
+import IngredientEdit from './IngredientEdit';
+
 import "./App.css";
 
 function App() {
@@ -38,6 +41,8 @@ function App() {
             <Route path="/ingredient-add" element={<IngredientAdd />} />
             <Route path="/recipe-add" element={<RecipeAdd />} />
             <Route path="/recipe-edit" element={<RecipeEdit />} />
+            <Route path="/ingredient" element={<Ingredient />} />
+            <Route path="/ingredient-edit" element={<IngredientEdit />} />
             <Route path="/" element={<Login />} exact />  {/*This is the default route*/}
           </Routes>
         </Router>
