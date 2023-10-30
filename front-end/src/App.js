@@ -13,7 +13,11 @@ import RecipeInv from './recipe_inventory';
 import Burger from "./burger";
 import IngredientAdd from './IngredientAdd';
 import RecipeAdd from './RecipeAdd';
-import Home from './home';
+
+import RecipeEdit from './RecipeEdit';
+
+
+
 import "./App.css";
 
 function App() {
@@ -36,6 +40,7 @@ function App() {
             <Route path="/change-password" element={<ChangePassword />} />
             <Route path="/ingredient-add" element={<IngredientAdd />} />
             <Route path="/recipe-add" element={<RecipeAdd />} />
+            <Route path="/recipe-edit" element={<RecipeEdit />} />
             <Route path="/" element={<Login />} exact />  {/*This is the default route*/}
           </Routes>
         </Router>
