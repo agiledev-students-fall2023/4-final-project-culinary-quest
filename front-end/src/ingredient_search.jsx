@@ -5,7 +5,7 @@ const Ingredient_Search = () => {
   return (
     <div className="index">
       <div className="search-bar">
-        <input type="text" placeholder="Search" />
+        <input className="search-text" type="text" placeholder="Search" />
         <button className="submit-button">Search</button>
       </div>
       <div className="columns">

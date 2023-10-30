@@ -4,14 +4,18 @@
   align-items: center;
   text-align: center;
   padding: 20px;
+  /* border: 2px dotted blue; */
   background-color: #ffffff;
 }
 
 .columns {
   display: flex;
   flex-wrap: wrap;
+  /* border: 2px solid red; */
   gap: 20px;
-  justify-content: flex-start; /* Align images at the leftmost edge */
+  padding-top: 30px;
+  /* padding-right: 40%; */
+  justify-content: flex-start; 
 }
 
 .column {
@@ -19,14 +23,20 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
-  width: 100%; /* Each image takes a full row width */
-  max-width: 300px;
+  /* padding: 10px;
+  width: 100%;  */
+  width: 75%;
+  max-width: 200px;
   text-align: center;
 }
 
+
 .column img {
+  /* border: 2px solid blue; */
   max-width: 100%;
   height: auto;
+  padding-top: 15px;
+  width: 200px;
   border-radius: 5px;
 }
 

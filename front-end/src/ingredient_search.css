@@ -10,6 +10,7 @@
   
   .search-bar {
     margin-bottom: 20px;
+    /* padding-top: 10%; */
   }
   
   .submit-button {
@@ -19,7 +20,15 @@
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
-    margin-left: 75%;
+    margin-left: 73%;
+  }
+
+  .search-text{
+    border: none;
+    background-color: #989898;
+    border-radius: 10px;
+    max-width: 380px;
+    width: 100%;
   }
   
   .columns {
