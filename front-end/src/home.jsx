@@ -6,7 +6,9 @@ const Home = () => {
   return (
     <div className="HomePage">
       <div className="HomePageContainer">
-        
+        <div className="Search">
+          <input type="text" placeholder="E"/>
+        </div>
       </div>
     </div>
   );
