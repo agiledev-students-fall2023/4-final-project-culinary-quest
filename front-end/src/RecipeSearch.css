@@ -22,7 +22,7 @@
     /* padding-top: 10%; */
   }
   
-  .button {
+  .button-recipe {
     background-color: #DC4733;
     border: 2px solid #DC4733;
     border-radius: 15px;
@@ -35,13 +35,13 @@
     font-weight: 700;
     display: flex;
     justify-content: center;
-    align-items: right;
+    align-items: center;
     text-decoration: none;
     margin-left: 215px;
     transition: background-color 0.3s, box-shadow 0.3s; /* smooth transition for hover effect */
     }
 
-  .button:hover {
+  .button-recipe:hover {
     box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
     background-color: #ff5a3c;
     }
