@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./burger.css";
 import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Burger = (props) => {
   // Only displays sidebar if page state is 1; state is passed down from parent component (usually the header)
