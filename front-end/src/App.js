@@ -21,6 +21,7 @@ import IngredientEdit from "./IngredientEdit";
 import UpdateContact from "./UpdateContact";
 import UpdateEmail from "./UpdateEmail";
 import UpdatePhone from "./UpdatePhone";
+import RecipeSearch from "./RecipeSearch";
 
 import "./App.css";
 
@@ -52,6 +53,8 @@ function App() {
             <Route path="/recipe-edit" element={<RecipeEdit />} />
             <Route path="/ingredient" element={<Ingredient />} />
             <Route path="/ingredient-edit" element={<IngredientEdit />} />
+            <Route path="/recipe-inventory" element={<RecipeInv />} />
+            <Route path="/recipe-search" element={<RecipeSearch />} />
             <Route path="/" element={<Login />} exact />{" "}
           </Routes>
         </Router>
