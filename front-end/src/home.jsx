@@ -23,13 +23,13 @@ const Home = () => {
         <span className="RecentIngredients">
           Recent Ingredients: 
         </span>
-        <div className="column">
-          <img src="https://shorturl.at/gHJ89" alt="Ingredient Image" />
-          <div className="ingredient-description">
+        <Link to="/ingredient" className="sampleIngredient">
+          <img src="https://shorturl.at/gHJ89" alt="Image" />
+          <div className="description">
             <h3>Ingredient Name</h3>
             <p>Description here</p>
           </div>
-        </div>
+        </Link>
         <Link to="/inventory" className="AllIngredients">
           All Ingredients<FaArrowRight className="Arrow"/>
         </Link>
@@ -43,6 +43,13 @@ const Home = () => {
         </span>
         <Link to="/recipe_inventory" className="AllRecipes">
           All Recipes<FaArrowRight className="Arrow"/>
+        </Link>
+        <Link to="/recipe" className="sampleRecipe">
+          <img src="https://shorturl.at/gHJ89" alt="Image" />
+          <div className="description">
+            <h3>Recipe Name</h3>
+            <p>Description here</p>
+          </div>
         </Link>
         <div className="AddRecipeButton">
           <Link to="/recipe-add" className="AddRecipe">
