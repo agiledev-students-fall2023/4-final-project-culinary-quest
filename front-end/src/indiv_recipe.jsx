@@ -19,7 +19,12 @@ const IndivRecipe = () => {
 
             <div className="button-container">
                 <Link to="/recipe-edit" className="button">Edit Recipe</Link>
+<<<<<<< HEAD
                 <Link to="/recipe-inventory" className="button">Return to Recipe Inventory</Link>
+=======
+
+                <Link to="/recipe-inventory" className="button">Return to Recipe Inventory</Link> {/* for now home should point to recipe inventory later*/}
+>>>>>>> origin/petra
             </div>
         </div>
     );
