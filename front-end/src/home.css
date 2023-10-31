@@ -124,17 +124,20 @@
   background-color: #ff5a3c;
 }
 
-.column {
+.sampleIngredient {
+  position: absolute;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
-  width: 100%; /* Each image takes a full row width */
+  width: 100%;
   max-width: 300px;
   text-align: center;
+  top: 130px;
+  left: 40px;
 }
 
-.column img {
+.sampleIngredient img {
   max-width: 100%;
   height: auto;
   border-radius: 5px;
@@ -184,6 +187,25 @@
 
 .AllRecipes:hover {
   color: #15e0e3;
+}
+
+.sampleRecipe {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+  top: 600px;
+  left: 40px;
+}
+
+.sampleRecipe img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
 }
 
 .AddRecipeButton {
