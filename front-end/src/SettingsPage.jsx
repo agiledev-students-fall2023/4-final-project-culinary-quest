@@ -15,7 +15,7 @@ function SettingsPage() {
                 <input className="input-like-button" type="text" placeholder="Update Contact Information" />
                 <div className="button-group">
                     <button onClick={() => navigate('/')}>Logout</button>
-                    <button className="danger">Delete Account</button>
+                    <button className="danger" onClick={() => navigate('/')}>Delete Account</button>
                 </div>
             </div>
         </div>
