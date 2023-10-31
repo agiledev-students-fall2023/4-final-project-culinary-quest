@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./header";
 import SettingsPage from "./SettingsPage";
@@ -25,15 +26,17 @@ import RecipeSearch from "./RecipeSearch";
 
 import "./App.css";
 
-function App() {
+function Main() {
   const [menuState, activateMenu] = useState(0);
+  const location = useLocation();
+
   return (
     <div className="App">
       <div className="app-window">
-        <Header menuState={menuState} activateMenu={activateMenu} />
-        <Router>
-          {/* Burger is placed inside the router so the links within work properly */}
-          <Burger menuState={menuState} activateMenu={activateMenu} />
+      { !['/create-account', '/login', '/forgot-password'].includes(location.pathname) && 
+          <Header menuState={menuState} activateMenu={activateMenu} /> 
+        }
+        <Burger menuState={menuState} activateMenu={activateMenu} />
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Home />} />
@@ -57,10 +60,17 @@ function App() {
             <Route path="/recipe-search" element={<RecipeSearch />} />
             <Route path="/" element={<Login />} exact />{" "}
           </Routes>
-        </Router>
       </div>
     </div>
   );
+}
+
+function App() {
+  return (
+    <Router>
+      <Main />
+    </Router>
+  )
 }
 
 export default App;
