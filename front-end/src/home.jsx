@@ -41,7 +41,7 @@ const Home = () => {
         <span className="RecentRecipes">
           Recent Recipes: 
         </span>
-        <Link to="/recipe_inventory" className="AllRecipes">
+        <Link to="/recipe-inventory" className="AllRecipes">
           All Recipes<FaArrowRight className="Arrow"/>
         </Link>
         <Link to="/recipe" className="sampleRecipe">
