@@ -1,8 +1,5 @@
 .recipe-view {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('./background2.png'); 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: white;
     display: flex;
     justify-content: center;
     flex-direction: column;
