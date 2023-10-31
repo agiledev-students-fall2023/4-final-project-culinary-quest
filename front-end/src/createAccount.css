@@ -128,7 +128,7 @@
   background-color: #ff5a3c;
 }
 
-.BackButton {
+/* .BackButton {
   height: 39px;
   left: -85px;
   position: relative;
@@ -150,7 +150,7 @@
 .Back:hover {
   box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
   background-color: #ff5a3c;
-}
+} */
 
 .AppLogo {
   background-image: url(../public/IMG_1702.jpg);
