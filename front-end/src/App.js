@@ -33,7 +33,7 @@ function Main() {
   return (
     <div className="App">
       <div className="app-window">
-      { !['/create-account', '/login', '/forgot-password'].includes(location.pathname) && 
+      { !['/create-account', '/login', '/forgot-password', '/'].includes(location.pathname) && 
           <Header menuState={menuState} activateMenu={activateMenu} /> 
         }
         <Burger menuState={menuState} activateMenu={activateMenu} />
