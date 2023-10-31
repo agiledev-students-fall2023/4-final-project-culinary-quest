@@ -18,6 +18,9 @@ import Home from "./home";
 import RecipeEdit from "./RecipeEdit";
 import Ingredient from "./Ingredient";
 import IngredientEdit from "./IngredientEdit";
+import UpdateContact from "./UpdateContact";
+import UpdateEmail from "./UpdateEmail";
+import UpdatePhone from "./UpdatePhone";
 
 import "./App.css";
 
@@ -41,6 +44,9 @@ function App() {
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/change-password" element={<ChangePassword />} />
             <Route path="/change-username" element={<ChangeUsername />} />
+            <Route path="/update-contact" element={<UpdateContact />} />
+            <Route path="/update-email" element={<UpdateEmail />} />
+            <Route path="/update-phone" element={<UpdatePhone />} />
             <Route path="/ingredient-add" element={<IngredientAdd />} />
             <Route path="/recipe-add" element={<RecipeAdd />} />
             <Route path="/recipe-edit" element={<RecipeEdit />} />

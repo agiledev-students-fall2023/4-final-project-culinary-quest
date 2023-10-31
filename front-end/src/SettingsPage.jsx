@@ -9,10 +9,9 @@ function SettingsPage() {
         <div className="profile-container">
             <div className="profile-picture"></div>
             <div className="settings-container">
-                {/* <input className="input-like-button" type="text" placeholder="Change Username" /> */}
                 <button className="input-like-button" onClick={() => navigate('/change-username')}>Change Username</button>
                 <button className="input-like-button" onClick={() => navigate('/change-password')}>Change Password</button>
-                <input className="input-like-button" type="text" placeholder="Update Contact Information" />
+                <button className="input-like-button" onClick={() => navigate('/update-contact')}>Update Contact Information</button>
                 <div className="button-group">
                     <button onClick={() => navigate('/')}>Logout</button>
                     <button className="danger" onClick={() => navigate('/')}>Delete Account</button>
