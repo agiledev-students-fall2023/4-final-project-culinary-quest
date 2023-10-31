@@ -32,11 +32,11 @@ const CreateAccount = () => {
             Create Account
           </Link>
         </div>
-        <div className="BackButton">
+        {/* <div className="BackButton">
           <Link to="/login" className="Back">
             <FaArrowLeft />
           </Link>
-        </div>
+        </div> */}
         <div className="AppLogo" />
       </div>
     </div>
