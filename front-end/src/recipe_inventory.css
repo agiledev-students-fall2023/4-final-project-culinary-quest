@@ -1,11 +1,6 @@
 .RECIPE-INV {
     /* background-color: chartreuse; */
-    padding-top: 25px;
-    margin: auto;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; */
+    padding-top: 80px;
 }
 
 .RECIPE-INV .search {
@@ -14,6 +9,7 @@
     justify-content: center;
     /* background-color: deeppink; */
     align-items:center;
+    margin-top: 15px;
 }
 
 .RECIPE-INV .search .search-bar {
@@ -55,7 +51,7 @@
 
 .RECIPE-INV .recipe-list {
     /* background-color: aqua; */
-    width: 50%;
+    width: 75%;
     padding-top: 15px;
     margin: auto;
 }
@@ -67,6 +63,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 15px;
+    height: 200px;
 }
 
 .RECIPE-INV .recipe-list .recipe-tile .recipe-photo{
@@ -88,15 +85,18 @@
 .RECIPE-INV .recipe-list .recipe-tile .recipe-text p {
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 85%;
+    max-height: 30px;
     /* background-color: aqua; */
     margin: 1.5px;
 }
 
+.RECIPE-INV .recipe-list .recipe-tile .recipe-text h2 {
+    margin-bottom: 15px;
+}
+
 h1 {
     /* background-color: aqua; */
-    margin: 1.5px;
+    text-align: center;
 }
 
 .bold {

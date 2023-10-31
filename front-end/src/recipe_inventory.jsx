@@ -1,7 +1,5 @@
 import React from 'react';
 import "./recipe_inventory.css";
-import Header from "./header"
-import Burger from "./burger";
 
 {/* Temporary store of recipes for display and testing purposes */}
 const TempRecipes = [
@@ -16,11 +14,10 @@ const TempRecipes = [
     }
 ];
 
-const RecipeInv = props => {
+const RecipeInv = () => {
     return (
         <div className = "RECIPE-INV">
-            {/*<Header />*/}
-
+            <h1>Your Recipes</h1>
             {/* --- SEARCH BAR & FILTERS --- */}
             <div className = "search">
                 <div className = "search-bar">

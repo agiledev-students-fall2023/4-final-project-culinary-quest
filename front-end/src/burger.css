@@ -8,7 +8,8 @@
 }
   
 .SIDEBAR .bar {
-  background-color: chartreuse;
+  /* background-color: chartreuse; */
+  background-color: white;
   width: 75%;
 }
 
@@ -23,13 +24,13 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  background-color: deeppink;
+  /* background-color: deeppink; */
   margin: 15px;
 }
 
 .SIDEBAR .bar .profile p {
   font-size: 1.5em;
-  background-color: bisque;
+  /* background-color: bisque; */
 }
 
 .SIDEBAR .bar .profile .profile-pic {
@@ -38,11 +39,11 @@
   height: 100px;
   width: 100px;
   border-radius: 50%;
-  margin-right: 15px;
+  margin-right: 30px;
 }
 
 .SIDEBAR .bar .buttons {
-  background-color: bisque;
+  /* background-color: bisque; */
   margin: 15px;
   display: flex;
   flex-direction: column;
