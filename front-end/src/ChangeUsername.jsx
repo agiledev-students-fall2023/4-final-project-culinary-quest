@@ -1,8 +1,8 @@
 import React from 'react';
-import './ChangePassword.css';
+import './ChangeUsername.css';
 import { useNavigate } from 'react-router-dom';
 
-function ChangePassword() {
+function ChangeUsername() {
 
     const navigate = useNavigate();
 
@@ -10,9 +10,7 @@ function ChangePassword() {
         <div className="profile-container">
             <div className="profile-picture"></div>
             <div className="settings-container">
-                <input type="text" placeholder="Current Password" />
-                <input type="password" placeholder="New Password" />
-                <input type="text" placeholder="Re-Enter New Password" />
+                <input type="text" placeholder="Enter New Username" />
                 <div className="button-group">
                     <button onClick={() => navigate('/settings')}>Submit</button>
                 </div>
@@ -21,4 +19,4 @@ function ChangePassword() {
     );
 }
 
-export default ChangePassword;
+export default ChangeUsername;

@@ -9,6 +9,7 @@ import ForgotPassword from "./forgotPassword";
 import Ingredient_Inventory from "./ingredient_inventory";
 import Ingredient_Search from "./ingredient_search";
 import ChangePassword from "./ChangePassword";
+import ChangeUsername from "./ChangeUsername";
 import RecipeInv from "./recipe_inventory";
 import Burger from "./burger";
 import IngredientAdd from "./IngredientAdd";
@@ -39,13 +40,13 @@ function App() {
             <Route path="/search" element={<Ingredient_Search />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/change-password" element={<ChangePassword />} />
+            <Route path="/change-username" element={<ChangeUsername />} />
             <Route path="/ingredient-add" element={<IngredientAdd />} />
             <Route path="/recipe-add" element={<RecipeAdd />} />
             <Route path="/recipe-edit" element={<RecipeEdit />} />
             <Route path="/ingredient" element={<Ingredient />} />
             <Route path="/ingredient-edit" element={<IngredientEdit />} />
             <Route path="/" element={<Login />} exact />{" "}
-            {/*This is the default route*/}
           </Routes>
         </Router>
       </div>
