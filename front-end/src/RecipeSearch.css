@@ -41,11 +41,6 @@
   transition: background-color 0.3s, box-shadow 0.3s; /* smooth transition for hover effect */
   }
 
-<<<<<<< HEAD
-.button-search:hover {
-  box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
-  background-color: #ff5a3c;
-=======
   .title-label {
     color: #000000;
     font-family: "Inter-Bold", Helvetica;
@@ -98,7 +93,6 @@
     padding: 10px;
     max-width: 300px; 
     text-align: center;
->>>>>>> origin/petra
   }
 
 .columns {
