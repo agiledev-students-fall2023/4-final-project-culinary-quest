@@ -16,6 +16,11 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border: 1px solid #aeadad;
     position: relative;
+    cursor: pointer;
+}
+
+.profile-picture:hover {
+    border-color: #4CAF50;
 }
 
 .settings-container {
