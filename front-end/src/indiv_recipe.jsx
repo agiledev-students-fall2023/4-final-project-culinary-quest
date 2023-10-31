@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./indiv_recipe.css";
 
@@ -19,11 +19,11 @@ const IndivRecipe = () => {
 
             <div className="button-container">
                 <Link to="/recipe-edit" className="button">Edit Recipe</Link>
-
-                <Link to="/home" className="button">Return to Recipe Inventory</Link> {/* for now home should point to recipe inventory later*/}
+                <Link to="/recipe-inventory" className="button">Return to Recipe Inventory</Link>
             </div>
         </div>
     );
 };
 
 export default IndivRecipe;
+
