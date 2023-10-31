@@ -1,5 +1,5 @@
 .recipe-view {
-    background-color: #ffffff;
+    background: white;
     display: flex;
     justify-content: center;
     flex-direction: column;
