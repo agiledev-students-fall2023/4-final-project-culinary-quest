@@ -12,7 +12,7 @@ function ChangePassword() {
             <div className="settings-container">
                 <input type="text" placeholder="Current Password" />
                 <input type="password" placeholder="New Password" />
-                <input type="text" placeholder="Re-Enter New Password" />
+                <input type="password" placeholder="Re-Enter New Password" />
                 <div className="button-group">
                     <button onClick={() => navigate('/settings')}>Submit</button>
                 </div>
