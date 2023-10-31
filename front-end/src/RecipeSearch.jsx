@@ -10,13 +10,17 @@ const RecipeSearch = () => {
 
       <div className="search-bar">
         <input className="search-text" type="text" placeholder="Search" />
-        <Link to="/recipe-search"className="button">Search</Link>
+<<<<<<< HEAD
+        <Link to="/recipe-search"className="button-search">Search</Link>
+=======
+        <Link to="/recipe-search"className="button-recipe">Search</Link>
+>>>>>>> origin/petra
       </div>
       <div className="columns">
         {[...Array(2)].map((_, index) => (
           <div key={index} className="column">
             <a href="/recipe"> 
-              <img src="https://shorturl.at/gHJ89" alt="Recipe Image" />
+              <img src="https://shorturl.at/gHJ89" alt="Recipe" />
               <div className="recipe-description">
                 <h3>Recipe Name</h3>
                 <p>Description here</p>
@@ -30,3 +34,4 @@ const RecipeSearch = () => {
 };
 
 export default RecipeSearch;
+
