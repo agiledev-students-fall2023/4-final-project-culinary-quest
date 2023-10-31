@@ -10,11 +10,7 @@ const RecipeSearch = () => {
 
       <div className="search-bar">
         <input className="search-text" type="text" placeholder="Search" />
-<<<<<<< HEAD
         <Link to="/recipe-search"className="button-search">Search</Link>
-=======
-        <Link to="/recipe-search"className="button-recipe">Search</Link>
->>>>>>> origin/petra
       </div>
       <div className="columns">
         {[...Array(2)].map((_, index) => (
