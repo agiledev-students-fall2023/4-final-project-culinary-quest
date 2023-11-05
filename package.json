@@ -9,5 +9,14 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-router-dom": "^6.17.0"
-  }
+  },
+  "name": "4-final-project-culinary-quest",
+  "description": "A more organized way to keep track of ingredients and recipes, allowing one to always know what they can make with what is on hand",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
 }
