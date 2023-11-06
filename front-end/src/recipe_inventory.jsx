@@ -1,20 +1,34 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import "./recipe_inventory.css";
+import axios from 'axios';
 
-{/* Temporary store of recipes for display and testing purposes */}
-const TempRecipes = [
-    {
-        id: '0', name: 'food 1', size: '2', time: '15', desc: 'desc 1'
-    },
-    {
-        id: '1', name: 'food 2', size: '3', time: '30', desc: 'desc 2'
-    },
-    {
-        id: '2', name: 'food 3', size: '50', time: '90', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras suscipit magna ut arcu accumsan consequat. Nulla eget mi convallis elit consectetur dignissim at a sapien. Phasellus sed congue arcu. Nulla facilisi. Aliquam erat volutpat. Fusce ut porttitor purus. Quisque rhoncus urna felis, quis posuere orci placerat tristique. Nulla facilisi. Pellentesque rhoncus felis a nisi dictum, ut placerat nisi malesuada. Nullam hendrerit, augue et suscipit ultricies, leo diam consequat mauris, ut sodales nisl magna sit amet erat. In quam nisl, bibendum ac orci et, convallis tincidunt tellus. Donec porta blandit facilisis.'
+const RecipeInv = props => {
+    const [recipes, setRecipes] = useState([])
+    const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001'
+
+    const fetchRecipes = () => {
+        axios
+            .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes`)
+            .then(response => {
+                console.log("Help 0")
+                const recipes = response.data.recipes
+                console.log("Help 1")
+                setRecipes(recipes)
+                console.log("Help 2")
+            })
+            .catch(err => {
+                console.log("Help 3")
+            })
     }
-];
 
-const RecipeInv = () => {
+    useEffect(() => {
+        fetchRecipes()
+        return e => {
+            console.log("done")
+        }
+    }, [])
+    
     return (
         <div className = "RECIPE-INV">
             <h1>Your Recipes</h1>
@@ -39,7 +53,7 @@ const RecipeInv = () => {
             {/* --- RECIPE LIST --- */}
             <div className = "recipe-list">
                 {/* A function to map an array of recipes */}
-                {TempRecipes.map(function(recipe) {
+                {recipes.map(function(recipe) {
                     return (
                         // Displays each recipe (object) in its own tile
                         <div className = "recipe-tile">
