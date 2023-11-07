@@ -1,16 +1,19 @@
 [
     {
         "id": 0,
+        "imageURL": "/apple.jpg",
         "name": "ingredient 1",
         "amount": "2kg"
     },
     {
         "id": 1,
+        "imageURL": "/apple.jpg",
         "name": "ingredient 2",
         "amount": "2 pounds"
     },
     {
         "id": 2,
+        "imageURL": "/apple.jpg",
         "name": "ingredient 3",
         "amount": "3 .."
     }

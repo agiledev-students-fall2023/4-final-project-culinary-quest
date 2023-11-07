@@ -53,6 +53,23 @@ app.get("/api/ingredients", async (req, res) => {
   }
 })
 
+app.get("/api/ingredients/:id", async (req, res) => {
+  const id = req.params.id; // Extract the ID from the URL
+  try {
+    const ingredient = ingredientRaw.find(i => i.id.toString() === id); // Find the ingredient by ID
+    if (ingredient) {
+      res.json(ingredient);
+    } else {
+      res.status(404).json({ status: 'ingredient not found' });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      error: err,
+      status: 'server error',
+    });
+  }
+});
 
 // export the express app we created to make it available to other modules
 module.exports = app
