@@ -11,6 +11,7 @@ app.get("/home", (req, res) => {
 })
 
 const recipeRaw = require('./static/recipes.json')
+const ingredientRaw = require('./static/ingredients.json')
 
 // a route to handle fetching all recipes
 app.get("/api/recipes", async (req, res) => {
@@ -32,5 +33,27 @@ app.get("/api/recipes", async (req, res) => {
   }
 })
 
+// a route to handle fetching all ingredients
+app.get("/api/ingredients", async (req, res) => {
+  // load all ingredients from json file
+  try {
+    const ingredients = ingredientRaw
+    res.json({
+      ingredients: ingredients,
+      status: 'all good',
+    })
+  } 
+  
+  catch (err) {
+    console.error(err)
+    res.status(400).json({
+      error: err,
+      status: 'failed to retrieve ingredients',
+    })
+  }
+})
+
+
 // export the express app we created to make it available to other modules
 module.exports = app
+
