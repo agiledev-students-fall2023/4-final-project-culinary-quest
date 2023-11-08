@@ -1,26 +1,41 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import "./Ingredient.css";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useParams, useLocation } from "react-router-dom";
 import axios from 'axios';
+import "./Ingredient.css";
 
 const Ingredient = () => {
     const [ingredient, setIngredient] = useState(null);
-    const { id } = useParams(); // This hooks give you access to the `id` in the URL
+    const { id } = useParams(); // This hook gives us access to the `id` in the URL
+    const location = useLocation(); // Access the state passed during navigation
     const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
-  
+    const justUpdated = useRef(false); // useRef to track if the ingredient was just updated
+
+    // Effect to set the ref when the component is navigated to after an update
     useEffect(() => {
-      axios
-        .get(`${REACT_APP_SERVER_HOSTNAME}/api/ingredients/${id}`) // Your API route should support fetching by ID
-        .then(response => {
-          setIngredient(response.data); // Assuming the backend sends the ingredient object directly
-        })
-        .catch(err => {
-          console.error("Failed to fetch ingredient:", err);
-        });
-    }, [id]); // Rerun the effect if the ID changes
+        if (location.state?.updated) {
+            justUpdated.current = true; // Mark that an update has occurred
+        }
+    }, [location]);
+
+    // Effect to fetch ingredient data
+    useEffect(() => {
+        const fetchIngredient = () => {
+            axios
+                .get(`${REACT_APP_SERVER_HOSTNAME}/api/ingredients/${id}`)
+                .then(response => {
+                    setIngredient(response.data); // Update the ingredient state
+                    if (justUpdated.current) {
+                        justUpdated.current = false; // Reset the ref after fetching
+                    }
+                })
+                .catch(err => {
+                    console.error("Failed to fetch ingredient:", err);
+                });
+        };
+
+        fetchIngredient();
+    }, [id, justUpdated.current]); // Depend on justUpdated.current to trigger refetching
   
-    // Add a loading state or conditionally render below if ingredient is null
     return ingredient ? (
       <div className="ingredient-view">
         <label className="title-label">{ingredient.name}</label>
@@ -30,14 +45,13 @@ const Ingredient = () => {
         <label className="text-label">Ingredient Amount:</label>
         <label className="text-box">{ingredient.amount}</label>
         <div className="button-container">
-            <Link to="/ingredient-edit" className="button">Edit Ingredient</Link>
-
+            <Link to={`/ingredient-edit/${id}`} className="button">Edit Ingredient</Link>
             <Link to="/inventory" className="button">Return to Ingredient Inventory</Link> 
         </div>
       </div>
     ) : (
       <div>Loading...</div>
     );
-  };
+};
   
 export default Ingredient;

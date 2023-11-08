@@ -120,3 +120,39 @@ app.get("/api/recipes/:recipeId", async (req, res) => {
 // export the express app we created to make it available to other modules
 module.exports = app
 
+
+
+// Ingredient Edit 
+
+const fs = require('fs').promises; // This allows us to use async/await with file system operations
+app.put("/api/ingredients/:id", async (req, res) => {
+  const { id } = req.params; // the id of the ingredient to update
+  const { name, amount, imageURL } = req.body; // the updated values for the ingredient
+
+  try {
+    // Read the ingredients file
+    const data = await fs.readFile('./static/ingredients.json', 'utf8');
+    const ingredients = JSON.parse(data);
+
+    // Find the ingredient by ID
+    const index = ingredients.findIndex(ingredient => ingredient.id === parseInt(id));
+    if (index === -1) {
+      // If the ingredient isn't found, send a 404 response
+      return res.status(404).json({ message: "Ingredient not found" });
+    }
+
+    // Update the ingredient
+    ingredients[index] = { ...ingredients[index], name, amount, imageURL };
+
+    // Write the updated ingredients back to the file
+    await fs.writeFile('./static/ingredients.json', JSON.stringify(ingredients, null, 2), 'utf8');
+
+    // Send a success response
+    res.json({ message: "Ingredient updated successfully" });
+  } catch (err) {
+    // If there's an error, log it and send a 500 server error response
+    console.error(err);
+    res.status(500).json({ message: "Server error while updating ingredient" });
+  }
+});
+
