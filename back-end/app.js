@@ -116,7 +116,7 @@ app.get("/api/recipes/:recipeId", async (req, res) => {
 })
 
 // Route to fetch a recipes based on a query
-app.get("/api/recipes/:recipeId", async (req, res) => {
+app.get("/api/recipes/search?${props.q}", async (req, res) => {
   try {
     console.log(`recieved: ${req.query.y}`)
     // Take the search terms and split them apart via commas
