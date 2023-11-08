@@ -115,6 +115,34 @@ app.get("/api/recipes/:recipeId", async (req, res) => {
   }
 })
 
+// Route to fetch a recipes based on a query
+app.get("/api/recipes/:recipeId", async (req, res) => {
+  try {
+    console.log(`recieved: ${req.query.y}`)
+    // Take the search terms and split them apart via commas
+    // RegEx is used to account for commas with and without spaces after
+    const searchTerms = req.query.y.split(/, |,/)
+    const filteredRecipes = recipeRaw.filter(recipe => {
+      let isValid = True
+      for (term in searchTerms) {
+        isValid = isValid && (recipe.name.includes(term) || recipe.desc.includes(term))
+      }
+    })
+
+    res.json({
+      recipes: filteredRecipes,
+      status: 'all good',
+    })
+  } 
+  catch (err) {
+    console.error(err)
+    res.status(400).json({
+      error: err,
+      status: 'failed to filter recipes',
+    })
+  }
+})
+
 // Place more routes here
 
 // export the express app we created to make it available to other modules
