@@ -10,7 +10,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:3001/api/login', {
+      const response = await axios.get('http://localhost:3001/api/login', {
         email: email,
         password: password,
       });
@@ -24,18 +24,18 @@ const Login = () => {
     <div className="LoginPage">
       <div className="LoginContainer">
         <div className="InputEmail">
-          <input type="text" placeholder="Email"/>
+          <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
         </div>
         <div className="InputPassword">
-          <input type="password" placeholder="Password"/>
+          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
         </div>
         <Link to="/forgot-password" className="ForgotPasswordLink">
           Forgot Password?
         </Link>
         <div className="LoginButton">
-        <button onClick={handleLogin} className="Login">
+        <Link to="/home" className="Login">
           Log In
-        </button>
+        </Link>
       </div>
         <div className="SignUpLink">
           <span className="CreateMessage">
