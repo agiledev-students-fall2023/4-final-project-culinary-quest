@@ -123,7 +123,7 @@ app.get("/api/recipes/search?${props.q}", async (req, res) => {
     // RegEx is used to account for commas with and without spaces after
     const searchTerms = req.query.y.split(/, |,/)
     const filteredRecipes = recipeRaw.filter(recipe => {
-      let isValid = True
+      let isValid = true
       for (term in searchTerms) {
         isValid = isValid && (recipe.name.includes(term) || recipe.desc.includes(term))
       }
