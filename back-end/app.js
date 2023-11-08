@@ -10,23 +10,34 @@ const cors = require('cors')
 const app = express() // instantiate an Express object
 
 app.use(cors()) // allows cross-origin resource sharing
-
+app.use(express.json());
 // ----------------------------------------------------------------------------
 
 // Required temp json files -- to be replaced by database code in the future
 const recipeRaw = require('./static/recipes.json')
 
-// Place more json files here
-
-// ----------------------------------------------------------------------------
+const ingredientRaw = require('./static/ingredients.json')
+//----------------------------------------------------------------------------
 
 // Temporary route message for the home screen (does nothing)
 app.get("/home", async (req, res) => {
   res.send("please send help [crying_face]")
 })
-
-const recipeRaw = require('./static/recipes.json')
-const ingredientRaw = require('./static/ingredients.json')
+// Login route
+app.get('/api/login', (req, res) => {
+  const { email, password } = req.body;
+  if (email && password) {
+    res.json({
+      message: 'Login successful',
+      status: 'success',
+    });
+  } else {
+    res.status(401).json({
+      error: 'Invalid credentials',
+      status: 'failed',
+    });
+  }
+});
 
 // a route to handle fetching all recipes
 app.get("/api/recipes", async (req, res) => {
