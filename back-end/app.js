@@ -23,7 +23,6 @@ const ingredientRaw = require('./static/ingredients.json')
 app.get("/home", async (req, res) => {
   res.send("please send help [crying_face]")
 })
-
 // Login route
 app.get('/api/login', (req, res) => {
   const { email, password } = req.body;
@@ -79,14 +78,29 @@ app.get("/api/ingredients", async (req, res) => {
 })
 
 app.get("/api/ingredients/:id", async (req, res) => {
-  const id = req.params.id; // Extract the ID from the URL
+  const id = parseInt(req.params.id); // Extract the ID from the URL
   try {
-    const ingredient = ingredientRaw.find(i => i.id.toString() === id); // Find the ingredient by ID
-    if (ingredient) {
-      res.json(ingredient);
-    } else {
+    const data = await fs.readFile('./static/ingredients.json', 'utf8');
+    let ingredients = JSON.parse(data);
+    
+    // Find the ingredient by ID
+    const ingredientIndex = ingredients.findIndex(i => i.id === id);
+    if (ingredientIndex === -1) {
       res.status(404).json({ status: 'ingredient not found' });
+      return;
     }
+    
+    // Update the lastViewed timestamp
+    ingredients[ingredientIndex].lastViewed = Date.now();
+
+    // Sort the ingredients based on lastViewed with the most recent first
+    ingredients.sort((a, b) => (b.lastViewed || 0) - (a.lastViewed || 0));
+
+    // Write the updated ingredients back to the file
+    await fs.writeFile('./static/ingredients.json', JSON.stringify(ingredients, null, 2), 'utf8');
+
+    // Send back the updated ingredient
+    res.json(ingredients[ingredientIndex]);
   } catch (err) {
     console.error(err);
     res.status(500).json({
@@ -169,13 +183,19 @@ app.post("/api/ingredients", async (req, res) => {
 
   try {
     const data = await fs.readFile('./static/ingredients.json', 'utf8');
-    const ingredients = JSON.parse(data);
+    let ingredients = JSON.parse(data);
 
     // Generate the next ID
     const nextId = ingredients.length > 0 ? Math.max(...ingredients.map(i => i.id)) + 1 : 0;
 
-    // Create a new ingredient object
-    const newIngredient = { id: nextId, name, amount: finalAmount, imageURL };
+    // Create a new ingredient object with the current timestamp for lastViewed
+    const newIngredient = { 
+      id: nextId, 
+      name, 
+      amount: finalAmount, 
+      imageURL: imageURL || '/apple.jpg', // Use provided imageURL or default to '/apple.jpg'
+      lastViewed: Date.now()  // Set the lastViewed to the current timestamp
+    };
 
     // Append the new ingredient to the array
     ingredients.push(newIngredient);
