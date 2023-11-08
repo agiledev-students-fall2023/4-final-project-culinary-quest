@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const RecipeInv = props => {
     const [recipes, setRecipes] = useState([])
-    const [searchState, setSearchState] = useState([])
+    const [searchPress, setSearchPress] = useState(0)
     const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001'
 
     const fetchRecipes = () => {
@@ -45,7 +45,7 @@ const RecipeInv = props => {
         return e => {
             console.log("done")
         }
-    }, [])
+    }, [searchPress])
 
     useEffect(() => {
         searchRecipes()
@@ -71,7 +71,7 @@ const RecipeInv = props => {
                     </div>
                     {/* Placeholder for the search button */}
                     {/* Also placeholder for the header's burger menu button; on click it sets the state to either 1 or 0 */}
-                    <button>Search</button>
+                    <button onClick = {setSearchPress(!searchPress)}>Search</button>
                 </div>
             </div>
 
