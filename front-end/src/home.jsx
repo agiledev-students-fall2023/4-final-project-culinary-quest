@@ -34,7 +34,7 @@ const Home = () => {
           All Ingredients<FaArrowRight className="Arrow"/>
         </Link>
         <div className="AddIngredientButton">
-          <Link to="/ingredient" className="AddIngredient">
+          <Link to="/ingredient-add" className="AddIngredient">
             Add Ingredient
           </Link>
         </div>
