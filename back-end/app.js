@@ -25,7 +25,10 @@ app.get("/home", async (req, res) => {
   res.send("please send help [crying_face]")
 })
 
-// Route to fetch all recipes
+const recipeRaw = require('./static/recipes.json')
+const ingredientRaw = require('./static/ingredients.json')
+
+// a route to handle fetching all recipes
 app.get("/api/recipes", async (req, res) => {
   try {
     const recipes = recipeRaw
@@ -42,6 +45,44 @@ app.get("/api/recipes", async (req, res) => {
     })
   }
 })
+
+// a route to handle fetching all ingredients
+app.get("/api/ingredients", async (req, res) => {
+  // load all ingredients from json file
+  try {
+    const ingredients = ingredientRaw
+    res.json({
+      ingredients: ingredients,
+      status: 'all good',
+    })
+  } 
+  
+  catch (err) {
+    console.error(err)
+    res.status(400).json({
+      error: err,
+      status: 'failed to retrieve ingredients',
+    })
+  }
+})
+
+app.get("/api/ingredients/:id", async (req, res) => {
+  const id = req.params.id; // Extract the ID from the URL
+  try {
+    const ingredient = ingredientRaw.find(i => i.id.toString() === id); // Find the ingredient by ID
+    if (ingredient) {
+      res.json(ingredient);
+    } else {
+      res.status(404).json({ status: 'ingredient not found' });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      error: err,
+      status: 'server error',
+    });
+  }
+});
 
 // Route to fetch a single recipe
 app.get("/api/recipes/:recipeId", async (req, res) => {
@@ -67,3 +108,4 @@ app.get("/api/recipes/:recipeId", async (req, res) => {
 
 // export the express app we created to make it available to other modules
 module.exports = app
+
