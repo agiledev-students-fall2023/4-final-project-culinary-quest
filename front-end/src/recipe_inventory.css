@@ -54,6 +54,7 @@
     width: 75%;
     padding-top: 15px;
     margin: auto;
+    list-style-type: none;
 }
 
 .RECIPE-INV .recipe-list .recipe-tile {
@@ -64,6 +65,8 @@
     align-items: center;
     margin-top: 15px;
     height: 200px;
+    text-decoration: none;
+    color: black;
 }
 
 .RECIPE-INV .recipe-list .recipe-tile .recipe-photo{

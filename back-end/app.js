@@ -1,13 +1,28 @@
 // import and instantiate express
 const express = require("express") // CommonJS import style!
-const cors = require('cors') // middleware for enabling CORS (Cross-Origin Resource Sharing) requests.
+
+// Middleware to add support for requests from other servers (so the front-end)
+// DO NOT REMOVE UNDER ANY CIRCUMSTANCES THIS IS WHAT ALLOWS THEM TO TALK
+const cors = require('cors')
+
+// ----------------------------------------------------------------------------
 
 const app = express() // instantiate an Express object
 
-app.use(cors()) // allow cross-origin resource sharing
+app.use(cors()) // allows cross-origin resource sharing
 
-app.get("/home", (req, res) => {
-    res.send("please send help [crying_face]")
+// ----------------------------------------------------------------------------
+
+// Required temp json files -- to be replaced by database code in the future
+const recipeRaw = require('./static/recipes.json')
+
+// Place more json files here
+
+// ----------------------------------------------------------------------------
+
+// Temporary route message for the home screen (does nothing)
+app.get("/home", async (req, res) => {
+  res.send("please send help [crying_face]")
 })
 
 const recipeRaw = require('./static/recipes.json')
@@ -15,7 +30,6 @@ const ingredientRaw = require('./static/ingredients.json')
 
 // a route to handle fetching all recipes
 app.get("/api/recipes", async (req, res) => {
-  // load all recipes from json file
   try {
     const recipes = recipeRaw
     res.json({
@@ -23,7 +37,6 @@ app.get("/api/recipes", async (req, res) => {
       status: 'all good',
     })
   } 
-  
   catch (err) {
     console.error(err)
     res.status(400).json({
@@ -70,6 +83,28 @@ app.get("/api/ingredients/:id", async (req, res) => {
     });
   }
 });
+
+// Route to fetch a single recipe
+app.get("/api/recipes/:recipeId", async (req, res) => {
+  try {
+    console.log(`recieved: ${req.query.y}`)
+    const id = req.query.y
+    const recipe = recipeRaw.find(x => x.id == id)
+    res.json({
+      recipe: recipe,
+      status: 'all good',
+    })
+  } 
+  catch (err) {
+    console.error(err)
+    res.status(400).json({
+      error: err,
+      status: 'failed to retrieve recipe',
+    })
+  }
+})
+
+// Place more routes here
 
 // export the express app we created to make it available to other modules
 module.exports = app

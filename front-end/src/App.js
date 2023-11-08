@@ -42,7 +42,7 @@ function Main() {
             <Route path="/home" element={<Home />} />
             <Route path="/create-account" element={<CreateAccount />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/recipe" element={<IndivRecipe />} />
+            <Route path="/recipes/:recipeId" element={<IndivRecipe />} />
             <Route path="/inventory" element={<Ingredient_Inventory />} />
             <Route path="/search" element={<Ingredient_Search />} />
             <Route path="/settings" element={<SettingsPage />} />

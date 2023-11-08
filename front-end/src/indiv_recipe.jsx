@@ -1,15 +1,47 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./indiv_recipe.css";
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
-const IndivRecipe = () => {
+/**
+ * A React component that represents one recipe in the list of recipes.
+ * @param {*} param0 an object holding any props and a few function definitions passed to this component from its parent component
+ * @returns The contents of this component, in JSX form.
+ */
+
+const IndivRecipe = (props)  => {
+    const [recipe, setRecipe] = useState([])
+    const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001'
+
+    const loc = useLocation()
+    const selectedRecipe = loc.state?.x
+    console.log(`selected: ${selectedRecipe}`)
+
+    const fetchRecipe = () => {
+        axios
+            .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/${selectedRecipe}`, { params: {y: selectedRecipe}})
+            .then(response => {
+                const indivRecipe = response.data.recipe
+                setRecipe(indivRecipe)
+            })
+            .catch(err => {
+                console.log("error getting recipe")
+            })
+    }
+
+    useEffect(() => {
+        fetchRecipe()
+        return e => {
+            console.log("done")
+        }
+    }, [])
 
     return (
         <div className="recipe-view">
+            <label className="title-label">{recipe.name}</label>
 
-            <label className="title-label">[Recipe Name]</label>
-
-            <div className="image-section">RECIPE IMAGE<br /></div>
+            <div className="image-section">[recipe.img]<br /></div>
 
             <label className="text-label">Recipe Description:</label>
             <label className="text-box">[Recipe Description Here]</label>

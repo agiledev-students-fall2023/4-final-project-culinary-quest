@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import "./recipe_inventory.css";
 import axios from 'axios';
 
+import { Link } from "react-router-dom";
+
 const RecipeInv = props => {
     const [recipes, setRecipes] = useState([])
     const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001'
@@ -11,14 +13,14 @@ const RecipeInv = props => {
         axios
             .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes`)
             .then(response => {
-                console.log("Help 0")
+                // console.log("Help 0")
                 const recipes = response.data.recipes
-                console.log("Help 1")
+                // console.log("Help 1")
                 setRecipes(recipes)
-                console.log("Help 2")
+                // console.log("Help 2")
             })
             .catch(err => {
-                console.log("Help 3")
+                // console.log("Help 3")
             })
     }
 
@@ -55,23 +57,30 @@ const RecipeInv = props => {
                 {/* A function to map an array of recipes */}
                 {recipes.map(function(recipe) {
                     return (
-                        // Displays each recipe (object) in its own tile
-                        <div className = "recipe-tile">
-                            {/* Placeholder for the photo */}
-                            <div className = "recipe-photo">
-                               <p>PLACEHOLDER</p>
-                            </div>
+                        <li key={recipe.id}>
+                            {/* Displays each recipe (object) in its own tile */}
+                            {console.log(`tile #: ${recipe.id}`)}
+                            <Link 
+                                className = "recipe-tile" 
+                                to = {`/recipes/${recipe.id}`}
+                                state = {{x: recipe.id}}
+                            >
+                                {/* Placeholder for the photo */}
+                                <div className = "recipe-photo">
+                                <p>PLACEHOLDER</p>
+                                </div>
 
-                            <div className = "recipe-text">
-                                {/* The actual text of the recipe */}
-                                {/* Spans exist to change weight of text without weirdness of divs */}
-                                <h2>{recipe.name}</h2>
-                                <p><span className = "bold">Serves: </span> {recipe.size}</p>
-                                <p><span className = "bold">Cooking Time:</span> {recipe.time}</p>
-                                <p><span className = "bold">Description:</span></p>
-                                <p><span className = "italic">{recipe.desc}</span></p>
-                            </div>
-                        </div>
+                                <div className = "recipe-text">
+                                    {/* The actual text of the recipe */}
+                                    {/* Spans exist to change weight of text without weirdness of divs */}
+                                    <h2>{recipe.name}</h2>
+                                    <p><span className = "bold">Serves: </span> {recipe.size}</p>
+                                    <p><span className = "bold">Cooking Time:</span> {recipe.time}</p>
+                                    <p><span className = "bold">Description:</span></p>
+                                    <p><span className = "italic">{recipe.desc}</span></p>
+                                </div>
+                            </Link>
+                        </li>
                         )
                     })}
             </div>
