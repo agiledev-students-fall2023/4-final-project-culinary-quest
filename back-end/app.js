@@ -156,3 +156,36 @@ app.put("/api/ingredients/:id", async (req, res) => {
   }
 });
 
+// Ingredient add 
+app.post("/api/ingredients", async (req, res) => {
+  const { name, amount, imageURL } = req.body; // the new ingredient's data
+
+  if (!name || name.trim() === '') {
+    return res.status(400).json({ message: "Ingredient name is required." });
+  }
+
+  const finalAmount = amount && amount.trim() !== '' ? amount : "Out of Stock";
+
+  try {
+    const data = await fs.readFile('./static/ingredients.json', 'utf8');
+    const ingredients = JSON.parse(data);
+
+    // Generate the next ID
+    const nextId = ingredients.length > 0 ? Math.max(...ingredients.map(i => i.id)) + 1 : 0;
+
+    // Create a new ingredient object
+    const newIngredient = { id: nextId, name, amount: finalAmount, imageURL };
+
+    // Append the new ingredient to the array
+    ingredients.push(newIngredient);
+
+    // Write the updated array back to the file
+    await fs.writeFile('./static/ingredients.json', JSON.stringify(ingredients, null, 2), 'utf8');
+
+    // Send a success response with the new ingredient
+    res.status(201).json(newIngredient);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error while adding new ingredient" });
+  }
+});
