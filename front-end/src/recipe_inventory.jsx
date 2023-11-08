@@ -59,12 +59,11 @@ const RecipeInv = props => {
                     return (
                         <li key={recipe.id}>
                             {/* Displays each recipe (object) in its own tile */}
+                            {console.log(`tile #: ${recipe.id}`)}
                             <Link 
                                 className = "recipe-tile" 
-                                to = {{
-                                    pathname: `/recipes/${recipe.id}`,
-                                    state:
-                                }}
+                                to = {`/recipes/${recipe.id}`}
+                                state = {{x: recipe.id}}
                             >
                                 {/* Placeholder for the photo */}
                                 <div className = "recipe-photo">

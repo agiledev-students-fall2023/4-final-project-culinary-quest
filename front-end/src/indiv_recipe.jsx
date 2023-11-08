@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./indiv_recipe.css";
 import axios from 'axios';
 import { useState, useEffect } from 'react';
@@ -13,11 +13,14 @@ import { useState, useEffect } from 'react';
 const IndivRecipe = (props)  => {
     const [recipe, setRecipe] = useState([])
     const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001'
+
+    const loc = useLocation()
+    const selectedRecipe = loc.state?.x
     console.log(`selected: ${selectedRecipe}`)
-    
+
     const fetchRecipe = () => {
         axios
-            .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/${selectedRecipe}`)
+            .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/${selectedRecipe}`, { params: {y: selectedRecipe}})
             .then(response => {
                 const indivRecipe = response.data.recipe
                 setRecipe(indivRecipe)
