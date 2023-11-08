@@ -46,8 +46,9 @@ app.get("/api/recipes", async (req, res) => {
 // Route to fetch a single recipe
 app.get("/api/recipes/:recipeId", async (req, res) => {
   try {
-    console.log(`recieved: ${req.params.y}`)
-    const recipe = recipeRaw.find(x => x.id === req.params.y)
+    console.log(`recieved: ${req.query.y}`)
+    const id = req.query.y
+    const recipe = recipeRaw.find(x => x.id == id)
     res.json({
       recipe: recipe,
       status: 'all good',
