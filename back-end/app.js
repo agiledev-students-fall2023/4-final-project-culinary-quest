@@ -23,6 +23,7 @@ const ingredientRaw = require('./static/ingredients.json')
 app.get("/home", async (req, res) => {
   res.send("please send help [crying_face]")
 })
+
 // Login route
 app.get('/api/login', (req, res) => {
   const { email, password } = req.body;
