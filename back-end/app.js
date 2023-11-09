@@ -39,6 +39,22 @@ app.get('/api/login', (req, res) => {
   }
 });
 
+app.post('/api/change-username', (req, res) => {
+  const { newUsername } = req.body;
+
+  if (newUsername) {
+    res.json({
+      message: 'Username successfully changed',
+      status: 'success'
+    });
+  } else {
+    res.status(400).json({
+      error: 'no username input',
+      status: 'failed'
+    });
+  }
+});
+
 // a route to handle fetching all recipes
 app.get("/api/recipes", async (req, res) => {
   try {
