@@ -28,15 +28,22 @@
     margin-top: 15px;
 }
 
-.RECIPE-INV .search .search-tools .square {
+.RECIPE-INV .search .search-tools .square-off {
     width: 15px;
     height: 15px;
     margin: auto;
     background-color: gray;
     margin-right: 15px;
-    
 }
 
+
+.RECIPE-INV .search .search-tools .square-on {
+    width: 15px;
+    height: 15px;
+    margin: auto;
+    background-color: black;
+    margin-right: 15px;
+}
 .RECIPE-INV .search .search-tools .filter-text {
     flex-grow: 2;
     /* background-color: bisque; */
