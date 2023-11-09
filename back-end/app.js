@@ -59,9 +59,20 @@ app.get("/api/recipes", async (req, res) => {
 
 // a route to handle fetching all ingredients
 app.get("/api/ingredients", async (req, res) => {
+  // search functionality
+  const{ searchQuery } = req.query;
+  console.log('Received searchQuery:', searchQuery);
+
   // load all ingredients from json file
   try {
-    const ingredients = ingredientRaw
+    let ingredients = ingredientRaw
+    if(searchQuery){
+      //if there is a search query, need to filter (checking by ingredient.name)
+      ingredients = ingredients.filter((ingredient) =>
+      ingredient.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
     res.json({
       ingredients: ingredients,
       status: 'all good',
@@ -238,5 +249,35 @@ app.post("/api/ingredients", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error while adding new ingredient" });
+  }
+});
+
+
+// search query for ingredients
+app.get("/api/ingredients/:name", async (req, res) => {
+  try {
+    // Get the search query from the URL parameter
+    const searchQuery = req.params.name;
+
+    // Make sure ingredients is defined (replace this with your actual array or fetch logic)
+    let ingredients = [];
+
+    if (searchQuery) {
+      // If there is a search query, filter ingredients by name
+      ingredients = ingredients.filter((ingredient) =>
+        ingredient.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    res.json({
+      ingredients: ingredients,
+      status: 'all good',
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({
+      error: err,
+      status: 'failed to retrieve ingredients',
+    });
   }
 });
