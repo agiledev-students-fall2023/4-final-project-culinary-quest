@@ -1,23 +1,26 @@
 [
-    {
-        "id": 0,
-        "name": "AAAAAAAAAAAAAAAAAAAaa",
-        "size": 2,
-        "time": 15,
-        "desc": "desc 1"
-    },
-    {
-        "id": 1,
-        "name": "food 2",
-        "size": 3,
-        "time": 30,
-        "desc": "desc 2"
-    },
-    {
-        "id": 2,
-        "name": "food 3",
-        "size": 3,
-        "time": 30,
-        "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras suscipit magna ut arcu accumsan consequat. Nulla eget mi convallis elit consectetur dignissim at a sapien. Phasellus sed congue arcu. Nulla facilisi. Aliquam erat volutpat. Fusce ut porttitor purus. Quisque rhoncus urna felis, quis posuere orci placerat tristique. Nulla facilisi. Pellentesque rhoncus felis a nisi dictum, ut placerat nisi malesuada. Nullam hendrerit, augue et suscipit ultricies, leo diam consequat mauris, ut sodales nisl magna sit amet erat. In quam nisl, bibendum ac orci et, convallis tincidunt tellus. Donec porta blandit facilisis."
-    }
+  {
+    "id": 1,
+    "name": "food 2",
+    "size": 3,
+    "time": 30,
+    "desc": "desc 2",
+    "lastViewed": 1699497433650
+  },
+  {
+    "id": 2,
+    "name": "food 3",
+    "size": 3,
+    "time": 30,
+    "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras suscipit magna ut arcu accumsan consequat. Nulla eget mi convallis elit consectetur dignissim at a sapien. Phasellus sed congue arcu. Nulla facilisi. Aliquam erat volutpat. Fusce ut porttitor purus. Quisque rhoncus urna felis, quis posuere orci placerat tristique. Nulla facilisi. Pellentesque rhoncus felis a nisi dictum, ut placerat nisi malesuada. Nullam hendrerit, augue et suscipit ultricies, leo diam consequat mauris, ut sodales nisl magna sit amet erat. In quam nisl, bibendum ac orci et, convallis tincidunt tellus. Donec porta blandit facilisis.",
+    "lastViewed": 2
+  },
+  {
+    "id": 0,
+    "name": "AAAAAAAAAAAAAAAAAAAaa",
+    "size": 2,
+    "time": 15,
+    "desc": "desc 1",
+    "lastViewed": 0
+  }
 ]

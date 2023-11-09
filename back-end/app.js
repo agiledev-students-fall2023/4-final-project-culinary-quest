@@ -77,6 +77,7 @@ app.get("/api/ingredients", async (req, res) => {
   }
 })
 
+// fetch a single ingredient
 app.get("/api/ingredients/:id", async (req, res) => {
   const id = parseInt(req.params.id); // Extract the ID from the URL
   try {
@@ -113,9 +114,14 @@ app.get("/api/ingredients/:id", async (req, res) => {
 // Route to fetch a single recipe
 app.get("/api/recipes/single/:recipeId", async (req, res) => {
   try {
-    // console.log(`recieved: ${req.query.y}`)
+    console.log(`recieved: ${req.query.y}`)
     const id = req.query.y
     const recipe = recipeRaw.find(x => x.id == id)
+
+    recipe.lastViewed = Date.now()
+    recipeRaw.sort((a,b) => (b.lastViewed || 0) - (a.lastViewed || 0))
+    await fs.writeFile('./static/recipes.json', JSON.stringify(recipeRaw, null, 2), 'utf8');
+
     res.json({
       recipe: recipe,
       status: 'all good - single',
