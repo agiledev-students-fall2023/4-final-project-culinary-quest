@@ -4,19 +4,21 @@
 }
 
 .RECIPE-INV .search {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     justify-content: center;
-    /* background-color: deeppink; */
+    background-color: deeppink; */
     align-items:center;
+    margin: auto;
     margin-top: 15px;
+    width: 85%;
 }
 
-.RECIPE-INV .search .search-bar {
-    display: flex;
-    /* background-color: aquamarine; */
+/* .RECIPE-INV .search .search-bar {
+    display: flex; 
+    background-color: aquamarine; 
     min-width: 550px;
-}
+} */
 
 .RECIPE-INV .search .search-tools {
     display: flex;
@@ -40,13 +42,6 @@
     /* background-color: bisque; */
     text-align: left;
     margin: auto;
-}
-
-.RECIPE-INV .search .search-tools .search-button {
-    flex-grow: 1;
-    text-align: center;
-    background-color: gray;
-    margin: 5px;
 }
 
 .RECIPE-INV .recipe-list {
