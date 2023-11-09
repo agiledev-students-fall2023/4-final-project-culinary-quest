@@ -19,8 +19,9 @@ const IndivRecipe = (props)  => {
     console.log(`selected: ${selectedRecipe}`)
 
     const fetchRecipe = () => {
+        console.log("here2 ", selectedRecipe)
         axios
-            .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/${selectedRecipe}`, { params: {y: selectedRecipe}})
+            .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/single/${selectedRecipe}`, { params: {y: selectedRecipe}})
             .then(response => {
                 const indivRecipe = response.data.recipe
                 setRecipe(indivRecipe)
@@ -31,9 +32,11 @@ const IndivRecipe = (props)  => {
     }
 
     useEffect(() => {
+        // console.log("here1 ",selectedRecipe)
         fetchRecipe()
         return e => {
             console.log("done")
+            console.log(recipe)
         }
     }, [])
 

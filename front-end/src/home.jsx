@@ -8,11 +8,13 @@ import { FaArrowRight } from "react-icons/fa";
 
 const Home = () => {
   const [recentIngredient, setRecentIngredient] = useState(null);
+  const [recentRecipe, setRecentRecipe] = useState(null);
   const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
 
   useEffect(() => {
     // Fetch the ingredients from the backend
     const fetchIngredients = async () => {
+      console.log("h1")
       try {
         const response = await axios.get(`${REACT_APP_SERVER_HOSTNAME}/api/ingredients`);
         const ingredients = response.data.ingredients;
@@ -25,7 +27,24 @@ const Home = () => {
       }
     };
 
+    const fetchRecipes = () => {
+      console.log("h2")
+      axios
+        .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes`)
+        .then(response => {
+          const recipes = response.data.recipes
+          
+          if (recipes.length > 0) {
+            setRecentRecipe(recipes[0])
+          }
+        })
+        .catch(err => {
+          console.log("Help 3")
+        })
+  }
+
     fetchIngredients();
+    fetchRecipes();
   }, []);
 
   return (
@@ -68,13 +87,14 @@ const Home = () => {
         <Link to="/recipe-inventory" className="AllRecipes">
           All Recipes<FaArrowRight className="Arrow"/>
         </Link>
-        <Link to="/recipe" className="sampleRecipe">
+        {recentRecipe && (<Link to={`/recipes/single/${recentRecipe.id}`} state = {{x: recentRecipe.id}} className="sampleRecipe">
           <img src="https://shorturl.at/gHJ89" alt="Image" />
           <div className="description">
-            <h3>Recipe Name</h3>
-            <p>Description here</p>
+            <h3>{recentRecipe.name}</h3>
+            <p>{recentRecipe.desc}</p>
           </div>
         </Link>
+        )}
         <div className="AddRecipeButton">
           <Link to="/recipe-add" className="AddRecipe">
             Add Recipe
