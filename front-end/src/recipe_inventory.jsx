@@ -29,7 +29,7 @@ const RecipeInv = props => {
     const searchRecipes = (props) => {
         // console.log(search)
         axios
-            .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/search`, { params: {y: search}})
+            .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/search`, { params: {y: search, z: toggle}})
             .then(response => {
                 console.log("successfully contacted back end")
                 const recipes = response.data.recipes
