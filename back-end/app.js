@@ -50,7 +50,7 @@ app.post('/api/change-username', (req, res) => {
     });
   } else {
     res.status(400).json({
-      error: 'no username input',
+      error: 'Failed to reset username',
       status: 'failed'
     });
   }
@@ -68,6 +68,23 @@ app.post('/api/change-password', (req, res) => {
     res.status(400).json({
       error: 'Failed to reset password',
       status: 'failed',
+    });
+  }
+});
+
+// Update-Email route
+app.post('/api/update-email', (req, res) => {
+  const { newEmail } = req.body;
+
+  if (newEmail) {
+    res.json({
+      message: 'Email successfully changed',
+      status: 'success'
+    });
+  } else {
+    res.status(400).json({
+      error: 'Failed to reset email',
+      status: 'failed'
     });
   }
 });
