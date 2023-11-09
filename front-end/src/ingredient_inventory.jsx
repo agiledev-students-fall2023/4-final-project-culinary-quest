@@ -32,6 +32,10 @@ const Ingredient_Inventory = () => {
     <div className="container">
       <h1>Your Ingredients</h1>
       <div className="spacer"></div>
+      <div className="search-bar">
+        <input className="search-text" type="text" placeholder="Search" />
+        <button className="submit-button">Search</button>
+      </div>
       <div className="columns">
       {ingredients.map((ingredient) => (
       <div className="column" key={ingredient.id}>
