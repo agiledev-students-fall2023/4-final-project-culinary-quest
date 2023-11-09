@@ -61,7 +61,7 @@ app.get("/api/recipes", async (req, res) => {
 app.get("/api/ingredients", async (req, res) => {
   // search functionality
   const{ searchQuery } = req.query;
-  console.log('Received searchQuery:', searchQuery);
+  //console.log('Received searchQuery:', searchQuery);
 
   // load all ingredients from json file
   try {
@@ -256,14 +256,14 @@ app.post("/api/ingredients", async (req, res) => {
 // search query for ingredients
 app.get("/api/ingredients/:name", async (req, res) => {
   try {
-    // Get the search query from the URL parameter
+    // get the search query from the URL 
     const searchQuery = req.params.name;
 
-    // Make sure ingredients is defined (replace this with your actual array or fetch logic)
+    // make sure ingredients is defined 
     let ingredients = [];
 
     if (searchQuery) {
-      // If there is a search query, filter ingredients by name
+      // if there is a search query, filter ingredients by name
       ingredients = ingredients.filter((ingredient) =>
         ingredient.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
