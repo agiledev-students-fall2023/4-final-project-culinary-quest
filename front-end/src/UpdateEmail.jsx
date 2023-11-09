@@ -27,7 +27,7 @@ function UpdateEmail() {
                 setErrorMessage(data.error || 'An error occurred while changing the email');
             }
         } else {
-            // If no username is input, set the error message state
+            // If no email is input, set the error message state
             setErrorMessage('Please input a new email address');
         }
     };    

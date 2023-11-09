@@ -89,6 +89,23 @@ app.post('/api/update-email', (req, res) => {
   }
 });
 
+// Update-Phone route
+app.post('/api/update-phone', (req, res) => {
+  const { newPhone } = req.body;
+
+  if (newPhone) {
+    res.json({
+      message: 'Phone number successfully changed',
+      status: 'success'
+    });
+  } else {
+    res.status(400).json({
+      error: 'Failed to reset phone number',
+      status: 'failed'
+    });
+  }
+});
+
 // a route to handle fetching all recipes
 app.get("/api/recipes", async (req, res) => {
   try {
