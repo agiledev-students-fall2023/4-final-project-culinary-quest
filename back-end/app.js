@@ -16,7 +16,8 @@ app.use(express.json());
 // Required temp json files -- to be replaced by database code in the future
 const recipeRaw = require('./static/recipes.json')
 
-const ingredientRaw = require('./static/ingredients.json')
+const ingredientRaw = require('./static/ingredients.json');
+const { emitWarning } = require("process");
 //----------------------------------------------------------------------------
 
 // Temporary route message for the home screen (does nothing)
@@ -209,20 +210,56 @@ app.get("/api/recipes/search", async (req, res) => {
     // console.log(`recieved terms: ${req.query.y}`)
     // Take the search terms and split them apart via commas
     // RegEx is used to account for commas with and without spaces after
-    const searchTerms = req.query.y.split(/, |,/)
-    const filteredRecipes = recipeRaw.filter(recipe => {
-      let isValid = true
-      for (let i = 0; i < searchTerms.length; i++) {
-        // console.log("condition: ", isValid)
-        isValid = isValid && (recipe.name.includes(searchTerms[i]) || recipe.desc.includes(searchTerms[i]))
-      }
-      return isValid
-    })
-    // console.log("filtered results: ", filteredRecipes)
-    res.json({
-      recipes: filteredRecipes,
-      status: 'all good - search',
-    })
+    let searchTerms = req.query.y.split(/, |,/)
+    // console.log("toggle: ", req.query.z)
+    // console.log("tf:", req.query.z == "true")
+    // If the user is filtering by available ingredients
+    if (req.query.z == "true") {
+      // console.log("filter")
+      let filteredRecipes = recipeRaw.filter(recipe => {
+        let isValid = true
+        
+        for (let i = 0; i < searchTerms.length; i++) {
+          // console.log("condition: ", isValid)
+          isValid = isValid && (recipe.name.toLowerCase().includes(searchTerms[i].toLowerCase()) || recipe.desc.includes(searchTerms[i]))
+        }
+        return isValid
+      })
+
+      filteredRecipes = filteredRecipes.filter(recipe => {
+        let isValid = false
+        
+        for (let i = 0; i < recipe.ingr.length; i++) {
+          for (let j = 0; j < ingredientRaw.length; j++) {
+            isValid = isValid || ingredientRaw[j].name.toLowerCase() == recipe.ingr[i].toLowerCase()
+          }
+        }
+        return isValid
+      })
+
+      res.json({
+        recipes: filteredRecipes,
+        status: 'all good - search',
+      })
+    }
+
+    // If the user is not filtering by available ingredients
+    else {
+      // console.log("no filter")
+      let filteredRecipes = recipeRaw.filter(recipe => {
+        let isValid = true
+        for (let i = 0; i < searchTerms.length; i++) {
+          // console.log("condition: ", isValid)
+          isValid = isValid && (recipe.name.includes(searchTerms[i]) || recipe.desc.includes(searchTerms[i]))
+        }
+        return isValid
+      })
+
+      res.json({
+        recipes: filteredRecipes,
+        status: 'all good - search',
+      })
+    }
   } 
   catch (err) {
     console.error(err)

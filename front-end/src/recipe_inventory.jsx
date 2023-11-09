@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 const RecipeInv = props => {
     const [recipes, setRecipes] = useState([])
     const [search, setSearch] = useState("")
+    const [toggle, setToggle] = useState(false);
     const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001'
 
     // const fetchRecipes = () => {
@@ -28,16 +29,14 @@ const RecipeInv = props => {
     const searchRecipes = (props) => {
         // console.log(search)
         axios
-            .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/search`, { params: {y: search}})
+            .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/search`, { params: {y: search, z: toggle}})
             .then(response => {
-                // console.log("Help 0")
+                console.log("successfully contacted back end")
                 const recipes = response.data.recipes
-                // console.log("Help 1")
                 setRecipes(recipes)
-                // console.log("Help 2")
             })
             .catch(err => {
-                // console.log("Help 3")
+                console.log("error: failed to contact back end")
             })
     }
 
@@ -50,12 +49,11 @@ const RecipeInv = props => {
     // }, [])
 
     useEffect(() => {
-        // console.log("search pull")
         searchRecipes()
         return e => {
-            // console.log("done")
+            console.log("done")
         }
-    }, [search])
+    }, [search, toggle])
     
     return (
         <div className = "RECIPE-INV">
@@ -63,15 +61,14 @@ const RecipeInv = props => {
             {/* --- SEARCH BAR & FILTERS --- */}
             <div className = "search">
                 <input type="text" value = {search} placeholder="Search for a recipe" onChange={(e) => setSearch(e.target.value)}/>
-
                 <div className = "search-tools">
-                    {/* Placeholder for the toggleable filter button
-                    <div className = "square" />
+                    {toggle === true ?
+                    <button className = "square-on" onClick = {() => setToggle(!toggle)}/> :
+                    <button className = "square-off" onClick = {() => setToggle(!toggle)}/>
+                    }
                     <div className = "filter-text">
                         <p>Filter by available ingredients</p>
-                    </div> */}
-                    {/* Placeholder for the search button */}
-                    {/* Also placeholder for the header's burger menu button; on click it sets the state to either 1 or 0 */}
+                    </div>
                 </div>
             </div>
 
