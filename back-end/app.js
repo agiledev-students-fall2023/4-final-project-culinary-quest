@@ -39,6 +39,7 @@ app.get('/api/login', (req, res) => {
   }
 });
 
+// Change-Username route
 app.post('/api/change-username', (req, res) => {
   const { newUsername } = req.body;
 
@@ -51,6 +52,22 @@ app.post('/api/change-username', (req, res) => {
     res.status(400).json({
       error: 'no username input',
       status: 'failed'
+    });
+  }
+});
+
+// Change-Password route
+app.post('/api/change-password', (req, res) => {
+  const { password, newPassword, newPasswordAgain } = req.body;
+  if (password && newPassword && newPasswordAgain) {
+    res.json({
+      message: 'Password successfully changed',
+      status: 'success',
+    });
+  } else {
+    res.status(400).json({
+      error: 'Failed to reset password',
+      status: 'failed',
     });
   }
 });
