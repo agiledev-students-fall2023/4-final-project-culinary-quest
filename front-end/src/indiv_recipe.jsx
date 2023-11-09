@@ -44,13 +44,19 @@ const IndivRecipe = (props)  => {
         <div className="recipe-view">
             <label className="title-label">{recipe.name}</label>
 
-            <div className="image-section">[recipe.img]<br /></div>
+            <div className="image-section">
+                <img src = {recipe.img} alt = {recipe.name} />
+                <br />
+            </div>
 
             <label className="text-label">Recipe Description:</label>
-            <label className="text-box">[Recipe Description Here]</label>
+            <label className="text-box">{recipe.desc}</label>
+
+            <label className="text-label">Recipe Ingredients:</label>
+            <label className="text-box">{recipe.ingr}</label>
 
             <label className="text-label">Recipe Steps:</label>
-            <label className="text-box">[Recipe Steps Here]</label>
+            <label className="text-box">{recipe.steps}</label>
 
             <div className="button-container">
                 <Link to="/recipe-edit" className="button">Edit Recipe</Link>

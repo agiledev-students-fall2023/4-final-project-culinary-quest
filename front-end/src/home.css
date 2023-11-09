@@ -235,3 +235,8 @@
   box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
   background-color: #ff5a3c;
 }
+
+.description{
+  overflow: hidden;
+  max-height: 5em;
+}

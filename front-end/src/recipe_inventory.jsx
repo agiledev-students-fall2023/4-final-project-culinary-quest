@@ -89,7 +89,7 @@ const RecipeInv = props => {
                             >
                                 {/* Placeholder for the photo */}
                                 <div className = "recipe-photo">
-                                <p>PLACEHOLDER</p>
+                                    <img src = {recipe.img} alt = {recipe.name} />
                                 </div>
 
                                 <div className = "recipe-text">
