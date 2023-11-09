@@ -66,7 +66,7 @@ const Home = () => {
         </span>
         {recentIngredient && (
           <Link to={`/ingredients/${recentIngredient.id}`} className="sampleIngredient">
-            <img src={recentIngredient.imageURL} alt="Image" />
+            <img src={recentIngredient.imageURL} alt={recentIngredient.name} />
             <div className="description">
               <h3>{recentIngredient.name}</h3>
               <p>{recentIngredient.amount}</p>
@@ -87,14 +87,18 @@ const Home = () => {
         <Link to="/recipe-inventory" className="AllRecipes">
           All Recipes<FaArrowRight className="Arrow"/>
         </Link>
-        {recentRecipe && (<Link to={`/recipes/single/${recentRecipe.id}`} state = {{x: recentRecipe.id}} className="sampleRecipe">
-          <img src="https://shorturl.at/gHJ89" alt="Image" />
-          <div className="description">
-            <h3>{recentRecipe.name}</h3>
-            <p>{recentRecipe.desc}</p>
-          </div>
-        </Link>
-        )}
+
+        <div className = "recipeTile">
+          {recentRecipe && (<Link to={`/recipes/single/${recentRecipe.id}`} state = {{x: recentRecipe.id}} className="sampleRecipe">
+            <img src={recentRecipe.img} alt={recentRecipe.name} />
+            <div className="description">
+              <h3>{recentRecipe.name}</h3>
+              <p>{recentRecipe.desc}</p>
+            </div>
+          </Link>
+          )}
+        </div>
+        
         <div className="AddRecipeButton">
           <Link to="/recipe-add" className="AddRecipe">
             Add Recipe

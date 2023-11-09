@@ -64,12 +64,14 @@
     color: black;
 }
 
-.RECIPE-INV .recipe-list .recipe-tile .recipe-photo{
+.RECIPE-INV .recipe-list .recipe-tile .recipe-photo {
     aspect-ratio: 1 / 1;
     background-color: gray;
     text-align: center;
     margin: auto;
     min-width: 150px;
+    max-width: 150px;
+    overflow: hidden;
 }
 
 .RECIPE-INV .recipe-list .recipe-tile .recipe-text {
@@ -103,4 +105,9 @@ h1 {
 
 .italic {
     font-style: italic;
+}
+
+img {
+    height: 100%;
+    width: 100%;
 }
