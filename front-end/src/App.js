@@ -59,7 +59,7 @@ function Main() {
             <Route path="/ingredient-edit" element={<IngredientEdit />} />
             <Route path="/recipe-inventory" element={<RecipeInv />} />
             <Route path="/recipe-search" element={<RecipeSearch />} />
-            <Route path="/" element={<Login />} exact />{" "}
+            <Route path="/" element={<Home />} exact />{" "}
           </Routes>
       </div>
     </div>
