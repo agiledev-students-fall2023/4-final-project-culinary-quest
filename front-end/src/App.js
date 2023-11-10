@@ -53,7 +53,7 @@ function Main() {
             <Route path="/update-phone" element={<UpdatePhone />} />
             <Route path="/ingredient-add" element={<IngredientAdd />} />
             <Route path="/recipe-add" element={<RecipeAdd />} />
-            <Route path="/recipe-edit" element={<RecipeEdit />} />
+            <Route path="/recipe-edit/:id" element={<RecipeEdit />} />
             
             <Route path="/ingredients/:id" element={<Ingredient />} />
             <Route path="/ingredient-edit/:id" element={<IngredientEdit />} />

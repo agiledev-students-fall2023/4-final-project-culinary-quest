@@ -287,7 +287,6 @@ app.get("/api/recipes/search", async (req, res) => {
 module.exports = app
 
 
-
 // Ingredient Edit 
 
 const fs = require('fs').promises; // This allows us to use async/await with file system operations
@@ -321,6 +320,63 @@ app.put("/api/ingredients/:id", async (req, res) => {
     res.status(500).json({ message: "Server error while updating ingredient" });
   }
 });
+
+
+
+// Recipe Edit
+app.put("/api/recipes/:id", async (req, res) => {
+  const { id } = req.params; // the id of the recipe to update
+  const { name, img, size, time, desc, ingr, steps } = req.body; // the updated values for the recipe
+
+  try {
+    // Read the recipes file
+    const data = await fs.readFile('./static/recipes.json', 'utf8');
+    let recipes = JSON.parse(data);
+
+    // Find the recipe by ID
+    const index = recipes.findIndex(recipe => recipe.id === parseInt(id));
+    if (index === -1) {
+      // If the recipe isn't found, send a 404 response
+      return res.status(404).json({ message: "Recipe not found" });
+    }
+
+    // Update the recipe
+    recipes[index] = { ...recipes[index], name, img, size, time, desc, ingr, steps };
+
+    // Write the updated recipes back to the file
+    await fs.writeFile('./static/recipes.json', JSON.stringify(recipes, null, 2), 'utf8');
+
+    // Send a success response
+    res.json({ message: "Recipe updated successfully" });
+  } catch (err) {
+    // If there's an error, log it and send a 500 server error response
+    console.error(err);
+    res.status(500).json({ message: "Server error while updating recipe" });
+  }
+});
+
+
+// Fetch single recipe for edit
+app.get("/api/recipes/single/:id", async (req, res) => {
+  const id = parseInt(req.params.id); // Use req.params to get the id
+
+  try {
+    const data = await fs.readFile('./static/recipes.json', 'utf8');
+    const recipes = JSON.parse(data);
+
+    const recipe = recipes.find(r => r.id === id);
+    if (!recipe) {
+      return res.status(404).json({ message: "Recipe not found" });
+    }
+
+    res.json(recipe); // Send the recipe data as is
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error while retrieving recipe" });
+  }
+});
+
+
 
 // Ingredient add 
 app.post("/api/ingredients", async (req, res) => {
@@ -359,6 +415,49 @@ app.post("/api/ingredients", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error while adding new ingredient" });
+  }
+});
+
+
+// Recipe add
+app.post("/api/recipes", async (req, res) => {
+  const { name, img, size, time, desc, ingr, steps } = req.body; // extract ingr from the body directly
+
+  if (!name || name.trim() === '') {
+    return res.status(400).json({ message: "Recipe name is required." });
+  }
+
+  try {
+    const data = await fs.readFile('./static/recipes.json', 'utf8');
+    let recipes = JSON.parse(data);
+
+    // Generate the next ID
+    const nextId = recipes.length > 0 ? Math.max(...recipes.map(r => r.id)) + 1 : 1;
+
+    // Create a new recipe object
+    const newRecipe = {
+      id: nextId,
+      name,
+      img,
+      size: parseInt(size, 10),
+      time: parseInt(time, 10),
+      desc,
+      ingr, // Use the passed array
+      steps,
+      lastViewed: Date.now()
+    };
+
+    // Append the new recipe to the array
+    recipes.push(newRecipe);
+
+    // Write the updated array back to the file
+    await fs.writeFile('./static/recipes.json', JSON.stringify(recipes, null, 2), 'utf8');
+
+    // Send a success response with the new recipe
+    res.status(201).json(newRecipe);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error while adding new recipe" });
   }
 });
 
