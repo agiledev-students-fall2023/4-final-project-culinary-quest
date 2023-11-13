@@ -102,7 +102,7 @@
 
 .CreateButton {
   height: 39px;
-  left: 105px;
+  left: 70px;
   position: absolute;
   top: 760px;
   width: 234px;
@@ -116,7 +116,7 @@
   font-size: 15px;
   font-weight: 400;
   height: 39px;
-  line-height: 39px;
+  line-height: 21px;
   text-align: center;
   width: 80%;
   text-decoration: none;
@@ -152,6 +152,15 @@
   background-color: #ff5a3c;
 }
 
+.error-message-CA{
+  color: red;
+  font-size: 12px;
+  font-family: "Inter-Regular", Helvetica;
+  position: absolute;
+  top: 890px;
+  left: auto;
+  text-align: center;
+}
 .AppLogo {
   background-image: url(../public/IMG_1702.jpg);
   background-size: 100%;
