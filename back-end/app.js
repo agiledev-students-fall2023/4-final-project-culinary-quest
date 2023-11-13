@@ -198,7 +198,7 @@ app.get("/api/recipes/search", async (req, res) => {
     console.error(err)
     res.status(400).json({
       error: err,
-      status: 'failed to filter recipes',
+      status: 'failed to find recipes',
     })
   }
 })
