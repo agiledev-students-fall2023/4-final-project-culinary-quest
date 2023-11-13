@@ -27,7 +27,7 @@ const IndivRecipe = (props)  => {
                 setRecipe(indivRecipe)
             })
             .catch(err => {
-                console.log("error getting recipe")
+                console.log("error getting recipe", err)
             })
     }
 
@@ -38,7 +38,7 @@ const IndivRecipe = (props)  => {
             console.log("done")
             console.log(recipe)
         }
-    }, [])
+    }, [selectedRecipe])
 
     return (
         <div className="recipe-view">
@@ -53,13 +53,14 @@ const IndivRecipe = (props)  => {
             <label className="text-box">{recipe.desc}</label>
 
             <label className="text-label">Recipe Ingredients:</label>
-            <label className="text-box">{recipe.ingr}</label>
+            <label className="text-box">{Array.isArray(recipe.ingr) ? recipe.ingr.join(', ') : recipe.ingr}</label>
+
 
             <label className="text-label">Recipe Steps:</label>
             <label className="text-box">{recipe.steps}</label>
 
             <div className="button-container">
-                <Link to="/recipe-edit" className="button">Edit Recipe</Link>
+                <Link to={`/recipe-edit/${recipe.id}`} className="button">Edit Recipe</Link>
 
                 <Link to="/recipe-inventory" className="button">Return to Recipe Inventory</Link> {/* for now home should point to recipe inventory later*/}
             </div>

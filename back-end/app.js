@@ -20,12 +20,25 @@ const ingredientRaw = require('./static/ingredients.json');
 const { emitWarning } = require("process");
 //----------------------------------------------------------------------------
 
-// Temporary route message for the home screen (does nothing)
+// Home route
 app.get("/home", async (req, res) => {
-  res.send("please send help [crying_face]")
+  try {
+    res.json({
+      message: 'Home route',
+      status: 'success',
+    })
+  } 
+  catch (err) {
+    console.error(err)
+    res.status(400).json({
+      error: err,
+      status: 'failed',
+    })
+  }
 })
+
 // Login route
-app.get('/api/login', (req, res) => {
+app.post('/api/login', (req, res) => {
   const { email, password } = req.body;
   if (email && password) {
     res.json({
@@ -36,6 +49,106 @@ app.get('/api/login', (req, res) => {
     res.status(401).json({
       error: 'Invalid credentials',
       status: 'failed',
+    });
+  }
+});
+
+// Create Account route
+app.post('/api/create-account', (req, res) => {
+  const { username, email, password, passwordAgain } = req.body;
+  if (username && email && password && passwordAgain) {
+    res.json({
+      message: 'Account successfully created',
+      status: 'success',
+    });
+  } else {
+    res.status(400).json({
+      error: 'Failed to create account',
+      status: 'failed',
+    });
+  }
+});
+
+// Forgot-Password route
+app.post('/api/forgot-password', (req, res) => {
+  const { email } = req.body;
+
+  if (email) {
+    res.json({
+      message: 'Password reset email sent',
+      status: 'success'
+    });
+  } else {
+    res.status(400).json({
+      error: 'Failed to send password reset email',
+      status: 'failed'
+    });
+  }
+});
+
+// Change-Username route
+app.post('/api/change-username', (req, res) => {
+  const { newUsername } = req.body;
+
+  if (newUsername) {
+    res.json({
+      message: 'Username successfully changed',
+      status: 'success'
+    });
+  } else {
+    res.status(400).json({
+      error: 'Failed to reset username',
+      status: 'failed'
+    });
+  }
+});
+
+// Change-Password route
+app.post('/api/change-password', (req, res) => {
+  const { password, newPassword, newPasswordAgain } = req.body;
+  if (password && newPassword && newPasswordAgain) {
+    res.json({
+      message: 'Password successfully changed',
+      status: 'success',
+    });
+  } else {
+    res.status(400).json({
+      error: 'Failed to reset password',
+      status: 'failed',
+    });
+  }
+});
+
+// Update-Email route
+app.post('/api/update-email', (req, res) => {
+  const { newEmail } = req.body;
+
+  if (newEmail) {
+    res.json({
+      message: 'Email successfully changed',
+      status: 'success'
+    });
+  } else {
+    res.status(400).json({
+      error: 'Failed to reset email',
+      status: 'failed'
+    });
+  }
+});
+
+// Update-Phone route
+app.post('/api/update-phone', (req, res) => {
+  const { newPhone } = req.body;
+
+  if (newPhone) {
+    res.json({
+      message: 'Phone number successfully changed',
+      status: 'success'
+    });
+  } else {
+    res.status(400).json({
+      error: 'Failed to reset phone number',
+      status: 'failed'
     });
   }
 });
@@ -60,9 +173,20 @@ app.get("/api/recipes", async (req, res) => {
 
 // a route to handle fetching all ingredients
 app.get("/api/ingredients", async (req, res) => {
+  // search functionality
+  const{ searchQuery } = req.query;
+  //console.log('Received searchQuery:', searchQuery);
+
   // load all ingredients from json file
   try {
-    const ingredients = ingredientRaw
+    let ingredients = ingredientRaw
+    if(searchQuery){
+      //if there is a search query, need to filter (checking by ingredient.name)
+      ingredients = ingredients.filter((ingredient) =>
+      ingredient.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
     res.json({
       ingredients: ingredients,
       status: 'all good',
@@ -209,7 +333,6 @@ app.get("/api/recipes/search", async (req, res) => {
 module.exports = app
 
 
-
 // Ingredient Edit 
 
 const fs = require('fs').promises; // This allows us to use async/await with file system operations
@@ -243,6 +366,63 @@ app.put("/api/ingredients/:id", async (req, res) => {
     res.status(500).json({ message: "Server error while updating ingredient" });
   }
 });
+
+
+
+// Recipe Edit
+app.put("/api/recipes/:id", async (req, res) => {
+  const { id } = req.params; // the id of the recipe to update
+  const { name, img, size, time, desc, ingr, steps } = req.body; // the updated values for the recipe
+
+  try {
+    // Read the recipes file
+    const data = await fs.readFile('./static/recipes.json', 'utf8');
+    let recipes = JSON.parse(data);
+
+    // Find the recipe by ID
+    const index = recipes.findIndex(recipe => recipe.id === parseInt(id));
+    if (index === -1) {
+      // If the recipe isn't found, send a 404 response
+      return res.status(404).json({ message: "Recipe not found" });
+    }
+
+    // Update the recipe
+    recipes[index] = { ...recipes[index], name, img, size, time, desc, ingr, steps };
+
+    // Write the updated recipes back to the file
+    await fs.writeFile('./static/recipes.json', JSON.stringify(recipes, null, 2), 'utf8');
+
+    // Send a success response
+    res.json({ message: "Recipe updated successfully" });
+  } catch (err) {
+    // If there's an error, log it and send a 500 server error response
+    console.error(err);
+    res.status(500).json({ message: "Server error while updating recipe" });
+  }
+});
+
+
+// Fetch single recipe for edit
+app.get("/api/recipes/single/:id", async (req, res) => {
+  const id = parseInt(req.params.id); // Use req.params to get the id
+
+  try {
+    const data = await fs.readFile('./static/recipes.json', 'utf8');
+    const recipes = JSON.parse(data);
+
+    const recipe = recipes.find(r => r.id === id);
+    if (!recipe) {
+      return res.status(404).json({ message: "Recipe not found" });
+    }
+
+    res.json(recipe); // Send the recipe data as is
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error while retrieving recipe" });
+  }
+});
+
+
 
 // Ingredient add 
 app.post("/api/ingredients", async (req, res) => {
@@ -281,5 +461,78 @@ app.post("/api/ingredients", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error while adding new ingredient" });
+  }
+});
+
+
+// Recipe add
+app.post("/api/recipes", async (req, res) => {
+  const { name, img, size, time, desc, ingr, steps } = req.body; // extract ingr from the body directly
+
+  if (!name || name.trim() === '') {
+    return res.status(400).json({ message: "Recipe name is required." });
+  }
+
+  try {
+    const data = await fs.readFile('./static/recipes.json', 'utf8');
+    let recipes = JSON.parse(data);
+
+    // Generate the next ID
+    const nextId = recipes.length > 0 ? Math.max(...recipes.map(r => r.id)) + 1 : 1;
+
+    // Create a new recipe object
+    const newRecipe = {
+      id: nextId,
+      name,
+      img,
+      size: parseInt(size, 10),
+      time: parseInt(time, 10),
+      desc,
+      ingr, // Use the passed array
+      steps,
+      lastViewed: Date.now()
+    };
+
+    // Append the new recipe to the array
+    recipes.push(newRecipe);
+
+    // Write the updated array back to the file
+    await fs.writeFile('./static/recipes.json', JSON.stringify(recipes, null, 2), 'utf8');
+
+    // Send a success response with the new recipe
+    res.status(201).json(newRecipe);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error while adding new recipe" });
+  }
+});
+
+
+// search query for ingredients
+app.get("/api/ingredients/:name", async (req, res) => {
+  try {
+    // get the search query from the URL 
+    const searchQuery = req.params.name;
+
+    // make sure ingredients is defined 
+    let ingredients = [];
+
+    if (searchQuery) {
+      // if there is a search query, filter ingredients by name
+      ingredients = ingredients.filter((ingredient) =>
+        ingredient.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    res.json({
+      ingredients: ingredients,
+      status: 'all good',
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({
+      error: err,
+      status: 'failed to retrieve ingredients',
+    });
   }
 });
