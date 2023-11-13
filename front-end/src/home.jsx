@@ -53,14 +53,6 @@ const Home = () => {
         <span className="HomeTitle">
           Home
         </span>
-        <div className="SearchBar">
-          <input type="text" placeholder="Search ingredients or recipes"/>
-        </div>
-        <div className="SearchButton">
-          <Link to="/inventory" className="Search">
-            <FontAwesomeIcon icon={faSearch} />
-          </Link>
-        </div>
         <span className="RecentIngredients">
           Recent Ingredients: 
         </span>
