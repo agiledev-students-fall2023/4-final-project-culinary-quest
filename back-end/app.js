@@ -20,12 +20,25 @@ const ingredientRaw = require('./static/ingredients.json');
 const { emitWarning } = require("process");
 //----------------------------------------------------------------------------
 
-// Temporary route message for the home screen (does nothing)
+// Home route
 app.get("/home", async (req, res) => {
-  res.send("please send help [crying_face]")
+  try {
+    res.json({
+      message: 'Home route',
+      status: 'success',
+    })
+  } 
+  catch (err) {
+    console.error(err)
+    res.status(400).json({
+      error: err,
+      status: 'failed',
+    })
+  }
 })
+
 // Login route
-app.get('/api/login', (req, res) => {
+app.post('/api/login', (req, res) => {
   const { email, password } = req.body;
   if (email && password) {
     res.json({
@@ -36,6 +49,39 @@ app.get('/api/login', (req, res) => {
     res.status(401).json({
       error: 'Invalid credentials',
       status: 'failed',
+    });
+  }
+});
+
+// Create Account route
+app.post('/api/create-account', (req, res) => {
+  const { username, email, password, passwordAgain } = req.body;
+  if (username && email && password && passwordAgain) {
+    res.json({
+      message: 'Account successfully created',
+      status: 'success',
+    });
+  } else {
+    res.status(400).json({
+      error: 'Failed to create account',
+      status: 'failed',
+    });
+  }
+});
+
+// Forgot-Password route
+app.post('/api/forgot-password', (req, res) => {
+  const { email } = req.body;
+
+  if (email) {
+    res.json({
+      message: 'Password reset email sent',
+      status: 'success'
+    });
+  } else {
+    res.status(400).json({
+      error: 'Failed to send password reset email',
+      status: 'failed'
     });
   }
 });

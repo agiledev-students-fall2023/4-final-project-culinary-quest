@@ -1,22 +1,37 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useState } from 'react';
-import "./login.css";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./login.css";
 
-const Login = () => {
+function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
-    try {
-      const response = await axios.get('http://localhost:3001/api/login', {
-        email: email,
-        password: password,
-      });
-      console.log(response.data.message);
-    } catch (error) {
-      console.error('Login failed:', error);
+    if (email && password) {
+      try {
+        // Make the POST request to the back-end
+        const response = await axios.post("http://localhost:3001/api/login", {
+          email,
+          password,
+        });
+
+        if (response.status === 200) {
+          // If successful, navigate to the home page
+          navigate("/home");
+        } else {
+          // If unsuccessful, display an error message
+          setErrorMessage(response.data.error || "An error occurred while logging in");
+        }
+      } catch (error) {
+        // Handle any unexpected errors
+        setErrorMessage("An unexpected error occurred");
+      }
+    } else {
+      // If email or password is missing, display an error message
+      setErrorMessage("Please provide both email and password");
     }
   }
 
@@ -33,10 +48,10 @@ const Login = () => {
           Forgot Password?
         </Link>
         <div className="LoginButton">
-        <Link to="/home" className="Login">
-          Log In
-        </Link>
-      </div>
+          <button className="Login" onClick={handleLogin}>
+            Log In
+          </button>
+        </div>
         <div className="SignUpLink">
           <span className="CreateMessage">
             Don’t have an account? {" "}
@@ -47,8 +62,9 @@ const Login = () => {
         </div>
         <div className="AppLogo" />
       </div>
+      {errorMessage && <div className="error-message-log">{errorMessage}</div>}
     </div>
   );
-};
+}
 
 export default Login;
