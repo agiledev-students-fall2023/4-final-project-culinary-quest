@@ -80,5 +80,35 @@ describe('/GET api/ingredients/:name', () => {
   });
 });
 
+describe('/GET api/ingredients', () => {
+  it('it should return all ingredients', async () => {
+    const res = await chai.request(app).get('/api/ingredients');
+    expect(res).to.have.status(200);
+    expect(res.body).to.have.property('ingredients').to.be.an('array');
+    expect(res.body.ingredients).to.not.be.empty;
+    expect(res.body).to.have.property('status').eql('all good');
+  });
+
+  it('it should filter ingredients based on the search query', async () => {
+    const searchQuery = 'exampleIngredient'; // Replace with a valid ingredient name for testing
+    const res = await chai.request(app).get(`/api/ingredients?searchQuery=${searchQuery}`);
+    expect(res).to.have.status(200);
+    expect(res.body).to.have.property('ingredients').to.be.an('array');
+    expect(res.body.ingredients).to.satisfy((ingredients) =>
+      ingredients.every((ingredient) => ingredient.name.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+    expect(res.body).to.have.property('status').eql('all good');
+  });
+
+  it('it should return an empty array if no ingredients match the search query', async () => {
+    const searchQuery = 'nonExistentIngredient';
+    const res = await chai.request(app).get(`/api/ingredients?searchQuery=${searchQuery}`);
+    expect(res).to.have.status(200);
+    expect(res.body).to.have.property('ingredients').to.be.an('array').that.is.empty;
+    expect(res.body).to.have.property('status').eql('all good');
+  });
+
+});
+
 // Run the tests with the following command:
 // npx mocha --exit
