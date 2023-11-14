@@ -108,7 +108,52 @@ describe('POST /api/change-password', () => {
   });
 });
 
-
+// Test the create account route
+describe('/POST api/create-account', () => {
+    it('it should create an account and return a success message for valid data', async () => {
+      const res = await chai
+        .request(app)
+        .post('/api/create-account')
+        .send({
+          username: 'testuser',
+          email: 'testuser@example.com',
+          password: 'testpassword',
+          passwordAgain: 'testpassword',
+        });
+      expect(res).to.have.status(200);
+      expect(res.body).to.have.property('message').eql('Account successfully created');
+      expect(res.body).to.have.property('status').eql('success');
+    });
+  
+    it('it should return an error for missing fields', async () => {
+      const res = await chai
+        .request(app)
+        .post('/api/create-account')
+        .send({
+          username: 'testuser',
+          email: 'testuser@example.com',
+          // Missing password and passwordAgain
+        });
+      expect(res).to.have.status(400);
+      expect(res.body).to.have.property('error').eql('Failed to create account');
+      expect(res.body).to.have.property('status').eql('failed');
+    });
+  
+    it('it should return an error for passwords that do not match', async () => {
+      const res = await chai
+        .request(app)
+        .post('/api/create-account')
+        .send({
+          username: 'testuser',
+          email: 'testuser@example.com',
+          password: 'testpassword',
+          passwordAgain: 'mismatchedpassword',
+        });
+      expect(res).to.have.status(400);
+      expect(res.body).to.have.property('error').eql('Failed to create account');
+      expect(res.body).to.have.property('status').eql('failed');
+    });
+  });
 
 // test forgot-password route
 describe('POST /api/forgot-password', () => {
