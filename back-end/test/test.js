@@ -50,5 +50,15 @@ describe('/GET api/ingredients/:name', () => {
   });
 });
 
+describe('/GET api/recipes', () => {
+  it('it should return all the recipes available', async () => {
+    const res = await chai.request(app).get('/api/recipes');
+    expect(res).to.have.status(200);
+    expect(res.body).to.have.property('recipes').to.be.an('array');
+    expect(res.body).to.have.property('status').eql('all good');
+  });
+});
+
 // Run the tests with the following command:
 // npx mocha --exit
+
