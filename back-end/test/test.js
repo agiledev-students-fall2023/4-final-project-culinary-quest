@@ -38,6 +38,36 @@ describe('/POST api/login', () => {
   });
 });
 
+// test changeUsername route
+describe('POST /api/change-username', () => {
+  it('should change the username if a new username is provided', (done) => {
+    const newUsername = 'newUser123';
+    chai.request(app)
+      .post('/api/change-username')
+      .send({ newUsername })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('message', 'Username successfully changed');
+        expect(res.body).to.have.property('status', 'success');
+        done();
+      });
+  });
+
+  it('should return an error if no new username is provided', (done) => {
+    chai.request(app)
+      .post('/api/change-username')
+      .send({})
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error', 'Failed to reset username');
+        expect(res.body).to.have.property('status', 'failed');
+        done();
+      });
+  });
+});
+
 // Add similar tests for other routes...
 
 // Example unit test for the ingredients search route
