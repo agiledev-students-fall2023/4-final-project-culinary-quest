@@ -185,8 +185,6 @@ describe('POST /api/forgot-password', () => {
   });
 });
 
-// Add similar tests for other routes...
-
 // Example unit test for the ingredients search route
 describe('/GET api/ingredients/:name', () => {
   it('it should return filtered ingredients based on the search query', async () => {
@@ -226,6 +224,42 @@ describe('/GET api/ingredients', () => {
   });
 
 });
+
+// Test for updating an ingredient
+describe('PUT /api/ingredients/:id', () => {
+  it('should update an ingredient successfully', async () => {
+    const ingredientId = 1; // Replace with a valid ingredient ID
+    const updatedData = {
+      name: 'Updated Ingredient Name',
+      amount: 'Updated Amount',
+      imageURL: 'Updated Image URL'
+    };
+
+    const res = await chai.request(app)
+      .put(`/api/ingredients/${ingredientId}`)
+      .send(updatedData);
+
+    expect(res).to.have.status(200);
+    expect(res.body).to.have.property('message').eql('Ingredient updated successfully');
+  });
+
+  it('should return 404 for an ingredient that does not exist', async () => {
+    const invalidId = 9999; // Use an ID that does not exist
+    const updatedData = {
+      name: 'Non-existent Ingredient',
+      amount: '0',
+      imageURL: 'Non-existent URL'
+    };
+
+    const res = await chai.request(app)
+      .put(`/api/ingredients/${invalidId}`)
+      .send(updatedData);
+
+    expect(res).to.have.status(404);
+    expect(res.body).to.have.property('message').eql('Ingredient not found');
+  });
+});
+
 
 // Run the tests with the following command:
 // npx mocha --exit
