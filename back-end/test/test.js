@@ -279,7 +279,7 @@ describe('PUT /api/ingredients/:id', () => {
     expect(res.body).to.have.property('message').eql('Ingredient not found');
   });
 });
-
+});
 
 // Run the tests with the following command:
 // npx mocha --exit
