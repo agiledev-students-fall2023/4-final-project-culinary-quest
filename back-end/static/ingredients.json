@@ -43,9 +43,9 @@
   },
   {
     "id": 1,
-    "imageURL": "/apple.jpg",
-    "name": "ingredient 2",
-    "amount": "2 pounds",
+    "imageURL": "Updated Image URL",
+    "name": "Updated Ingredient Name",
+    "amount": "Updated Amount",
     "lastViewed": 1699479541378
   }
 ]
