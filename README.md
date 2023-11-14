@@ -7,7 +7,7 @@ A more organized way to keep track of ingredients and recipes, allowing one to a
 - Anna (https://github.com/annalovellette; annalovellette on Discord)
 - Jason (https://github.com/Jason-SL-Zhang; JSLZ on Discord)
 - Jeremy (https://github.com/zc2126; Typeset on Discord)
-- Janet (https://github.com/avidyae; avidyae on Discord)
+- Janet (https://github.com/jp6024; avidyae on Discord)
 - Petra (https://github.com/PetraIvanovic8; Petra on Discord)
 
 ## Short History
