@@ -40,14 +40,15 @@ const RecipeInv = props => {
             })
     }
 
-    // useEffect(() => {
-    //     console.log("initial pull")
-    //     fetchRecipes()
-    //     return e => {
-    //         console.log("done")
-    //     }
-    // }, [])
+    // useEffect to load the recipes initially -- only runs upon start
+    useEffect(() => {
+        fetchRecipes()
+        return e => {
+            console.log("done")
+        }
+    }, [])
 
+    // useEffect to update recipes shown after filtering -- it only activates upon the search button being clicked
     useEffect(() => {
         searchRecipes()
         return e => {
@@ -55,9 +56,12 @@ const RecipeInv = props => {
         }
     }, [search, toggle])
     
+    // ##########################################################################
+
     return (
         <div className = "RECIPE-INV">
             <h1>Your Recipes</h1>
+
             {/* --- SEARCH BAR & FILTERS --- */}
             <div className = "search">
                 <input type="text" value = {search} placeholder="Search for a recipe" onChange={(e) => setSearch(e.target.value)}/>

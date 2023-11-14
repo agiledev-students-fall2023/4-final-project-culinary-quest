@@ -222,8 +222,28 @@ describe('/GET api/ingredients', () => {
     expect(res.body).to.have.property('ingredients').to.be.an('array').that.is.empty;
     expect(res.body).to.have.property('status').eql('all good');
   });
-
 });
+  
+describe('/GET api/recipes', () => {
+  it('it should return all the recipes available', async () => {
+    const res = await chai.request(app).get('/api/recipes');
+    expect(res).to.have.status(200);
+    expect(res.body).to.have.property('recipes').to.be.an('array');
+    expect(res.body).to.have.property('status').eql('all good');
+  });
+});
+
+describe('/GET api/recipes/single/:recipeId', () => {
+  it('it should return a single selected recipe', async () => {
+    const res = await chai
+      .request(app)
+      .post('/api/recipes/single/:recipeId')
+      .send({y: 0})
+    console.log(res.body)
+    expect(res).to.have.status(200);
+    expect(res.body).to.have.property('recipe').to.be.an('array');
+    expect(res.body).to.have.property('status').eql('all good - single');
+  });
 
 // Test for updating an ingredient
 describe('PUT /api/ingredients/:id', () => {
@@ -263,3 +283,4 @@ describe('PUT /api/ingredients/:id', () => {
 
 // Run the tests with the following command:
 // npx mocha --exit
+

@@ -17,7 +17,6 @@ app.use(express.json());
 const recipeRaw = require('./static/recipes.json')
 
 const ingredientRaw = require('./static/ingredients.json');
-const { emitWarning } = require("process");
 //----------------------------------------------------------------------------
 
 // Home route
@@ -239,7 +238,7 @@ app.get("/api/ingredients/:id", async (req, res) => {
 // Route to fetch a single recipe
 app.get("/api/recipes/single/:recipeId", async (req, res) => {
   try {
-    // console.log(`recieved: ${req.query.y}`)
+    console.log(`recieved: ${req.query.y}`)
     const id = req.query.y
     const recipe = recipeRaw.find(x => x.id == id)
 
@@ -247,7 +246,7 @@ app.get("/api/recipes/single/:recipeId", async (req, res) => {
     recipeRaw.sort((a,b) => (b.lastViewed || 0) - (a.lastViewed || 0))
     await fs.writeFile('./static/recipes.json', JSON.stringify(recipeRaw, null, 2), 'utf8');
 
-    res.json({
+    res.status(200).json({
       recipe: recipe,
       status: 'all good - single',
     })
@@ -322,7 +321,7 @@ app.get("/api/recipes/search", async (req, res) => {
     console.error(err)
     res.status(400).json({
       error: err,
-      status: 'failed to filter recipes',
+      status: 'failed to find recipes',
     })
   }
 })
@@ -370,7 +369,8 @@ app.put("/api/ingredients/:id", async (req, res) => {
 
 
 // Recipe Edit
-app.put("/api/recipes/:id", async (req, res) => {
+app.put("/api/recipes/edit/:id", async (req, res) => {
+  console.log("recieved for edit", req.query.x)
   const { id } = req.params; // the id of the recipe to update
   const { name, img, size, time, desc, ingr, steps } = req.body; // the updated values for the recipe
 
