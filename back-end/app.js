@@ -246,7 +246,7 @@ app.get("/api/recipes/single/:recipeId", async (req, res) => {
     recipeRaw.sort((a,b) => (b.lastViewed || 0) - (a.lastViewed || 0))
     await fs.writeFile('./static/recipes.json', JSON.stringify(recipeRaw, null, 2), 'utf8');
 
-    res.json({
+    res.status(200).json({
       recipe: recipe,
       status: 'all good - single',
     })

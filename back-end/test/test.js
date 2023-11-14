@@ -59,6 +59,19 @@ describe('/GET api/recipes', () => {
   });
 });
 
+describe('/GET api/recipes/single/:recipeId', () => {
+  it('it should return a single selected recipe', async () => {
+    const res = await chai
+      .request(app)
+      .post('/api/recipes/single/:recipeId')
+      .send({y: 0})
+    console.log(res.body)
+    expect(res).to.have.status(200);
+    expect(res.body).to.have.property('recipe').to.be.an('array');
+    expect(res.body).to.have.property('status').eql('all good - single');
+  });
+});
+
 // Run the tests with the following command:
 // npx mocha --exit
 
