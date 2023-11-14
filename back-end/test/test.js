@@ -38,7 +38,7 @@ describe('/POST api/login', () => {
   });
 });
 
-// test changeUsername route
+// test change-username route
 describe('POST /api/change-username', () => {
   it('should change the username if a new username is provided', (done) => {
     const newUsername = 'newUser123';
@@ -62,6 +62,78 @@ describe('POST /api/change-username', () => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error', 'Failed to reset username');
+        expect(res.body).to.have.property('status', 'failed');
+        done();
+      });
+  });
+});
+
+// test change-password route
+describe('POST /api/change-password', () => {
+  it('should change the password if all required fields are provided', (done) => {
+    const passwordDetails = {
+      password: 'oldPassword123',
+      newPassword: 'newPassword123',
+      newPasswordAgain: 'newPassword123'
+    };
+
+    chai.request(app)
+      .post('/api/change-password')
+      .send(passwordDetails)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('message', 'Password successfully changed');
+        expect(res.body).to.have.property('status', 'success');
+        done();
+      });
+  });
+
+  it('should return an error if any field is missing', (done) => {
+    const passwordDetails = {
+      newPassword: 'newPassword123',
+      newPasswordAgain: 'newPassword123'
+    };
+
+    chai.request(app)
+      .post('/api/change-password')
+      .send(passwordDetails)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error', 'Failed to reset password');
+        expect(res.body).to.have.property('status', 'failed');
+        done();
+      });
+  });
+});
+
+
+
+// test forgot-password route
+describe('POST /api/forgot-password', () => {
+  it('should send a password reset email if email is provided', (done) => {
+    const email = 'user@example.com';
+    chai.request(app)
+      .post('/api/forgot-password')
+      .send({ email })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('message', 'Password reset email sent');
+        expect(res.body).to.have.property('status', 'success');
+        done();
+      });
+  });
+
+  it('should return an error if no email is provided', (done) => {
+    chai.request(app)
+      .post('/api/forgot-password')
+      .send({})
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error', 'Failed to send password reset email');
         expect(res.body).to.have.property('status', 'failed');
         done();
       });
