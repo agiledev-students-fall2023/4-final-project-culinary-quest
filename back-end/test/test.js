@@ -284,3 +284,66 @@ describe('PUT /api/ingredients/:id', () => {
 // Run the tests with the following command:
 // npx mocha --exit
 
+// tests for ingredients
+describe('Ingredient API', () => {
+  it('should filter ingredients based on the search query', (done) => {
+    const mockIngredients = [
+      {
+        "id": 10,
+        "name": "Lemons",
+        "amount": "5",
+        "imageURL": "/apple.jpg",
+        "lastViewed": 1699857089237
+      },
+      {
+        "id": 9,
+        "name": "Bananas",
+        "amount": "8 kg",
+        "imageURL": "/apple.jpg",
+        "lastViewed": 1699564383686
+      },
+      // Add more mock ingredients as needed
+    ];
+
+    // Mock the route handler to simulate the server's response
+    app.get('/app/ingredients/:name', async (req, res) => {
+      try {
+        const searchQuery = req.params.name.toLowerCase(); // Get the search query from the URL
+
+        // Filter mockIngredients based on the search query
+        const filteredIngredients = mockIngredients.filter((ingredient) =>
+          ingredient.name.toLowerCase().includes(searchQuery)
+        );
+
+        res.json({
+          ingredients: filteredIngredients,
+          status: 'all good',
+        });
+      } catch (err) {
+        console.error(err);
+        res.status(400).json({
+          error: err,
+          status: 'failed to retrieve ingredients',
+        });
+      }
+    });
+
+    const searchQuery = 'lemon'; // Search query to test filtering
+
+    chai.request(app)
+      .get(`/app/ingredients/${searchQuery}`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('ingredients').that.is.an('array');
+
+        // Check if the ingredients array is filtered based on the search query
+        const filteredIngredients = res.body.ingredients.map(ingredient => ingredient.name.toLowerCase());
+        const expectedFilteredIngredients = ['lemons']; // Expected filtered ingredients based on the search query
+
+        expect(filteredIngredients).to.have.members(expectedFilteredIngredients);
+        expect(res.body).to.have.property('status').that.equals('all good');
+        done();
+      });
+  });
+});
