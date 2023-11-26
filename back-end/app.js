@@ -2,7 +2,7 @@
 const express = require("express") // CommonJS import style!
 
 // Middleware to add support for requests from other servers (so the front-end)
-// DO NOT REMOVE UNDER ANY CIRCUMSTANCES THIS IS WHAT ALLOWS THEM TO TALK
+// DO NOT REMOVE UNDER ANY CIRCUMSTANCES, THIS IS WHAT ALLOWS THEM TO TALK
 const cors = require('cors')
 
 // ----------------------------------------------------------------------------
@@ -18,6 +18,15 @@ const recipeRaw = require('./static/recipes.json')
 
 const ingredientRaw = require('./static/ingredients.json');
 //----------------------------------------------------------------------------
+
+// Initialize Mongoose to communicate with MongoDB database
+const mongoose = require('mongoose')
+require('dotenv').config({ silent: true })
+
+mongoose
+  .connect(`${process.env.DB_CONNECTION_URI}`)
+  .then(data => console.log(`Connected to MongoDB`))
+  .catch(err => console.error(`Failed to connect to MongoDB: ${err}`))
 
 // Home route
 app.get("/home", async (req, res) => {
