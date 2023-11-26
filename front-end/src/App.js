@@ -42,23 +42,25 @@ function Main() {
             <Route path="/home" element={<Home />} />
             <Route path="/create-account" element={<CreateAccount />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/recipes/single/:recipeId" element={<IndivRecipe />} />
-            <Route path="/inventory" element={<Ingredient_Inventory />} />
-            <Route path="/search" element={<Ingredient_Search />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/change-password" element={<ChangePassword />} />
             <Route path="/change-username" element={<ChangeUsername />} />
             <Route path="/update-contact" element={<UpdateContact />} />
             <Route path="/update-email" element={<UpdateEmail />} />
             <Route path="/update-phone" element={<UpdatePhone />} />
-            <Route path="/ingredient-add" element={<IngredientAdd />} />
-            <Route path="/recipe-add" element={<RecipeAdd />} />
-            <Route path="/recipe-edit/:id" element={<RecipeEdit />} />
             
             <Route path="/ingredients/:id" element={<Ingredient />} />
             <Route path="/ingredient-edit/:id" element={<IngredientEdit />} />
+            <Route path="/ingredient-add" element={<IngredientAdd />} />
+            <Route path="/inventory" element={<Ingredient_Inventory />} />
+            <Route path="/search" element={<Ingredient_Search />} />
+
             <Route path="/recipe-inventory" element={<RecipeInv />} />
             <Route path="/recipe-search" element={<RecipeSearch />} />
+            <Route path="/recipe-add" element={<RecipeAdd />} />
+            <Route path="/recipe-edit/:id" element={<RecipeEdit />} />
+            <Route path="/recipes/single/:recipeId" element={<IndivRecipe />} />
+
             <Route path="/" element={<Login />} exact />{" "}
           </Routes>
       </div>
