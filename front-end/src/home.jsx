@@ -57,7 +57,7 @@ const Home = () => {
           Recent Ingredients: 
         </span>
         {recentIngredient && (
-          <Link to={`/ingredients/${recentIngredient.id}`} className="sampleIngredient">
+          <Link to={`/ingredients/${recentIngredient._id}`} className="sampleIngredient">
             <img src={recentIngredient.imageURL} alt={recentIngredient.name} />
             <div className="description">
               <h3>{recentIngredient.name}</h3>
