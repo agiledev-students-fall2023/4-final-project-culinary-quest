@@ -67,10 +67,10 @@ const RecipeEdit = () => {
   return (
     <div className="recipe-edit">
       <label className="image-upload-label">
-        {imageSrc ? <img src={imageSrc} alt="Uploaded Recipe" className="uploaded-image"/> : 
-        <div className="image-section">RECIPE IMAGE<br />take a picture / upload a picture</div>}
-        <input type="file" className="image-upload-input" accept="image/*" onChange={handleImageChange} />
-      </label>
+          {imageSrc ? <img src={imageSrc} alt="Uploaded Recipe" className="uploaded-image"/> : 
+          <div className="image-section">RECIPE IMAGE<br />Upload a picture or take a picture</div>}
+          <input type="file" className="image-upload-input" accept="image/*" capture onChange={handleImageChange} />
+        </label>
 
       <label className="input-label">Recipe Name:</label>
       <div className="input-box">
