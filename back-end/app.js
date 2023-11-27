@@ -21,6 +21,9 @@ const ingredientRaw = require('./static/ingredients.json');
 
 // Initialize Mongoose to communicate with MongoDB database
 const mongoose = require('mongoose')
+
+const User = require('./models/User');
+
 require('dotenv').config({ silent: true })
 
 mongoose
@@ -128,19 +131,29 @@ app.post('/api/change-password', (req, res) => {
 });
 
 // Update-Email route
-app.post('/api/update-email', (req, res) => {
+app.post('/api/update-email', async (req, res) => {
   const { newEmail } = req.body;
 
   if (newEmail) {
-    res.json({
-      message: 'Email successfully changed',
-      status: 'success'
-    });
+    try {
+      // Check if a user with this email already exists
+      let user = await User.findOne({ email: newEmail });
+
+      if (user) {
+        // Email already exists in the database
+        res.status(400).json({ error: 'Email already in use', status: 'failed' });
+      } else {
+        // Create a new user or update existing user logic here
+        user = new User({ email: newEmail });
+        await user.save();
+
+        res.json({ message: 'Email successfully changed', status: 'success' });
+      }
+    } catch (error) {
+      res.status(500).json({ error: 'Server error', status: 'failed' });
+    }
   } else {
-    res.status(400).json({
-      error: 'Failed to reset email',
-      status: 'failed'
-    });
+    res.status(400).json({ error: 'Email is required', status: 'failed' });
   }
 });
 
