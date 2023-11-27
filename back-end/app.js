@@ -182,7 +182,7 @@ app.get("/api/recipes", async (req, res) => {
 
 /// INGREDIENTS
 
-const Ingredient = require('./Ingredient'); // Import Ingredient model
+const Ingredient = require('./models/Ingredient'); // Import Ingredient model
 
 // Route to fetch all ingredients - ingredient inventory
 app.get("/api/ingredients", async (req, res) => {
@@ -315,6 +315,48 @@ app.get("/api/ingredients/:name", async (req, res) => {
   }
 });
 
+// RECIPES
+
+const Recipe = require('./models/Recipe')
+
+// Route to fetch a recipes based on a query
+app.get("/api/recipes/search", async (req, res) => {
+  try {
+    // Take the search terms and split them apart via commas
+    // RegEx is used to account for commas with and without spaces after
+    let searchTerms = req.query.y.split(/, |,/)
+
+    // If the user is filtering by available ingredients
+    if (req.query.z == "true") {
+      let aIngr = await Ingredient.find({amount: {$ne: "0"}})
+      let recipes = await Recipe.find({$or:[{name: searchTerms}, {desc: searchTerms}, {ingr: searchTerms, aIngr}]}).sort({ lastViewed: -1 })
+      res.json({recipes: recipes, status: "All good - recipes recieved"})
+    }
+
+    // If the user is not filtering by available ingredients
+    else {
+      if (searchTerms != "") {
+        console.log(searchTerms)
+        let recipes = await Recipe.find({$or:[{name: searchTerms}, {desc: searchTerms}, {ingr: searchTerms}]}).sort({ lastViewed: -1 })
+        console.log(recipes)
+        res.json({recipes: recipes, status: "All good - recipes recieved"})
+      }
+      else {
+        console.log(searchTerms)
+        let recipes = await Recipe.find().sort({ lastViewed: -1 })
+        console.log(recipes)
+        res.json({recipes: recipes, status: "All good - recipes recieved"})
+      }
+    }
+  } 
+  catch (err) {
+    console.error(err)
+    res.status(400).json({
+      error: err,
+      status: 'failed to find recipes',
+    })
+  }
+})
 
 // Route to fetch a single recipe
 app.get("/api/recipes/single/:recipeId", async (req, res) => {
@@ -341,79 +383,8 @@ app.get("/api/recipes/single/:recipeId", async (req, res) => {
   }
 })
 
-// Route to fetch a recipes based on a query
-app.get("/api/recipes/search", async (req, res) => {
-  try {
-    // console.log(`recieved terms: ${req.query.y}`)
-    // Take the search terms and split them apart via commas
-    // RegEx is used to account for commas with and without spaces after
-    let searchTerms = req.query.y.split(/, |,/)
-    // console.log("toggle: ", req.query.z)
-    // console.log("tf:", req.query.z == "true")
-    // If the user is filtering by available ingredients
-    if (req.query.z == "true") {
-      // console.log("filter")
-      let filteredRecipes = recipeRaw.filter(recipe => {
-        let isValid = true
-        
-        for (let i = 0; i < searchTerms.length; i++) {
-          // console.log("condition: ", isValid)
-          isValid = isValid && (recipe.name.toLowerCase().includes(searchTerms[i].toLowerCase()) || recipe.desc.includes(searchTerms[i]))
-        }
-        return isValid
-      })
-
-      filteredRecipes = filteredRecipes.filter(recipe => {
-        let isValid = false
-        
-        for (let i = 0; i < recipe.ingr.length; i++) {
-          for (let j = 0; j < ingredientRaw.length; j++) {
-            isValid = isValid || ingredientRaw[j].name.toLowerCase() == recipe.ingr[i].toLowerCase()
-          }
-        }
-        return isValid
-      })
-
-      res.json({
-        recipes: filteredRecipes,
-        status: 'all good - search',
-      })
-    }
-
-    // If the user is not filtering by available ingredients
-    else {
-      // console.log("no filter")
-      let filteredRecipes = recipeRaw.filter(recipe => {
-        let isValid = true
-        for (let i = 0; i < searchTerms.length; i++) {
-          // console.log("condition: ", isValid)
-          isValid = isValid && (recipe.name.includes(searchTerms[i]) || recipe.desc.includes(searchTerms[i]))
-        }
-        return isValid
-      })
-
-      res.json({
-        recipes: filteredRecipes,
-        status: 'all good - search',
-      })
-    }
-  } 
-  catch (err) {
-    console.error(err)
-    res.status(400).json({
-      error: err,
-      status: 'failed to find recipes',
-    })
-  }
-})
-
-// Place more routes here
-
 // export the express app we created to make it available to other modules
 module.exports = app
-
-
-
 
 // Recipe Edit
 app.put("/api/recipes/edit/:id", async (req, res) => {
