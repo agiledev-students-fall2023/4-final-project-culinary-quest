@@ -5,6 +5,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
+import * as jwt_decode from 'jwt-decode';
 
 function CreateAccount() {
   const [newName, setNewName] = useState("");
@@ -15,32 +16,28 @@ function CreateAccount() {
   const navigate = useNavigate();
 
   const handleCreateAccount = async () => {
-    if (newName && newEmail && newPassword && newRePassword) {
-      setErrorMessage("");
+    try {
+      const response = await axios.post("http://localhost:3001/api/create-account", {
+        newName,
+        newEmail,
+        newPassword,
+        newRePassword,
+      });
 
-      try {
-        // Make the POST request to the back-end
-        const response = await axios.post("http://localhost:3001/api/create-account", {
-          newName,
-          newEmail,
-          newPassword,
-          newRePassword,
-        });
+      if (response.status === 200) {
+        const { token } = response.data;
+        const decodedToken = jwt_decode(token);
 
-        if (response.status === 200) {
-          // If successful, navigate to the login page
-          navigate("/login");
-        } else {
-          // If unsuccessful, display an error message
-          setErrorMessage(response.data.error || "An error occurred while creating the account");
-        }
-      } catch (error) {
-        // Handle any unexpected errors
-        setErrorMessage("An unexpected error occurred");
+        // Save the token to local storage or session storage
+        localStorage.setItem('token', token);
+
+        // Navigate to the login page or any other page as needed
+        navigate("/login");
+      } else {
+        setErrorMessage(response.data.error || "An error occurred while creating the account");
       }
-    } else {
-      // If any field is missing, display an error message
-      setErrorMessage("Please fill in all the required fields");
+    } catch (error) {
+      setErrorMessage("An unexpected error occurred");
     }
   };
 

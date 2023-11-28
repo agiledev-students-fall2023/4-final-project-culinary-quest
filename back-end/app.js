@@ -4,7 +4,9 @@ const express = require("express") // CommonJS import style!
 // Middleware to add support for requests from other servers (so the front-end)
 // DO NOT REMOVE UNDER ANY CIRCUMSTANCES, THIS IS WHAT ALLOWS THEM TO TALK
 const cors = require('cors')
+const dotenv = require('dotenv'); // Import dotenv
 
+dotenv.config(); // Load environmental variables from .env file
 // ----------------------------------------------------------------------------
 
 const app = express() // instantiate an Express object
@@ -23,6 +25,7 @@ const ingredientRaw = require('./static/ingredients.json');
 const mongoose = require('mongoose')
 
 const User = require('./models/User');
+const jwt = require('jsonwebtoken'); // Import jsonwebtoken
 
 require('dotenv').config({ silent: true })
 
@@ -69,20 +72,25 @@ app.post('/api/login', (req, res) => {
 });
 
 // Create-Account route
-app.post('/api/create-account', (req, res) => {
+app.post('/api/create-account', async (req, res) => {
   const { username, email, password, passwordAgain } = req.body;
 
   if (username && email && password && passwordAgain) {
     if (password !== passwordAgain) {
       res.status(400).json({
-        error: 'Failed to create account', // <-- Update this line
+        error: 'Failed to create account', 
         status: 'failed',
       });
     } else {
       // Continue with the account creation logic
+
+      // Generate a JWT token
+      const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
       res.json({
         message: 'Account successfully created',
         status: 'success',
+        token, // Send the token to the client
       });
     }
   } else {
@@ -92,7 +100,6 @@ app.post('/api/create-account', (req, res) => {
     });
   }
 });
-
 
 // Forgot-Password route
 app.post('/api/forgot-password', (req, res) => {
@@ -507,5 +514,3 @@ app.post("/api/recipes", async (req, res) => {
     res.status(500).json({ message: "Server error while adding new recipe" });
   }
 });
-
-
