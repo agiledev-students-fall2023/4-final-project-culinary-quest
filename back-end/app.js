@@ -188,23 +188,23 @@ app.post('/api/update-phone', (req, res) => {
   }
 });
 
-// a route to handle fetching all recipes
-app.get("/api/recipes", async (req, res) => {
-  try {
-    const recipes = recipeRaw
-    res.json({
-      recipes: recipes,
-      status: 'all good',
-    })
-  } 
-  catch (err) {
-    console.error(err)
-    res.status(400).json({
-      error: err,
-      status: 'failed to retrieve recipes',
-    })
-  }
-})
+// // a route to handle fetching all recipes
+// app.get("/api/recipes", async (req, res) => {
+//   try {
+//     const recipes = recipeRaw
+//     res.json({
+//       recipes: recipes,
+//       status: 'all good',
+//     })
+//   } 
+//   catch (err) {
+//     console.error(err)
+//     res.status(400).json({
+//       error: err,
+//       status: 'failed to retrieve recipes',
+//     })
+//   }
+// })
 
 
 /// INGREDIENTS
@@ -351,12 +351,12 @@ app.get("/api/recipes/search", async (req, res) => {
   try {
     // Take the search terms and split them apart via commas
     // RegEx is used to account for commas with and without spaces after
-    let searchTerms = req.query.y.split(/, |,/)
+    let searchTerms = { $regex: req.query.y, $options: 'i' }
 
     // If the user is filtering by available ingredients
     if (req.query.z == "true") {
       let aIngr = await Ingredient.find({amount: {$ne: "0"}})
-      let recipes = await Recipe.find({$or:[{name: searchTerms}, {desc: searchTerms}, {ingr: searchTerms, aIngr}]}).sort({ lastViewed: -1 })
+      let recipes = await Recipe.find({$or:[{name: {$regex: searchTerms}}, {desc: searchTerms}, {ingr: searchTerms, aIngr}]}).sort({ lastViewed: -1 })
       res.json({recipes: recipes, status: "All good - recipes recieved"})
     }
 
