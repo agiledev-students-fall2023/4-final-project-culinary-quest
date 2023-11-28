@@ -51,7 +51,11 @@ app.get("/home", async (req, res) => {
 // Login route
 app.post('/api/login', (req, res) => {
   const { email, password } = req.body;
-  if (email && password) {
+
+  // Example: Check if email and password are valid (replace this with your actual validation logic)
+  const isValidCredentials = (email === 'valid@example.com' && password === 'validpassword');
+
+  if (isValidCredentials) {
     res.json({
       message: 'Login successful',
       status: 'success',
@@ -64,14 +68,23 @@ app.post('/api/login', (req, res) => {
   }
 });
 
-// Create Account route
+// Update the server-side code to respond with the expected error message
 app.post('/api/create-account', (req, res) => {
   const { username, email, password, passwordAgain } = req.body;
+
   if (username && email && password && passwordAgain) {
-    res.json({
-      message: 'Account successfully created',
-      status: 'success',
-    });
+    if (password !== passwordAgain) {
+      res.status(400).json({
+        error: 'Failed to create account', // <-- Update this line
+        status: 'failed',
+      });
+    } else {
+      // Continue with the account creation logic
+      res.json({
+        message: 'Account successfully created',
+        status: 'success',
+      });
+    }
   } else {
     res.status(400).json({
       error: 'Failed to create account',
@@ -79,6 +92,7 @@ app.post('/api/create-account', (req, res) => {
     });
   }
 });
+
 
 // Forgot-Password route
 app.post('/api/forgot-password', (req, res) => {
