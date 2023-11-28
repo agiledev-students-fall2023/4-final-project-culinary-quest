@@ -348,7 +348,7 @@ app.get("/api/recipes/search", async (req, res) => {
 
     // If the user is not filtering by available ingredients
     else {
-      if (searchTerms != "") {
+      if (searchTerms != '') {
         console.log(searchTerms)
         let recipes = await Recipe.find({$or:[{name: searchTerms}, {desc: searchTerms}, {ingr: searchTerms}]}).sort({ lastViewed: -1 })
         console.log(recipes)
