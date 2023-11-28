@@ -75,7 +75,7 @@ app.post('/api/create-account', (req, res) => {
   if (username && email && password && passwordAgain) {
     if (password !== passwordAgain) {
       res.status(400).json({
-        error: 'Failed to create account', // <-- Update this line
+        error: 'Failed to create account', 
         status: 'failed',
       });
     } else {
@@ -209,7 +209,7 @@ app.get("/api/recipes", async (req, res) => {
 
 /// INGREDIENTS
 
-const Ingredient = require('./Ingredient'); // Import Ingredient model
+const Ingredient = require('./models/Ingredient'); // Import Ingredient model
 
 // Route to fetch all ingredients - ingredient inventory
 app.get("/api/ingredients", async (req, res) => {
