@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import "./indiv_recipe.css";
 import axios from 'axios';
 import { useState, useEffect } from 'react';
@@ -14,17 +14,18 @@ const IndivRecipe = (props)  => {
     const [recipe, setRecipe] = useState([])
     const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001'
 
-    const loc = useLocation()
-    const selectedRecipe = loc.state?.x
-    console.log(`selected: ${selectedRecipe}`)
+    // const loc = useLocation()
+    const { id } = useParams()
+    // const selectedRecipe = loc.state?.x
+    console.log(`selected: ${id}`)
 
     const fetchRecipe = () => {
-        console.log("here2 ", selectedRecipe)
         axios
-            .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/single/${selectedRecipe}`, { params: {y: selectedRecipe}})
+            .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/single/${id}`)
             .then(response => {
                 const indivRecipe = response.data.recipe
                 setRecipe(indivRecipe)
+                console.log(indivRecipe)
             })
             .catch(err => {
                 console.log("error getting recipe", err)
@@ -38,14 +39,14 @@ const IndivRecipe = (props)  => {
             console.log("done")
             console.log(recipe)
         }
-    }, [selectedRecipe])
+    }, [id])
 
     return (
         <div className="recipe-view">
             <label className="title-label">{recipe.name}</label>
 
             <div className="image-section">
-                <img src = {recipe.img} alt = {recipe.name} />
+                <img src = {recipe.imgURL} alt = {recipe.name} />
                 <br />
             </div>
 

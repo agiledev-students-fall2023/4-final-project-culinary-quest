@@ -81,12 +81,12 @@ const RecipeInv = props => {
                 {/* A function to map an array of recipes */}
                 {recipes.map(function(recipe) {
                     return (
-                        <li key={recipe.id}>
+                        <li key={recipe._id}>
                             {/* Displays each recipe (object) in its own tile */}
                             <Link 
                                 className = "recipe-tile" 
-                                to = {`/recipes/single/${recipe.id}`}
-                                state = {{x: recipe.id}}
+                                to = {`/recipes/single/${recipe._id}`}
+                                // state = {{x: recipe._id}}
                             >
                                 {/* Placeholder for the photo */}
                                 <div className = "recipe-photo">

@@ -356,22 +356,18 @@ app.get("/api/recipes/search", async (req, res) => {
     // If the user is filtering by available ingredients
     if (req.query.z == "true") {
       let aIngr = await Ingredient.find({amount: {$ne: "0"}})
-      let recipes = await Recipe.find({$or:[{name: {$regex: searchTerms}}, {desc: searchTerms}, {ingr: searchTerms, aIngr}]}).sort({ lastViewed: -1 })
+      let recipes = await Recipe.find({$or:[{name: searchTerms}, {desc: searchTerms}, {ingr: searchTerms, aIngr}]}).sort({ lastViewed: -1 })
       res.json({recipes: recipes, status: "All good - recipes recieved"})
     }
 
     // If the user is not filtering by available ingredients
     else {
       if (searchTerms != '') {
-        console.log(searchTerms)
         let recipes = await Recipe.find({$or:[{name: searchTerms}, {desc: searchTerms}, {ingr: searchTerms}]}).sort({ lastViewed: -1 })
-        console.log(recipes)
         res.json({recipes: recipes, status: "All good - recipes recieved"})
       }
       else {
-        console.log(searchTerms)
         let recipes = await Recipe.find().sort({ lastViewed: -1 })
-        console.log(recipes)
         res.json({recipes: recipes, status: "All good - recipes recieved"})
       }
     }
@@ -386,15 +382,15 @@ app.get("/api/recipes/search", async (req, res) => {
 })
 
 // Route to fetch a single recipe
-app.get("/api/recipes/single/:recipeId", async (req, res) => {
+app.get("/api/recipes/single/:id", async (req, res) => {
   try {
-    console.log(`recieved: ${req.query.y}`)
-    const id = req.query.y
-    const recipe = recipeRaw.find(x => x.id == id)
+    const id = req.params.id
+    console.log(`recieved: ${id}`)
+
+    const recipe = await Recipe.findById(id)
 
     recipe.lastViewed = Date.now()
-    recipeRaw.sort((a,b) => (b.lastViewed || 0) - (a.lastViewed || 0))
-    await fs.writeFile('./static/recipes.json', JSON.stringify(recipeRaw, null, 2), 'utf8');
+    await recipe.save()
 
     res.status(200).json({
       recipe: recipe,
