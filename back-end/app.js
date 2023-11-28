@@ -350,7 +350,6 @@ app.get("/api/ingredients/:name", async (req, res) => {
 });
 
 // RECIPES
-
 const Recipe = require('./models/Recipe')
 
 // Route to fetch a recipes based on a query

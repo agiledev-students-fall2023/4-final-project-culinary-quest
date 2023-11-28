@@ -19,7 +19,8 @@ const RecipeEdit = () => {
     axios
       .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/single/${id}`)
       .then(response => {
-        const { name, desc, steps, time, size, ingr, img } = response.data;
+        const { name, desc, steps, time, size, ingr, img } = response.data.recipe;
+
         setRecipeName(name || '');
         setRecipeDescription(desc || '');
         setRecipeSteps(steps || '');

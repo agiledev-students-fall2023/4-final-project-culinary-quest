@@ -28,11 +28,13 @@ const Home = () => {
     };
 
     const fetchRecipes = () => {
-      console.log("h2")
+      console.log("fetching recipe")
       axios
-        .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes`)
+        .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/search`, {params: {y: ''}})
         .then(response => {
           const recipes = response.data.recipes
+          console.log("resp: ", response.data.recipes)
+          console.log("recent rec: ", recipes[0] )
           
           if (recipes.length > 0) {
             setRecentRecipe(recipes[0])
@@ -81,7 +83,7 @@ const Home = () => {
         </Link>
 
         <div className = "recipeTile">
-          {recentRecipe && (<Link to={`/recipes/single/${recentRecipe.id}`} state = {{x: recentRecipe.id}} className="sampleRecipe">
+          {recentRecipe && (<Link to={`/recipes/single/${recentRecipe._id}`} className="sampleRecipe">
             <img src={recentRecipe.img} alt={recentRecipe.name} />
             <div className="description">
               <h3>{recentRecipe.name}</h3>
