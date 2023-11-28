@@ -413,65 +413,89 @@ app.get("/api/recipes/single/:id", async (req, res) => {
   }
 })
 
-// export the express app we created to make it available to other modules
-module.exports = app
-
 // Recipe Edit
 app.put("/api/recipes/edit/:id", async (req, res) => {
-  console.log("recieved for edit", req.query.x)
-  const { id } = req.params; // the id of the recipe to update
+  const id = req.params.id; // the id of the recipe to update
   const { name, img, size, time, desc, ingr, steps } = req.body; // the updated values for the recipe
+  // console.log("recieved for edit", id)
+  // console.log("changes: ", req.body)
 
   try {
     // Read the recipes file
-    const data = await fs.readFile('./static/recipes.json', 'utf8');
-    let recipes = JSON.parse(data);
+    // const data = await fs.readFile('./static/recipes.json', 'utf8');
+    // let recipes = JSON.parse(data);
+    const recipe = await Recipe.findById(id)
+    // console.log("recipe: ", recipe)
 
-    // Find the recipe by ID
-    const index = recipes.findIndex(recipe => recipe.id === parseInt(id));
-    if (index === -1) {
-      // If the recipe isn't found, send a 404 response
-      return res.status(404).json({ message: "Recipe not found" });
-    }
+    // // Find the recipe by ID
+    // const index = recipes.findIndex(recipe => recipe.id === parseInt(id));
+    // if (index === -1) {
+    //   // If the recipe isn't found, send a 404 response
+    //   return res.status(404).json({ message: "Recipe not found" });
+    // }
 
     // Update the recipe
-    recipes[index] = { ...recipes[index], name, img, size, time, desc, ingr, steps };
+    // recipes[index] = { ...recipes[index], name, img, size, time, desc, ingr, steps };
+
+    if (name) {
+      recipe.name = name
+    }
+    else if (img) {
+      recipe.img = img
+    }
+    else if (size) {
+      recipe.size = size
+    }
+    else if (time) {
+      recipe.time = time
+    }
+    else if (desc) {
+      recipe.desc = desc
+    }
+    else if (ingr) {
+      recipe.ingr = ingr
+    }
+    else if (steps) {
+      recipe.steps = steps
+    }
+    // console.log("new recipe: ", recipe)
 
     // Write the updated recipes back to the file
-    await fs.writeFile('./static/recipes.json', JSON.stringify(recipes, null, 2), 'utf8');
+    // await fs.writeFile('./static/recipes.json', JSON.stringify(recipes, null, 2), 'utf8');
+    await recipe.save()
 
     // Send a success response
-    res.json({ message: "Recipe updated successfully" });
+    // res.json({ message: "Recipe updated successfully" });
+    res.status(200).json({
+      status: "recipe updated successfully"
+    })
   } catch (err) {
     // If there's an error, log it and send a 500 server error response
     console.error(err);
-    res.status(500).json({ message: "Server error while updating recipe" });
+    res.status(400).json({ message: "Server error while updating recipe" });
   }
 });
 
 
-// Fetch single recipe for edit
-app.get("/api/recipes/single/:id", async (req, res) => {
-  const id = parseInt(req.params.id); // Use req.params to get the id
+// // Fetch single recipe for edit
+// app.get("/api/recipes/single/:id", async (req, res) => {
+//   const id = parseInt(req.params.id); // Use req.params to get the id
 
-  try {
-    const data = await fs.readFile('./static/recipes.json', 'utf8');
-    const recipes = JSON.parse(data);
+//   try {
+//     const data = await fs.readFile('./static/recipes.json', 'utf8');
+//     const recipes = JSON.parse(data);
 
-    const recipe = recipes.find(r => r.id === id);
-    if (!recipe) {
-      return res.status(404).json({ message: "Recipe not found" });
-    }
+//     const recipe = recipes.find(r => r.id === id);
+//     if (!recipe) {
+//       return res.status(404).json({ message: "Recipe not found" });
+//     }
 
-    res.json(recipe); // Send the recipe data as is
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error while retrieving recipe" });
-  }
-});
-
-
-
+//     res.json(recipe); // Send the recipe data as is
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: "Server error while retrieving recipe" });
+//   }
+// });
 
 // Recipe add
 app.post("/api/recipes", async (req, res) => {
@@ -514,3 +538,6 @@ app.post("/api/recipes", async (req, res) => {
     res.status(500).json({ message: "Server error while adding new recipe" });
   }
 });
+
+// export the express app we created to make it available to other modules
+module.exports = app

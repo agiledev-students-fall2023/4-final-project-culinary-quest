@@ -31,7 +31,7 @@ const RecipeEdit = () => {
       .catch(err => {
         console.error('Failed to fetch recipe:', err);
       });
-  }, [id, REACT_APP_SERVER_HOSTNAME]);
+  }, [id]);
   
 
   const handleImageChange = (e) => {
@@ -45,24 +45,28 @@ const RecipeEdit = () => {
     }
   };
 
-  const handleSave = async () => {
+  const handleSave = () => {
     const ingredientsArray = recipeIngr.split(',').map(ingredient => ingredient.trim());
-
     try {
-      await axios.put(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/${id}`, {
-        name: recipeName,
-        desc: recipeDescription,
-        steps: recipeSteps,
-        time: parseInt(recipeTime, 10),
-        size: parseInt(recipeSize, 10),
-        ingr: ingredientsArray,
-        img: imageSrc,
-      });
-      navigate(`/recipes/${id}`);
-    } catch (error) {
+      console.log(`saving ${id}`)
+      axios
+        .put(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/edit/${id}`, {
+          name: recipeName,
+          desc: recipeDescription,
+          steps: recipeSteps,
+          time: parseInt(recipeTime, 10),
+          size: parseInt(recipeSize, 10),
+          ingr: ingredientsArray,
+          img: imageSrc,
+        })
+        .then(response => {
+          navigate(`/recipes/single/${id}`);
+        })
+    }
+    catch (error) {
       console.error('Failed to save recipe:', error);
     }
-  };
+  }
 
   return (
     <div className="recipe-edit">
