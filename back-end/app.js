@@ -68,7 +68,7 @@ app.post('/api/login', (req, res) => {
   }
 });
 
-// Update the server-side code to respond with the expected error message
+// Create-Account route
 app.post('/api/create-account', (req, res) => {
   const { username, email, password, passwordAgain } = req.body;
 
