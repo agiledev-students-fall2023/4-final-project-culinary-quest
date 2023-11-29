@@ -1,3 +1,40 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    /* border: 2px dotted blue; */
+    background-color: #ffffff;
+  }
+
+.spacer{
+    margin-top: 30px;
+  }
+
+.column {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    /* padding: 10px;
+    width: 100%;  */
+    width: 75%;
+    max-width: 200px;
+    text-align: center;
+  }
+
+.columns {
+    display: flex;
+    flex-wrap: wrap;
+    /* border: 2px solid red; */
+    gap: 20px;
+    padding-top: 30px;
+    /* padding-right: 40%; */
+    justify-content: flex-start; 
+  }
+  
+  
 .RECIPE-INV {
     /* background-color: chartreuse; */
     padding-top: 80px;
@@ -57,11 +94,13 @@
     padding-top: 15px;
     margin: auto;
     list-style-type: none;
+    
 }
 
 .RECIPE-INV .recipe-list .recipe-tile {
     /* background-color: firebrick; */
     display: flex;
+    /* border: 2px solid red; */
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -79,6 +118,7 @@
     min-width: 150px;
     max-width: 150px;
     overflow: hidden;
+    border: 2px solid red;
 }
 
 .RECIPE-INV .recipe-list .recipe-tile .recipe-text {
@@ -117,4 +157,8 @@ h1 {
 img {
     height: 100%;
     width: 100%;
+}
+
+li{
+    list-style-type: none;
 }
