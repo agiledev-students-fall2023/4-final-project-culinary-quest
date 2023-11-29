@@ -59,6 +59,7 @@ const RecipeInv = props => {
     // ##########################################################################
 
     return (
+        <div className = "container"> 
         <div className = "RECIPE-INV">
             <h1>Your Recipes</h1>
 
@@ -75,12 +76,15 @@ const RecipeInv = props => {
                     </div>
                 </div>
             </div>
+            </div>
 
             {/* --- RECIPE LIST --- */}
             <div className = "recipe-list">
                 {/* A function to map an array of recipes */}
                 {recipes.map(function(recipe) {
                     return (
+                        <div className="columns">
+                            <div className="column">
                         <li key={recipe._id}>
                             {/* Displays each recipe (object) in its own tile */}
                             <Link 
@@ -104,6 +108,8 @@ const RecipeInv = props => {
                                 </div>
                             </Link>
                         </li>
+                        </div>
+                        </div>
                         )
                     })}
             </div>
