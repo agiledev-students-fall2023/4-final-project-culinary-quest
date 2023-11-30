@@ -44,7 +44,7 @@ const path = require('path');
 
 // ---------------------------------------------------------------------------
 
-require('dotenv').config({silent : true})
+require('dotenv').config({ silent : true })
 
 mongoose
   .connect(`${process.env.DB_CONNECTION_URI}`)
