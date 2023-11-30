@@ -23,7 +23,6 @@ const ingredientRaw = require('./static/ingredients.json');
 
 // Initialize Mongoose to communicate with MongoDB database
 const mongoose = require('mongoose')
-const bcrypt = require('bcrypt');
 
 const User = require('./models/User');
 const jwt = require('jsonwebtoken'); // Import jsonwebtoken
@@ -90,40 +89,25 @@ app.post('/api/login', (req, res) => {
 
 // Create-Account route
 app.post('/api/create-account', async (req, res) => {
-  const { newName, newEmail, newPassword, newRePassword } = req.body;
+  const { username, email, password, passwordAgain } = req.body;
 
-  if (newName && newEmail && newPassword && newRePassword) {
-    if (newPassword !== newRePassword) {
+  if (username && email && password && passwordAgain) {
+    if (password !== passwordAgain) {
       res.status(400).json({
-        error: 'Passwords do not match', 
+        error: 'Failed to create account', 
         status: 'failed',
       });
     } else {
-      try {
-        // Hash the password before saving it
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
+      // Continue with the account creation logic
 
-        // Continue with the account creation logic
-        const newUser = new User({
-          name: newName,
-          email: newEmail,
-          password: hashedPassword,
-        });
+      // Generate a JWT token
+      const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-        await newUser.save();
-
-        // Generate a JWT token
-        const token = jwt.sign({ newEmail }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-        res.json({
-          message: 'Account successfully created',
-          status: 'success',
-          token,
-        });
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Server error' });
-      }
+      res.json({
+        message: 'Account successfully created',
+        status: 'success',
+        token, // Send the token to the client
+      });
     }
   } else {
     res.status(400).json({
@@ -177,24 +161,41 @@ app.post('/api/forgot-password', (req, res) => {
 });
 
 // Change-Username route
-app.post('/api/change-username', (req, res) => {
+app.post('/api/change-username', async (req, res) => {
   const { newUsername } = req.body;
+  const email = req.user.email;
 
-  if (newUsername) {
-    res.json({
-      message: 'Username successfully changed',
-      status: 'success'
-    });
-  } else {
-    res.status(400).json({
-      error: 'Failed to reset username',
-      status: 'failed'
-    });
+  // Validate the username
+  if (!newUsername || newUsername.trim() === '') {
+    return res.status(400).json({ message: "Username is required." });
+  }
+
+  try {
+    // Check if the new username is already in use by another user
+    const existingUser = await User.findOne({ username: newUsername });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Username already in use' });
+    }
+
+    // Find the logged-in user by email and update their username
+    const user = await User.findById(email);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    user.username = newUsername;
+    await user.save();
+
+    res.json({ message: 'Username successfully updated' });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
 // Change-Password route
-app.post('/api/change-password', (req, res) => {
+app.post('/api/change-password', async (req, res) => {
   const { password, newPassword, newPasswordAgain } = req.body;
   if (password && newPassword && newPasswordAgain) {
     res.json({
@@ -244,21 +245,33 @@ app.post('/api/update-email', async (req, res) => {
 });
 
 // Update-Phone route
-app.post('/api/update-phone', (req, res) => {
+app.post('/api/update-phone', async (req, res) => {
   const { newPhone } = req.body;
+  const username = req.user.username;
 
-  if (newPhone) {
-    res.json({
-      message: 'Phone number successfully changed',
-      status: 'success'
-    });
-  } else {
-    res.status(400).json({
-      error: 'Failed to reset phone number',
-      status: 'failed'
-    });
+  // Validate the phone number
+  if (!newPhone || newPhone.trim() === '') {
+    return res.status(400).json({ message: "Phone number is required." });
+  }
+
+  try {
+    // Find the logged-in user by username and update their phone number
+    const user = await User.findOne({ username: username });
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    user.phone = newPhone;
+    await user.save();
+
+    res.json({ message: 'Phone number successfully updated' });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 // // a route to handle fetching all recipes
 // app.get("/api/recipes", async (req, res) => {
