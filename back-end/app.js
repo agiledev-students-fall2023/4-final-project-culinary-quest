@@ -28,7 +28,8 @@ const bcrypt = require('bcrypt');
 const User = require('./models/User');
 const jwt = require('jsonwebtoken'); // Import jsonwebtoken
 
-require('dotenv').config({silent : true})
+// ---------------------------------------------------------------------------
+
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -42,6 +43,8 @@ const upload = multer({ storage: storage });
 const path = require('path');
 
 // ---------------------------------------------------------------------------
+
+require('dotenv').config({silent : true})
 
 mongoose
   .connect(`${process.env.DB_CONNECTION_URI}`)
