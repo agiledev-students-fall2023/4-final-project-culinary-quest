@@ -17,6 +17,7 @@ function CreateAccount() {
 
   const handleCreateAccount = async () => {
     try {
+      console.log({newName, newEmail, newPassword, newRePassword});
       const response = await axios.post("http://localhost:3001/api/create-account", {
         newName,
         newEmail,

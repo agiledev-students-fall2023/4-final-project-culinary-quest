@@ -23,11 +23,12 @@ const ingredientRaw = require('./static/ingredients.json');
 
 // Initialize Mongoose to communicate with MongoDB database
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt');
 
 const User = require('./models/User');
 const jwt = require('jsonwebtoken'); // Import jsonwebtoken
 
-require('dotenv').config({ silent: true })
+require('dotenv').config()
 
 mongoose
   .connect(`${process.env.DB_CONNECTION_URI}`)
@@ -73,25 +74,40 @@ app.post('/api/login', (req, res) => {
 
 // Create-Account route
 app.post('/api/create-account', async (req, res) => {
-  const { username, email, password, passwordAgain } = req.body;
+  const { newName, newEmail, newPassword, newRePassword } = req.body;
 
-  if (username && email && password && passwordAgain) {
-    if (password !== passwordAgain) {
+  if (newName && newEmail && newPassword && newRePassword) {
+    if (newPassword !== newRePassword) {
       res.status(400).json({
-        error: 'Failed to create account', 
+        error: 'Passwords do not match', 
         status: 'failed',
       });
     } else {
-      // Continue with the account creation logic
+      try {
+        // Hash the password before saving it
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-      // Generate a JWT token
-      const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        // Continue with the account creation logic
+        const newUser = new User({
+          name: newName,
+          email: newEmail,
+          password: hashedPassword,
+        });
 
-      res.json({
-        message: 'Account successfully created',
-        status: 'success',
-        token, // Send the token to the client
-      });
+        await newUser.save();
+
+        // Generate a JWT token
+        const token = jwt.sign({ newEmail }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        res.json({
+          message: 'Account successfully created',
+          status: 'success',
+          token,
+        });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+      }
     }
   } else {
     res.status(400).json({
@@ -100,6 +116,7 @@ app.post('/api/create-account', async (req, res) => {
     });
   }
 });
+
 
 // Forgot-Password route
 app.post('/api/forgot-password', (req, res) => {
