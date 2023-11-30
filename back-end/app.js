@@ -186,21 +186,33 @@ app.post('/api/update-email', async (req, res) => {
 });
 
 // Update-Phone route
-app.post('/api/update-phone', (req, res) => {
+app.post('/api/update-phone', async (req, res) => {
   const { newPhone } = req.body;
+  const username = req.user.username; // Assuming the user ID is stored in req.user.id
 
-  if (newPhone) {
-    res.json({
-      message: 'Phone number successfully changed',
-      status: 'success'
-    });
-  } else {
-    res.status(400).json({
-      error: 'Failed to reset phone number',
-      status: 'failed'
-    });
+  // Validate the phone number
+  if (!newPhone || newPhone.trim() === '') {
+    return res.status(400).json({ message: "Phone number is required." });
+  }
+
+  try {
+    // Find the logged-in user by ID and update their phone number
+    const user = await User.findById(username);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    user.phone = newPhone;
+    await user.save();
+
+    res.json({ message: 'Phone number successfully updated' });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 // // a route to handle fetching all recipes
 // app.get("/api/recipes", async (req, res) => {
