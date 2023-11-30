@@ -27,6 +27,22 @@ const mongoose = require('mongoose')
 const User = require('./models/User');
 const jwt = require('jsonwebtoken'); // Import jsonwebtoken
 
+// ---------------------------------------------------------------------------
+
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+  }
+});
+const upload = multer({ storage: storage });
+const path = require('path');
+
+// ---------------------------------------------------------------------------
+
 require('dotenv').config({ silent: true })
 
 mongoose
@@ -101,6 +117,32 @@ app.post('/api/create-account', async (req, res) => {
   }
 });
 
+// Profile picture upload route  (need to check once login setup)
+app.post('/api/upload-profile-picture', upload.single('profilePicture'), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).send({ message: 'No file uploaded.' });
+  }
+
+  try {
+    const username = req.user.username;
+    const filePath = req.file.path; // This is the path of the uploaded file
+
+    // Update user's profile picture in the database
+    const user = await User.findById(username);
+    if (!user) {
+      return res.status(404).send({ message: 'User not found.' });
+    }
+
+    user.profilePicture = filePath;
+    await user.save();
+
+    res.send({ message: 'Profile picture uploaded successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Error uploading file.' });
+  }
+});
+
 // Forgot-Password route
 app.post('/api/forgot-password', (req, res) => {
   const { email } = req.body;
@@ -119,24 +161,41 @@ app.post('/api/forgot-password', (req, res) => {
 });
 
 // Change-Username route
-app.post('/api/change-username', (req, res) => {
+app.post('/api/change-username', async (req, res) => {
   const { newUsername } = req.body;
+  const email = req.user.email;
 
-  if (newUsername) {
-    res.json({
-      message: 'Username successfully changed',
-      status: 'success'
-    });
-  } else {
-    res.status(400).json({
-      error: 'Failed to reset username',
-      status: 'failed'
-    });
+  // Validate the username
+  if (!newUsername || newUsername.trim() === '') {
+    return res.status(400).json({ message: "Username is required." });
+  }
+
+  try {
+    // Check if the new username is already in use by another user
+    const existingUser = await User.findOne({ username: newUsername });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Username already in use' });
+    }
+
+    // Find the logged-in user by email and update their username
+    const user = await User.findById(email);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    user.username = newUsername;
+    await user.save();
+
+    res.json({ message: 'Username successfully updated' });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
 // Change-Password route
-app.post('/api/change-password', (req, res) => {
+app.post('/api/change-password', async (req, res) => {
   const { password, newPassword, newPasswordAgain } = req.body;
   if (password && newPassword && newPasswordAgain) {
     res.json({
