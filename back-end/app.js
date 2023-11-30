@@ -161,24 +161,41 @@ app.post('/api/forgot-password', (req, res) => {
 });
 
 // Change-Username route
-app.post('/api/change-username', (req, res) => {
+app.post('/api/change-username', async (req, res) => {
   const { newUsername } = req.body;
+  const email = req.user.email;
 
-  if (newUsername) {
-    res.json({
-      message: 'Username successfully changed',
-      status: 'success'
-    });
-  } else {
-    res.status(400).json({
-      error: 'Failed to reset username',
-      status: 'failed'
-    });
+  // Validate the username
+  if (!newUsername || newUsername.trim() === '') {
+    return res.status(400).json({ message: "Username is required." });
+  }
+
+  try {
+    // Check if the new username is already in use by another user
+    const existingUser = await User.findOne({ username: newUsername });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Username already in use' });
+    }
+
+    // Find the logged-in user by email and update their username
+    const user = await User.findById(email);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    user.username = newUsername;
+    await user.save();
+
+    res.json({ message: 'Username successfully updated' });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
 // Change-Password route
-app.post('/api/change-password', (req, res) => {
+app.post('/api/change-password', async (req, res) => {
   const { password, newPassword, newPasswordAgain } = req.body;
   if (password && newPassword && newPasswordAgain) {
     res.json({
