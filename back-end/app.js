@@ -28,7 +28,7 @@ const bcrypt = require('bcrypt');
 const User = require('./models/User');
 const jwt = require('jsonwebtoken'); // Import jsonwebtoken
 
-require('dotenv').config()
+require('dotenv').config({silent : true})
 
 mongoose
   .connect(`${process.env.DB_CONNECTION_URI}`)
