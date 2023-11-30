@@ -27,6 +27,22 @@ const mongoose = require('mongoose')
 const User = require('./models/User');
 const jwt = require('jsonwebtoken'); // Import jsonwebtoken
 
+// ---------------------------------------------------------------------------
+
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+  }
+});
+const upload = multer({ storage: storage });
+const path = require('path');
+
+// ---------------------------------------------------------------------------
+
 require('dotenv').config({ silent: true })
 
 mongoose
@@ -98,6 +114,32 @@ app.post('/api/create-account', async (req, res) => {
       error: 'Failed to create account',
       status: 'failed',
     });
+  }
+});
+
+// Profile picture upload route  (need to check once login setup)
+app.post('/api/upload-profile-picture', upload.single('profilePicture'), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).send({ message: 'No file uploaded.' });
+  }
+
+  try {
+    const username = req.user.username;
+    const filePath = req.file.path; // This is the path of the uploaded file
+
+    // Update user's profile picture in the database
+    const user = await User.findById(username);
+    if (!user) {
+      return res.status(404).send({ message: 'User not found.' });
+    }
+
+    user.profilePicture = filePath;
+    await user.save();
+
+    res.send({ message: 'Profile picture uploaded successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Error uploading file.' });
   }
 });
 
