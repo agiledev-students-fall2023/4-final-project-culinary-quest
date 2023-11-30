@@ -5,14 +5,22 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  phone: {
+    type: String,
+    required: true
+  },
+  username: {
+    type: String,
+    required: true
+  },
   password: {
-      type: String,
-      required: true
+    type: String,
+    required: true
   },
-  name: {
-      type: String,
-      required: true
-  },
+  profilePicture: {
+    type: String, // URL to the image
+    default: ''
+  }
 });
 
 const User = mongoose.model('User', UserSchema);
