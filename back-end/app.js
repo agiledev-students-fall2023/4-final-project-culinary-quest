@@ -154,27 +154,34 @@ app.post('/api/change-password', (req, res) => {
 // Update-Email route
 app.post('/api/update-email', async (req, res) => {
   const { newEmail } = req.body;
+  const username = req.user.username; // Assuming the user ID is stored in req.user.id
 
-  if (newEmail) {
-    try {
-      // Check if a user with this email already exists
-      let user = await User.findOne({ email: newEmail });
+  // Validate the email
+  if (!newEmail || newEmail.trim() === '') {
+    return res.status(400).json({ message: "Email is required." });
+  }
 
-      if (user) {
-        // Email already exists in the database
-        res.status(400).json({ error: 'Email already in use', status: 'failed' });
-      } else {
-        // Create a new user or update existing user logic here
-        user = new User({ email: newEmail });
-        await user.save();
-
-        res.json({ message: 'Email successfully changed', status: 'success' });
-      }
-    } catch (error) {
-      res.status(500).json({ error: 'Server error', status: 'failed' });
+  try {
+    // Check if the new email is already in use by another user
+    const existingUser = await User.findOne({ email: newEmail });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already in use' });
     }
-  } else {
-    res.status(400).json({ error: 'Email is required', status: 'failed' });
+
+    // Find the logged-in user by username and update their email
+    const user = await User.findById(username);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    user.email = newEmail;
+    await user.save();
+
+    res.json({ message: 'Email successfully updated' });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
