@@ -247,7 +247,7 @@ app.post('/api/update-email', async (req, res) => {
 // Update-Phone route
 app.post('/api/update-phone', async (req, res) => {
   const { newPhone } = req.body;
-  const username = req.user.username; // Assuming the user ID is stored in req.user.id
+  const username = req.user.username;
 
   // Validate the phone number
   if (!newPhone || newPhone.trim() === '') {
@@ -255,8 +255,8 @@ app.post('/api/update-phone', async (req, res) => {
   }
 
   try {
-    // Find the logged-in user by ID and update their phone number
-    const user = await User.findById(username);
+    // Find the logged-in user by username and update their phone number
+    const user = await User.findOne({ username: username });
     if (!user) {
       return res.status(404).json({ message: "User not found." });
     }
