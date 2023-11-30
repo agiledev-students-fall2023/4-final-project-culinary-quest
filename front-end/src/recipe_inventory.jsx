@@ -8,23 +8,8 @@ import { Link } from "react-router-dom";
 const RecipeInv = props => {
     const [recipes, setRecipes] = useState([])
     const [search, setSearch] = useState("")
-    const [toggle, setToggle] = useState(false);
+    const [toggle, setToggle] = useState(false)
     const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001'
-
-    const fetchRecipes = () => {
-        axios
-            .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes`)
-            .then(response => {
-                // console.log("Help 0")
-                const recipes = response.data.recipes
-                // console.log("Help 1")
-                setRecipes(recipes)
-                // console.log("Help 2")
-            })
-            .catch(err => {
-                // console.log("Help 3")
-            })
-    }
 
     const searchRecipes = (props) => {
         // console.log(search)
@@ -39,14 +24,6 @@ const RecipeInv = props => {
                 console.log("error: failed to contact back end")
             })
     }
-
-    // useEffect to load the recipes initially -- only runs upon start
-    useEffect(() => {
-        fetchRecipes()
-        return e => {
-            console.log("done")
-        }
-    }, [])
 
     // useEffect to update recipes shown after filtering -- it only activates upon the search button being clicked
     useEffect(() => {

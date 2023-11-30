@@ -335,8 +335,6 @@ app.get("/api/ingredients/:id", async (req, res) => {
   }
 });
 
-
-
 // Route for Ingredient Edit 
 app.put("/api/ingredients/:id", async (req, res) => {
   const { id } = req.params;
@@ -413,7 +411,6 @@ app.get("/api/ingredients/:name", async (req, res) => {
         ingredient.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
-
     res.json({
       ingredients: ingredients,
       status: 'all good',
@@ -430,21 +427,27 @@ app.get("/api/ingredients/:name", async (req, res) => {
 // RECIPES
 const Recipe = require('./models/Recipe')
 
-// Route to fetch a recipes based on a query
+// Route to fetch recipes based on a query (if empty, it will fetch all recipes)
 app.get("/api/recipes/search", async (req, res) => {
   try {
-    // Take the search terms and split them apart via commas
-    // RegEx is used to account for commas with and without spaces after
-    let searchTerms = { $regex: req.query.y, $options: 'i' }
+    let searchTerms = { $regex: req.query.y, $options: 'i' } // Saves query as a case-insensitive regular expression
 
     // If the user is filtering by available ingredients
     if (req.query.z == "true") {
-      let aIngr = await Ingredient.find({amount: {$ne: "0"}})
-      let recipes = await Recipe.find({$or:[{name: searchTerms}, {desc: searchTerms}, {ingr: searchTerms, aIngr}]}).sort({ lastViewed: -1 })
-      res.json({recipes: recipes, status: "All good - recipes recieved"})
+      let aIngr = await Ingredient.find({amount: {$ne: "0"}}) // Pulls all non-zero ingredients as an object
+
+      // If searchTerms are present, it pulls recipes filtering by available ingredients and search terms. If not, it pulls recipes only filtering by availableIngredients
+      if (searchTerms != '') {
+        let recipes = await Recipe.find({$or:[{name: searchTerms}, {desc: searchTerms}, {ingr: searchTerms, aIngr}]}).sort({ lastViewed: -1 })
+        res.json({recipes: recipes, status: "All good - recipes recieved"})
+      }
+      else {
+        let recipes = await Recipe.find({ingr: aIngr}).sort({ lastViewed: -1 })
+        res.json({recipes: recipes, status: "All good - recipes recieved"})
+      }
     }
 
-    // If the user is not filtering by available ingredients
+    // If the user is not filtering by available ingredients (works same as above but without ingredients)
     else {
       if (searchTerms != '') {
         let recipes = await Recipe.find({$or:[{name: searchTerms}, {desc: searchTerms}, {ingr: searchTerms}]}).sort({ lastViewed: -1 })
@@ -468,13 +471,13 @@ app.get("/api/recipes/search", async (req, res) => {
 // Route to fetch a single recipe
 app.get("/api/recipes/single/:id", async (req, res) => {
   try {
-    const id = req.params.id
-    console.log(`recieved: ${id}`)
+    const id = req.params.id // Saves requested recipe id as a variable for brevity
 
-    const recipe = await Recipe.findById(id)
+    const recipe = await Recipe.findById(id) // Pulls recipe by the requested id
 
-    recipe.lastViewed = Date.now()
-    await recipe.save()
+    recipe.lastViewed = Date.now() // Updates lastViewed with current date
+    await recipe.save() // Updates recipe in database with new lastViewed
+
 
     res.status(200).json({
       recipe: recipe,
@@ -498,22 +501,9 @@ app.put("/api/recipes/edit/:id", async (req, res) => {
   // console.log("changes: ", req.body)
 
   try {
-    // Read the recipes file
-    // const data = await fs.readFile('./static/recipes.json', 'utf8');
-    // let recipes = JSON.parse(data);
-    const recipe = await Recipe.findById(id)
-    // console.log("recipe: ", recipe)
+    const recipe = await Recipe.findById(id) // Find the recipe by ID
 
-    // // Find the recipe by ID
-    // const index = recipes.findIndex(recipe => recipe.id === parseInt(id));
-    // if (index === -1) {
-    //   // If the recipe isn't found, send a 404 response
-    //   return res.status(404).json({ message: "Recipe not found" });
-    // }
-
-    // Update the recipe
-    // recipes[index] = { ...recipes[index], name, img, size, time, desc, ingr, steps };
-
+    // Update the recipe if field has been updated (not blank)
     if (name) {
       recipe.name = name
     }
@@ -538,11 +528,9 @@ app.put("/api/recipes/edit/:id", async (req, res) => {
     // console.log("new recipe: ", recipe)
 
     // Write the updated recipes back to the file
-    // await fs.writeFile('./static/recipes.json', JSON.stringify(recipes, null, 2), 'utf8');
     await recipe.save()
 
     // Send a success response
-    // res.json({ message: "Recipe updated successfully" });
     res.status(200).json({
       status: "recipe updated successfully"
     })
