@@ -257,8 +257,6 @@ app.get("/api/ingredients/:id", async (req, res) => {
   }
 });
 
-
-
 // Route for Ingredient Edit 
 app.put("/api/ingredients/:id", async (req, res) => {
   const { id } = req.params;
@@ -352,7 +350,7 @@ app.get("/api/ingredients/:name", async (req, res) => {
 // RECIPES
 const Recipe = require('./models/Recipe')
 
-// Route to fetch a recipes based on a query
+// Route to fetch recipes based on a query
 app.get("/api/recipes/search", async (req, res) => {
   try {
     // Take the search terms and split them apart via commas
@@ -391,7 +389,6 @@ app.get("/api/recipes/search", async (req, res) => {
 app.get("/api/recipes/single/:id", async (req, res) => {
   try {
     const id = req.params.id
-    console.log(`recieved: ${id}`)
 
     const recipe = await Recipe.findById(id)
 
@@ -420,22 +417,10 @@ app.put("/api/recipes/edit/:id", async (req, res) => {
   // console.log("changes: ", req.body)
 
   try {
-    // Read the recipes file
-    // const data = await fs.readFile('./static/recipes.json', 'utf8');
-    // let recipes = JSON.parse(data);
+    // Find the recipe by ID
     const recipe = await Recipe.findById(id)
-    // console.log("recipe: ", recipe)
-
-    // // Find the recipe by ID
-    // const index = recipes.findIndex(recipe => recipe.id === parseInt(id));
-    // if (index === -1) {
-    //   // If the recipe isn't found, send a 404 response
-    //   return res.status(404).json({ message: "Recipe not found" });
-    // }
 
     // Update the recipe
-    // recipes[index] = { ...recipes[index], name, img, size, time, desc, ingr, steps };
-
     if (name) {
       recipe.name = name
     }
