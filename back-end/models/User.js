@@ -5,10 +5,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  /*phone: {
+  phone: {
     type: String,
-    required: true
-  },*/
+    required: false
+  },
   username: {
     type: String,
     required: true
@@ -17,10 +17,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  /*profilePicture: {
+  profilePicture: {
     type: String, // URL to the image
     default: ''
-  }*/
+  }
 });
 
 const User = mongoose.model('User', UserSchema);
