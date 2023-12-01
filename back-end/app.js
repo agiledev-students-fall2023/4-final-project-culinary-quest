@@ -26,7 +26,7 @@ const mongoose = require('mongoose')
 
 const User = require('./models/User');
 const jwt = require('jsonwebtoken'); // Import jsonwebtoken
-
+const bcrypt = require("bcrypt");
 // ---------------------------------------------------------------------------
 
 const multer = require('multer');
@@ -88,30 +88,86 @@ app.post('/api/login', (req, res) => {
 });
 
 // Create-Account route
-app.post('/api/create-account', async (req, res) => {
-  const { username, email, password, passwordAgain } = req.body;
+const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z]).{8,}$/;
 
-  if (username && email && password && passwordAgain) {
-    if (password !== passwordAgain) {
-      res.status(400).json({
-        error: 'Failed to create account', 
+app.post('/api/create-account', async (req, res) => {
+  try {
+    const { newName, newEmail, newPassword, newRePassword } = req.body;
+    console.log('Received request body:', req.body);
+
+    // Check if any of the required fields are missing
+    if (!newName || !newEmail || !newPassword || !newRePassword) {
+      console.log('Error: All fields are required');
+      return res.status(400).json({
+        error: 'All fields are required',
         status: 'failed',
       });
-    } else {
-      // Continue with the account creation logic
+    }
 
-      // Generate a JWT token
-      const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-      res.json({
-        message: 'Account successfully created',
-        status: 'success',
-        token, // Send the token to the client
+    // Check if passwords match
+    if (newPassword !== newRePassword) {
+      console.log('Error: Passwords do not match');
+      return res.status(400).json({
+        error: 'Passwords do not match',
+        status: 'failed',
       });
     }
-  } else {
-    res.status(400).json({
-      error: 'Failed to create account',
+
+    // Validate password with regex
+    if (!passwordRegex.test(newPassword)) {
+      console.log('Error: Invalid password');
+      return res.status(400).json({
+        error: 'Invalid password. It must be at least 8 characters long, contain at least one number, one special character, and one uppercase letter.',
+        status: 'failed',
+      });
+    }
+
+    // Check if the email already exists in the database
+    const existingUser = await User.findOne({ email: newEmail });
+
+    if (existingUser) {
+      console.log('Error: Email already in use');
+      return res.status(400).json({
+        error: 'Email already in use',
+        status: 'failed',
+      });
+    }
+
+    // Hash the password before saving it
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Continue with the account creation logic
+    const newUser = new User({
+      name: newName,
+      email: newEmail,
+      password: hashedPassword,
+    });
+
+    // Save the user to the database
+    try {
+      await newUser.save();
+      console.log('User saved successfully to the database:', newUser);
+    } catch (saveError) {
+      console.error('Error saving user to the database:', saveError);
+      return res.status(500).json({
+        error: 'Error saving user to the database',
+        status: 'failed',
+      });
+    }
+
+    // Generate a JWT token
+    const token = jwt.sign({ newEmail }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    // Send success response
+    res.json({
+      message: 'Account successfully created',
+      status: 'success',
+      token,
+    });
+  } catch (error) {
+    console.error('Unhandled error in create-account route:', error);
+    res.status(500).json({
+      error: `Server error: ${error.message}`,
       status: 'failed',
     });
   }
