@@ -68,20 +68,34 @@ app.get("/home", async (req, res) => {
 })
 
 // Login route
-app.post('/api/login', (req, res) => {
+app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
-  // Example: Check if email and password are valid (replace this with your actual validation logic)
-  const isValidCredentials = (email === 'valid@example.com' && password === 'validpassword');
+  try {
+    // Check if email and password are valid
+    const user = await User.findOne({ email });
 
-  if (isValidCredentials) {
-    res.json({
-      message: 'Login successful',
-      status: 'success',
-    });
-  } else {
-    res.status(401).json({
-      error: 'Invalid credentials',
+    if (user && (await bcrypt.compare(password, user.password))) {
+      // If valid, generate a JWT token and send a success response
+      const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+      res.json({
+        message: 'Login successful',
+        status: 'success',
+        token,
+      });
+    } else {
+      // If invalid, send an error response
+      res.status(401).json({
+        error: 'Invalid credentials',
+        status: 'failed',
+      });
+    }
+  } catch (error) {
+    // Handle any unexpected errors
+    console.error('Error during login:', error);
+    res.status(500).json({
+      error: 'Internal server error',
       status: 'failed',
     });
   }
@@ -92,8 +106,9 @@ const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z]).{8,}$/;
 
 app.post('/api/create-account', async (req, res) => {
   try {
-    const { newName, newEmail, newPassword, newRePassword } = req.body;
     console.log('Received request body:', req.body);
+
+    const { newName, newEmail, newPassword, newRePassword } = req.body;
 
     // Check if any of the required fields are missing
     if (!newName || !newEmail || !newPassword || !newRePassword) {
@@ -158,12 +173,8 @@ app.post('/api/create-account', async (req, res) => {
     // Generate a JWT token
     const token = jwt.sign({ newEmail }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    // Send success response
-    res.json({
-      message: 'Account successfully created',
-      status: 'success',
-      token,
-    });
+    // Redirect the user to the login screen
+    res.redirect('/login');
   } catch (error) {
     console.error('Unhandled error in create-account route:', error);
     res.status(500).json({
