@@ -76,9 +76,10 @@ app.post('/api/login', async (req, res) => {
     const user = await User.findOne({ email });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      // If valid, generate a JWT token and send a success response
-      const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      // If valid, generate a JWT token
+      const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
+      // Send the token to the client
       res.json({
         message: 'Login successful',
         status: 'success',
@@ -100,6 +101,52 @@ app.post('/api/login', async (req, res) => {
     });
   }
 });
+
+// Middleware to verify JWT token
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).json({
+      error: 'Unauthorized',
+      status: 'failed',
+    });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({
+        error: 'Invalid token',
+        status: 'failed',
+      });
+    }
+
+    req.user = decoded;
+    next();
+  });
+};
+
+app.get('/api/protected-route', verifyToken, (req, res) => {
+  try {
+    // Access the authenticated user's information from req.user
+    const { userId, email } = req.user;
+
+    // Your protected route logic here
+    res.json({
+      message: 'This is a protected route',
+      status: 'success',
+      userId,
+      email,
+    });
+  } catch (error) {
+    console.error('Error in protected route:', error);
+    res.status(500).json({
+      error: 'Internal server error',
+      status: 'failed',
+    });
+  }
+});
+
 
 // Create-Account route
 const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z]).{8,}$/;
