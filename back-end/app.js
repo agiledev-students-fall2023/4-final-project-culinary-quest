@@ -27,6 +27,7 @@ const mongoose = require('mongoose')
 const User = require('./models/User');
 const jwt = require('jsonwebtoken'); // Import jsonwebtoken
 const bcrypt = require("bcrypt");
+const { axiosWithAuth } = require('../front-end/src/api');
 // ---------------------------------------------------------------------------
 
 const multer = require('multer');
@@ -72,33 +73,16 @@ app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Check if email and password are valid
     const user = await User.findOne({ email });
-
     if (user && (await bcrypt.compare(password, user.password))) {
-      // If valid, generate a JWT token
       const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-      // Send the token to the client
-      res.json({
-        message: 'Login successful',
-        status: 'success',
-        token,
-      });
+      res.json({ message: 'Login successful', status: 'success', token });
     } else {
-      // If invalid, send an error response
-      res.status(401).json({
-        error: 'Invalid credentials',
-        status: 'failed',
-      });
+      res.status(401).json({ error: 'Invalid credentials', status: 'failed' });
     }
   } catch (error) {
-    // Handle any unexpected errors
     console.error('Error during login:', error);
-    res.status(500).json({
-      error: 'Internal server error',
-      status: 'failed',
-    });
+    res.status(500).json({ error: 'Internal server error', status: 'failed' });
   }
 });
 
@@ -208,17 +192,15 @@ app.post('/api/create-account', async (req, res) => {
     // Save the user to the database
     try {
       await newUser.save();
-      console.log('User saved successfully to the database:', newUser);
-    } catch (saveError) {
+      const token = jwt.sign({ userId: newUser._id, email: newUser.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      res.json({ message: 'Account successfully created', status: 'success', token });
+    } catch (error) {
       console.error('Error saving user to the database:', saveError);
       return res.status(500).json({
         error: 'Error saving user to the database',
         status: 'failed',
       });
     }
-
-    // Generate a JWT token
-    const token = jwt.sign({ newEmail }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     // Redirect the user to the login screen
     res.redirect('/login');
@@ -275,9 +257,9 @@ app.post('/api/forgot-password', (req, res) => {
 });
 
 // Change-Username route
-app.post('/api/change-username', async (req, res) => {
+app.post('/api/change-username', verifyToken, async (req, res) => {
   const { newUsername } = req.body;
-  const email = req.user.email;
+  const userId = req.user.userId; // Extract userId from the JWT token
 
   // Validate the username
   if (!newUsername || newUsername.trim() === '') {
@@ -291,8 +273,8 @@ app.post('/api/change-username', async (req, res) => {
       return res.status(400).json({ message: 'Username already in use' });
     }
 
-    // Find the logged-in user by email and update their username
-    const user = await User.findById(email);
+    // Find the logged-in user by userId and update their username
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found." });
     }

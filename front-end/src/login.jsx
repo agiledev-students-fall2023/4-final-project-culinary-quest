@@ -18,16 +18,20 @@ function Login() {
           password,
         });
 
-        if (response.status === 200) {
+        if (response.data.token) {
+          // Store the token in local storage
+          localStorage.setItem('token', response.data.token);
+
           // If successful, navigate to the home page
           navigate("/home");
         } else {
           // If unsuccessful, display an error message
-          setErrorMessage(response.data.error || "An error occurred while logging in");
+          setErrorMessage("Login failed: Invalid email or password");
         }
       } catch (error) {
         // Handle any unexpected errors
-        setErrorMessage("An unexpected error occurred");
+        const message = error.response?.data?.error || "An unexpected error occurred";
+        setErrorMessage(message);
       }
     } else {
       // If email or password is missing, display an error message
