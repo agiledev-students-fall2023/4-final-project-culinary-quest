@@ -200,7 +200,7 @@ app.post('/api/create-account', async (req, res) => {
 
     // Continue with the account creation logic
     const newUser = new User({
-      name: newName,
+      username: newName,
       email: newEmail,
       password: hashedPassword,
     });
