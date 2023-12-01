@@ -17,9 +17,9 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
-    /* padding: 10px;
-    width: 100%;  */
-    width: 75%;
+    padding: 10px;
+    width: 100%; 
+    /* width: 75%; */
     max-width: 200px;
     text-align: center;
   }
@@ -101,14 +101,14 @@ input{
     margin: auto;
 }
 
-.RECIPE-INV .recipe-list {
+/* .RECIPE-INV .recipe-list { */
     /* background-color: aqua; */
-    width: 75%;
+    /* width: 75%;
     padding-top: 15px;
     margin: auto;
     list-style-type: none;
     
-}
+} */
 
 .RECIPE-INV .recipe-list .recipe-tile {
     /* background-color: firebrick; */
