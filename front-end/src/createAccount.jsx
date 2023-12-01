@@ -1,11 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import "./createAccount.css";
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
-import * as jwt_decode from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 
 function CreateAccount() {
   const [newName, setNewName] = useState("");
@@ -17,12 +17,16 @@ function CreateAccount() {
 
   const handleCreateAccount = async () => {
     try {
+      console.log('Sending request to create account:', { newName, newEmail, newPassword, newRePassword });
+
       const response = await axios.post("http://localhost:3001/api/create-account", {
         newName,
         newEmail,
         newPassword,
         newRePassword,
       });
+
+      console.log('Response from server:', response.data);
 
       if (response.status === 200) {
         const { token } = response.data;
@@ -31,13 +35,17 @@ function CreateAccount() {
         // Save the token to local storage or session storage
         localStorage.setItem('token', token);
 
+        console.log('Account created successfully. Decoded token:', decodedToken);
+
         // Navigate to the login page or any other page as needed
-        navigate("/login");
+        navigate(redirect || "/api/login");
       } else {
+        console.error('Error creating account. Server response:', response.data);
         setErrorMessage(response.data.error || "An error occurred while creating the account");
       }
     } catch (error) {
-      setErrorMessage("An unexpected error occurred");
+      console.error('An unexpected error occurred:', error.response?.data.error || error.message);
+      setErrorMessage(error.response?.data.error || "An unexpected error occurred");
     }
   };
 
