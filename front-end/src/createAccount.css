@@ -1,0 +1,173 @@
+.CreateAccountPage {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  padding-top: 10%;
+}
+
+.CreateAccountContainer {
+  height: 844px;
+  position: relative;
+  width: 390px;
+}
+
+.CreateName {
+  height: 25px;
+  left: 83px;
+  position: absolute;
+  top: 400px;
+  width: 230px;
+}
+
+.CreateName input{
+  width: 100%;
+  height: 150%;
+  padding: 8px;
+  font-size: 15px;
+  color: #000000;
+  background-color: #989898; 
+  border: none; 
+  border-radius: 10px; 
+}
+
+.CreateEmail {
+  height: 25px;
+  left: 83px;
+  position: absolute;
+  top: 450px;
+  width: 230px;
+}
+
+.CreateEmail input{
+  width: 100%;
+  height: 150%;
+  padding: 8px;
+  font-size: 15px;
+  color: #000000;
+  background-color: #989898; 
+  border: none; 
+  border-radius: 10px; 
+  left: 10px;
+}
+
+.PasswordRequirement {
+  height: 25px;
+  left: 90px;
+  position: absolute;
+  top: 555px;
+  width: 230px;
+  color: #000000;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 12px;
+}
+
+.CreatePassword {
+  height: 25px;
+  left: 83px;
+  position: absolute;
+  top: 500px;
+  width: 230px;
+}
+
+.CreatePassword input{
+  width: 100%;
+  height: 150%;
+  padding: 8px;
+  font-size: 15px;
+  color: #000000;
+  background-color: #989898; 
+  border: none; 
+  border-radius: 10px; 
+}
+
+.Re-enterPassword {
+  height: 25px;
+  left: 83px;
+  position: absolute;
+  top: 635px;
+  width: 230px;
+}
+
+.Re-enterPassword input{
+  width: 100%;
+  height: 150%;
+  padding: 8px;
+  font-size: 15px;
+  color: #000000;
+  background-color: #989898; 
+  border: none; 
+  border-radius: 10px; 
+}
+
+.CreateButton {
+  height: 39px;
+  left: 70px;
+  position: absolute;
+  top: 760px;
+  width: 234px;
+}
+
+.Create {
+  background-color: #DC4733;
+  border-radius: 20px;
+  color: #000000;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 15px;
+  font-weight: 400;
+  height: 39px;
+  line-height: 21px;
+  text-align: center;
+  width: 80%;
+  text-decoration: none;
+  display: block;
+}
+
+.Create:hover {
+  box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
+  background-color: #ff5a3c;
+}
+
+.BackButton {
+  height: 39px;
+  left: -85px;
+  position: relative;
+  top: -40px;
+  width: 234px;
+}
+
+.Back {
+  background-color: #DC4733;
+  border-radius: 20px;
+  color: #000000;
+  height: 35px;
+  line-height: 39px;
+  text-align: center;
+  width: 25%;
+  display: block;
+}
+
+.Back:hover {
+  box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
+  background-color: #ff5a3c;
+}
+
+.error-message-CA{
+  color: red;
+  font-size: 12px;
+  font-family: "Inter-Regular", Helvetica;
+  position: absolute;
+  top: 890px;
+  left: auto;
+  text-align: center;
+}
+.AppLogo {
+  background-image: url(../public/IMG_1702.jpg);
+  background-size: 100%;
+  height: 140px;
+  left: 130px;
+  position: absolute;
+  top: 125px;
+  width: 140px;
+  border-radius: 20px;
+}
