@@ -55,19 +55,18 @@ const Ingredient_Inventory = () => {
         </button>
       </div>
 
-      <div className="columns">
-      {ingredients.map((ingredient) => (
-        <div className="column" key={ingredient._id}> {/* Use _id for key */}
-          <Link to={`/ingredients/${ingredient._id}`}> {/* Use _id to create the link */}
-            <img src={ingredient.imageURL} alt="Ingredient" />
-            <div className="ingredient-description">
-              <h3>{ingredient.name}</h3>
-              <p>{ingredient.amount}</p>
-            </div>
-          </Link>
-        </div>
-      ))}
-
+      <div className="columns_ing">
+        {ingredients.map((ingredient) => (
+          <div className="column_ing" key={ingredient._id}>
+            <Link to={`/ingredients/${ingredient._id}`}>
+              <img src={ingredient.imageURL} alt={ingredient.name} />
+              <div className="ingredient-description">
+                <h3>{ingredient.name}</h3>
+                <p>{ingredient.amount}</p>
+              </div>
+            </Link>
+          </div>
+        ))}
       </div>
     </div>
   );
