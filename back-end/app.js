@@ -153,7 +153,7 @@ app.post('/api/create-account', async (req, res) => {
 
     // Continue with the account creation logic
     const newUser = new User({
-      name: newName,
+      username: newName,
       email: newEmail,
       password: hashedPassword,
     });
@@ -230,7 +230,9 @@ app.post('/api/forgot-password', (req, res) => {
 // Change-Username route
 app.post('/api/change-username', async (req, res) => {
   const { newUsername } = req.body;
+  console.log("Username: ", newUsername);
   const email = req.user.email;
+  console.log("Email: ", email);
 
   // Validate the username
   if (!newUsername || newUsername.trim() === '') {
