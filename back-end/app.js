@@ -131,7 +131,6 @@ app.get('/api/protected-route', verifyToken, (req, res) => {
   }
 });
 
-
 // Create-Account route
 const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z]).{8,}$/;
 
@@ -193,17 +192,19 @@ app.post('/api/create-account', async (req, res) => {
     try {
       await newUser.save();
       const token = jwt.sign({ userId: newUser._id, email: newUser.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-      res.json({ message: 'Account successfully created', status: 'success', token });
+      
+      // Add console log to see the JWT token
+      console.log('Generated JWT token:', token);
+
+      // Send a JSON response indicating success and the need to redirect
+      res.json({ message: 'Account successfully created', status: 'success', token, redirect: '/login' });
     } catch (error) {
-      console.error('Error saving user to the database:', saveError);
+      console.error('Error saving user to the database:', error);
       return res.status(500).json({
         error: 'Error saving user to the database',
         status: 'failed',
       });
     }
-
-    // Redirect the user to the login screen
-    res.redirect('/login');
   } catch (error) {
     console.error('Unhandled error in create-account route:', error);
     res.status(500).json({
