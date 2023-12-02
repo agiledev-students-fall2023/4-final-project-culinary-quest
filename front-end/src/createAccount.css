@@ -31,7 +31,7 @@
   border-radius: 10px; 
 }
 
-.CreateEmail {
+.CreateUsername {
   height: 25px;
   left: 83px;
   position: absolute;
@@ -39,7 +39,7 @@
   width: 230px;
 }
 
-.CreateEmail input{
+.CreateUsername input{
   width: 100%;
   height: 150%;
   padding: 8px;

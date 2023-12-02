@@ -4,17 +4,17 @@ import axios from "axios";
 import "./login.css";
 
 function Login() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    if (email && password) {
+    if (username && password) {
       try {
         // Make the POST request to the back-end
         const response = await axios.post("http://localhost:3001/api/login", {
-          email,
+          username,
           password,
         });
 
@@ -22,11 +22,17 @@ function Login() {
           // Store the token in local storage
           localStorage.setItem('token', response.data.token);
 
+          // Add token to axios headers for subsequent requests
+          axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+
           // If successful, navigate to the home page
           navigate("/home");
+
+          // Log to console
+          console.log('User logged in:', response.data.token);
         } else {
           // If unsuccessful, display an error message
-          setErrorMessage("Login failed: Invalid email or password");
+          setErrorMessage("Login failed: Invalid username or password");
         }
       } catch (error) {
         // Handle any unexpected errors
@@ -34,16 +40,16 @@ function Login() {
         setErrorMessage(message);
       }
     } else {
-      // If email or password is missing, display an error message
-      setErrorMessage("Please provide both email and password");
+      // If username or password is missing, display an error message
+      setErrorMessage("Please provide both username and password");
     }
   }
 
   return (
     <div className="LoginPage">
       <div className="LoginContainer">
-        <div className="InputEmail">
-          <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+        <div className="InputUsername">
+          <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
         </div>
         <div className="InputPassword">
           <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>

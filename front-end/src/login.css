@@ -12,7 +12,7 @@
   width: 390px;
 }
 
-.InputEmail {
+.InputUsername {
   height: 25px;
   left: 83px;
   position: absolute;
@@ -20,7 +20,7 @@
   width: 230px;
 }
 
-.InputEmail input{
+.InputUsername input{
   width: 100%;
   height: 150%;
   padding: 8px;

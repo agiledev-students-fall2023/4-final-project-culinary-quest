@@ -70,12 +70,12 @@ app.get("/home", async (req, res) => {
 
 // Login route
 app.post('/api/login', async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ username });
     if (user && (await bcrypt.compare(password, user.password))) {
-      const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      const token = jwt.sign({ userId: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
       res.json({ message: 'Login successful', status: 'success', token });
     } else {
       res.status(401).json({ error: 'Invalid credentials', status: 'failed' });
@@ -113,14 +113,14 @@ const verifyToken = (req, res, next) => {
 app.get('/api/protected-route', verifyToken, (req, res) => {
   try {
     // Access the authenticated user's information from req.user
-    const { userId, email } = req.user;
+    const { userId, username } = req.user;
 
     // Your protected route logic here
     res.json({
       message: 'This is a protected route',
       status: 'success',
       userId,
-      email,
+      username,
     });
   } catch (error) {
     console.error('Error in protected route:', error);
@@ -138,10 +138,10 @@ app.post('/api/create-account', async (req, res) => {
   try {
     console.log('Received request body:', req.body);
 
-    const { newName, newEmail, newPassword, newRePassword } = req.body;
+    const { newName, newUsername, newPassword, newRePassword } = req.body;
 
     // Check if any of the required fields are missing
-    if (!newName || !newEmail || !newPassword || !newRePassword) {
+    if (!newName || !newUsername || !newPassword || !newRePassword) {
       console.log('Error: All fields are required');
       return res.status(400).json({
         error: 'All fields are required',
@@ -167,13 +167,13 @@ app.post('/api/create-account', async (req, res) => {
       });
     }
 
-    // Check if the email already exists in the database
-    const existingUser = await User.findOne({ email: newEmail });
+    // Check if the username already exists in the database
+    const existingUser = await User.findOne({ username: newUsername });
 
     if (existingUser) {
-      console.log('Error: Email already in use');
+      console.log('Error: username already in use');
       return res.status(400).json({
-        error: 'Email already in use',
+        error: 'username already in use',
         status: 'failed',
       });
     }
@@ -184,14 +184,14 @@ app.post('/api/create-account', async (req, res) => {
     // Continue with the account creation logic
     const newUser = new User({
       username: newName,
-      email: newEmail,
+      username: newUsername,
       password: hashedPassword,
     });
 
     // Save the user to the database
     try {
       await newUser.save();
-      const token = jwt.sign({ userId: newUser._id, email: newUser.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      const token = jwt.sign({ userId: newUser._id, username: newUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
       
       // Add console log to see the JWT token
       console.log('Generated JWT token:', token);
@@ -242,16 +242,16 @@ app.post('/api/upload-profile-picture', upload.single('profilePicture'), async (
 
 // Forgot-Password route
 app.post('/api/forgot-password', (req, res) => {
-  const { email } = req.body;
+  const { username } = req.body;
 
-  if (email) {
+  if (username) {
     res.json({
-      message: 'Password reset email sent',
+      message: 'Password reset username sent',
       status: 'success'
     });
   } else {
     res.status(400).json({
-      error: 'Failed to send password reset email',
+      error: 'Failed to send password reset username',
       status: 'failed'
     });
   }
@@ -307,33 +307,33 @@ app.post('/api/change-password', async (req, res) => {
   }
 });
 
-// Update-Email route
-app.post('/api/update-email', async (req, res) => {
-  const { newEmail } = req.body;
+// Update-username route
+app.post('/api/update-username', async (req, res) => {
+  const { newUsername } = req.body;
   const username = req.user.username; // Assuming the user ID is stored in req.user.id
 
-  // Validate the email
-  if (!newEmail || newEmail.trim() === '') {
-    return res.status(400).json({ message: "Email is required." });
+  // Validate the username
+  if (!newUsername || newUsername.trim() === '') {
+    return res.status(400).json({ message: "username is required." });
   }
 
   try {
-    // Check if the new email is already in use by another user
-    const existingUser = await User.findOne({ email: newEmail });
+    // Check if the new username is already in use by another user
+    const existingUser = await User.findOne({ username: newUsername });
     if (existingUser) {
-      return res.status(400).json({ message: 'Email already in use' });
+      return res.status(400).json({ message: 'username already in use' });
     }
 
-    // Find the logged-in user by username and update their email
+    // Find the logged-in user by username and update their username
     const user = await User.findById(username);
     if (!user) {
       return res.status(404).json({ message: "User not found." });
     }
 
-    user.email = newEmail;
+    user.username = newUsername;
     await user.save();
 
-    res.json({ message: 'Email successfully updated' });
+    res.json({ message: 'username successfully updated' });
 
   } catch (error) {
     console.error(error);
