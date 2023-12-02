@@ -18,27 +18,32 @@ function CreateAccount() {
   const handleCreateAccount = async () => {
     try {
       console.log('Sending request to create account:', { newName, newEmail, newPassword, newRePassword });
-
+  
       const response = await axios.post("http://localhost:3001/api/create-account", {
         newName,
         newEmail,
         newPassword,
         newRePassword,
       });
-
+  
       console.log('Response from server:', response.data);
-
-      if (response.status === 200) {
-        const { token } = response.data;
+  
+      if (response.status >= 200 && response.status < 300) {
+        const { token, redirect } = response.data;
         const decodedToken = jwt_decode(token);
-
+  
         // Save the token to local storage or session storage
         localStorage.setItem('token', token);
-
+  
         console.log('Account created successfully. Decoded token:', decodedToken);
-
-        // Navigate to the login page or any other page as needed
-        navigate(redirect || "/api/login");
+  
+        // If a redirect is specified, navigate to that route
+        if (redirect) {
+          navigate(redirect);
+        } else {
+          // Otherwise, navigate to the login page or any other page as needed
+          navigate(redirect || "/login");
+        }
       } else {
         console.error('Error creating account. Server response:', response.data);
         setErrorMessage(response.data.error || "An error occurred while creating the account");
@@ -47,7 +52,7 @@ function CreateAccount() {
       console.error('An unexpected error occurred:', error.response?.data.error || error.message);
       setErrorMessage(error.response?.data.error || "An unexpected error occurred");
     }
-  };
+  };  
 
   return (
     <div className="CreateAccountPage">
