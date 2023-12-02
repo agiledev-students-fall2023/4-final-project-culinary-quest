@@ -136,7 +136,7 @@ const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z]).{8,}$/;
 
 app.post('/api/create-account', async (req, res) => {
   try {
-    console.log('Received request body:', req.body); // Added console log
+    console.log('Received request body:', req.body);
 
     const { newName, newEmail, newPassword, newRePassword } = req.body;
 
@@ -192,6 +192,10 @@ app.post('/api/create-account', async (req, res) => {
     try {
       await newUser.save();
       const token = jwt.sign({ userId: newUser._id, email: newUser.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      
+      // Add console log to see the JWT token
+      console.log('Generated JWT token:', token);
+
       // Send a JSON response indicating success and the need to redirect
       res.json({ message: 'Account successfully created', status: 'success', token, redirect: '/login' });
     } catch (error) {
