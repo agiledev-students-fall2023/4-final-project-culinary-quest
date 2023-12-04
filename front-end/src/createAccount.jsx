@@ -9,7 +9,7 @@ import jwt_decode from 'jwt-decode';
 
 function CreateAccount() {
   const [newName, setNewName] = useState("");
-  const [newEmail, setNewEmail] = useState("");
+  const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newRePassword, setNewRePassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -17,11 +17,11 @@ function CreateAccount() {
 
   const handleCreateAccount = async () => {
     try {
-      console.log('Sending request to create account:', { newName, newEmail, newPassword, newRePassword });
+      console.log('Sending request to create account:', { newName, newUsername, newPassword, newRePassword });
   
       const response = await axios.post("http://localhost:3001/api/create-account", {
         newName,
-        newEmail,
+        newUsername,
         newPassword,
         newRePassword,
       });
@@ -60,8 +60,8 @@ function CreateAccount() {
         <div className="CreateName">
           <input type="text" placeholder="Name" value={newName} onChange={(e) => setNewName(e.target.value)} />
         </div>
-        <div className="CreateEmail">
-          <input type="text" placeholder="Email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} />
+        <div className="CreateUsername">
+          <input type="text" placeholder="Username" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
         </div>
         <div className="CreatePassword">
           <input type="password" placeholder="Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
