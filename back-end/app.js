@@ -171,9 +171,9 @@ app.post('/api/create-account', async (req, res) => {
     const existingUser = await User.findOne({ username: newUsername });
 
     if (existingUser) {
-      console.log('Error: username already in use');
+      console.log('Error: Username already in use');
       return res.status(400).json({
-        error: 'username already in use',
+        error: 'Username already in use',
         status: 'failed',
       });
     }
