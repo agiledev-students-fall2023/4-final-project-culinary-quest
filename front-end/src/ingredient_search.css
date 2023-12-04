@@ -24,8 +24,9 @@
   }
 
   .search-text{
-    border: none;
-    background-color: #989898;
+    /* border: none; */
+    /* background-color: #989898; */
+    background-color: gray;
     border-radius: 10px;
     max-width: 380px;
     width: 100%;

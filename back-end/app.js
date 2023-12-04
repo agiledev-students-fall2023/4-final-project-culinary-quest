@@ -26,7 +26,8 @@ const mongoose = require('mongoose')
 
 const User = require('./models/User');
 const jwt = require('jsonwebtoken'); // Import jsonwebtoken
-
+const bcrypt = require("bcrypt");
+const { axiosWithAuth } = require('../front-end/src/api');
 // ---------------------------------------------------------------------------
 
 const multer = require('multer');
@@ -68,50 +69,146 @@ app.get("/home", async (req, res) => {
 })
 
 // Login route
-app.post('/api/login', (req, res) => {
+app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
-  // Example: Check if email and password are valid (replace this with your actual validation logic)
-  const isValidCredentials = (email === 'valid@example.com' && password === 'validpassword');
+  try {
+    const user = await User.findOne({ email });
+    if (user && (await bcrypt.compare(password, user.password))) {
+      const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      res.json({ message: 'Login successful', status: 'success', token });
+    } else {
+      res.status(401).json({ error: 'Invalid credentials', status: 'failed' });
+    }
+  } catch (error) {
+    console.error('Error during login:', error);
+    res.status(500).json({ error: 'Internal server error', status: 'failed' });
+  }
+});
 
-  if (isValidCredentials) {
-    res.json({
-      message: 'Login successful',
-      status: 'success',
+// Middleware to verify JWT token
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).json({
+      error: 'Unauthorized',
+      status: 'failed',
     });
-  } else {
-    res.status(401).json({
-      error: 'Invalid credentials',
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({
+        error: 'Invalid token',
+        status: 'failed',
+      });
+    }
+
+    req.user = decoded;
+    next();
+  });
+};
+
+app.get('/api/protected-route', verifyToken, (req, res) => {
+  try {
+    // Access the authenticated user's information from req.user
+    const { userId, email } = req.user;
+
+    // Your protected route logic here
+    res.json({
+      message: 'This is a protected route',
+      status: 'success',
+      userId,
+      email,
+    });
+  } catch (error) {
+    console.error('Error in protected route:', error);
+    res.status(500).json({
+      error: 'Internal server error',
       status: 'failed',
     });
   }
 });
 
 // Create-Account route
-app.post('/api/create-account', async (req, res) => {
-  const { username, email, password, passwordAgain } = req.body;
+const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z]).{8,}$/;
 
-  if (username && email && password && passwordAgain) {
-    if (password !== passwordAgain) {
-      res.status(400).json({
-        error: 'Failed to create account', 
+app.post('/api/create-account', async (req, res) => {
+  try {
+    console.log('Received request body:', req.body);
+
+    const { newName, newEmail, newPassword, newRePassword } = req.body;
+
+    // Check if any of the required fields are missing
+    if (!newName || !newEmail || !newPassword || !newRePassword) {
+      console.log('Error: All fields are required');
+      return res.status(400).json({
+        error: 'All fields are required',
         status: 'failed',
       });
-    } else {
-      // Continue with the account creation logic
+    }
 
-      // Generate a JWT token
-      const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-      res.json({
-        message: 'Account successfully created',
-        status: 'success',
-        token, // Send the token to the client
+    // Check if passwords match
+    if (newPassword !== newRePassword) {
+      console.log('Error: Passwords do not match');
+      return res.status(400).json({
+        error: 'Passwords do not match',
+        status: 'failed',
       });
     }
-  } else {
-    res.status(400).json({
-      error: 'Failed to create account',
+
+    // Validate password with regex
+    if (!passwordRegex.test(newPassword)) {
+      console.log('Error: Invalid password');
+      return res.status(400).json({
+        error: 'Invalid password. It must be at least 8 characters long, contain at least one number, one special character, and one uppercase letter.',
+        status: 'failed',
+      });
+    }
+
+    // Check if the email already exists in the database
+    const existingUser = await User.findOne({ email: newEmail });
+
+    if (existingUser) {
+      console.log('Error: Email already in use');
+      return res.status(400).json({
+        error: 'Email already in use',
+        status: 'failed',
+      });
+    }
+
+    // Hash the password before saving it
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Continue with the account creation logic
+    const newUser = new User({
+      username: newName,
+      email: newEmail,
+      password: hashedPassword,
+    });
+
+    // Save the user to the database
+    try {
+      await newUser.save();
+      const token = jwt.sign({ userId: newUser._id, email: newUser.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      
+      // Add console log to see the JWT token
+      console.log('Generated JWT token:', token);
+
+      // Send a JSON response indicating success and the need to redirect
+      res.json({ message: 'Account successfully created', status: 'success', token, redirect: '/login' });
+    } catch (error) {
+      console.error('Error saving user to the database:', error);
+      return res.status(500).json({
+        error: 'Error saving user to the database',
+        status: 'failed',
+      });
+    }
+  } catch (error) {
+    console.error('Unhandled error in create-account route:', error);
+    res.status(500).json({
+      error: `Server error: ${error.message}`,
       status: 'failed',
     });
   }
@@ -161,9 +258,9 @@ app.post('/api/forgot-password', (req, res) => {
 });
 
 // Change-Username route
-app.post('/api/change-username', async (req, res) => {
+app.post('/api/change-username', verifyToken, async (req, res) => {
   const { newUsername } = req.body;
-  const email = req.user.email;
+  const userId = req.user.userId; // Extract userId from the JWT token
 
   // Validate the username
   if (!newUsername || newUsername.trim() === '') {
@@ -177,8 +274,8 @@ app.post('/api/change-username', async (req, res) => {
       return res.status(400).json({ message: 'Username already in use' });
     }
 
-    // Find the logged-in user by email and update their username
-    const user = await User.findById(email);
+    // Find the logged-in user by userId and update their username
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found." });
     }

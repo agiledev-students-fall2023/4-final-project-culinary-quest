@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './ChangeUsername.css';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { axiosWithAuth } from './api';
 
 function ChangeUsername() {
     const [newUsername, setNewUsername] = useState('');
@@ -13,19 +14,18 @@ function ChangeUsername() {
         if (newUsername) {
             setErrorMessage('');
 
-            // Make the POST request to the back-end
-            const response = await axios.post('http://localhost:3001/api/change-username', {
-                newUsername
-            });
+            try {
+                // Make the POST request to the back-end with axiosWithAuth
+                const response = await axiosWithAuth().post('http://localhost:3001/api/change-username', {
+                    newUsername
+                });
 
-            const data = response.data
-
-            if (response.status === 200) {
-                // If any username input, navigate to the /settings page
+                // If successful, navigate to the /settings page
                 navigate('/settings');
-            } else {
-                // If no username input, display an error message
-                setErrorMessage(data.error || 'An error occurred while changing the username');
+            } catch (error) {
+                // If an error occurs, display an error message
+                const message = error.response?.data?.error || 'An error occurred while changing the username';
+                setErrorMessage(message);
             }
         } else {
             // If no username is input, set the error message state

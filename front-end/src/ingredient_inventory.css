@@ -8,48 +8,52 @@
   background-color: #ffffff;
 }
 
-.columns {
+.columns_ing {
   display: flex;
   flex-wrap: wrap;
-  /* border: 2px solid red; */
   gap: 20px;
   padding-top: 30px;
-  /* padding-right: 40%; */
-  justify-content: flex-start; 
+  justify-content: center; 
 }
 
-.column {
+.column_ing {
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
-  padding: 10px;
-  /* padding: 10px;
-  width: 100%;  */
-  width: 75%;
-  max-width: 200px;
-  text-align: center;
+  padding-bottom: 20px; 
+  width: calc(50% - 20px);
+  max-width: 220px; 
+  box-sizing: border-box;
+  overflow: hidden; /* This will prevent content from spilling out */
+  position: relative; /* Needed for absolute positioning of the description */
 }
 
+.column_ing::before {
+  content: '';
+  display: block;
+}
 
 .column img {
-  /* border: 2px solid blue; */
   max-width: 100%;
-  height: auto;
-  padding-top: 15px;
-  width: 200px;
-  border-radius: 5px;
+  max-height: 100%;
+  position: absolute; /* Absolute position the image */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto; /* This will center the image in the square */
 }
 
-.ingredient-description h3 {
-  font-size: 1.2rem;
-  margin: 0;
+.ingredient-description {
+  position: absolute;
+  width: 100%;
+  bottom: 0; /* Align the description to the bottom */
+  text-align: center;
+  background: rgba(255, 255, 255, 0.8); /* Slight transparency */
+  padding: 10px 0; /* Padding at the top and bottom */
 }
 
+.ingredient-description h3,
 .ingredient-description p {
-  font-size: 1rem;
-  color: #333;
-}
-
-.spacer{
-  margin-top: 30px;
+  margin: 0; /* Remove default margins */
 }

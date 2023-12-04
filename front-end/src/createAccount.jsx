@@ -1,11 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import "./createAccount.css";
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
-import * as jwt_decode from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 
 function CreateAccount() {
   const [newName, setNewName] = useState("");
@@ -17,29 +17,42 @@ function CreateAccount() {
 
   const handleCreateAccount = async () => {
     try {
+      console.log('Sending request to create account:', { newName, newEmail, newPassword, newRePassword });
+  
       const response = await axios.post("http://localhost:3001/api/create-account", {
         newName,
         newEmail,
         newPassword,
         newRePassword,
       });
-
-      if (response.status === 200) {
-        const { token } = response.data;
+  
+      console.log('Response from server:', response.data);
+  
+      if (response.status >= 200 && response.status < 300) {
+        const { token, redirect } = response.data;
         const decodedToken = jwt_decode(token);
-
+  
         // Save the token to local storage or session storage
         localStorage.setItem('token', token);
-
-        // Navigate to the login page or any other page as needed
-        navigate("/login");
+  
+        console.log('Account created successfully. Decoded token:', decodedToken);
+  
+        // If a redirect is specified, navigate to that route
+        if (redirect) {
+          navigate(redirect);
+        } else {
+          // Otherwise, navigate to the login page or any other page as needed
+          navigate(redirect || "/login");
+        }
       } else {
+        console.error('Error creating account. Server response:', response.data);
         setErrorMessage(response.data.error || "An error occurred while creating the account");
       }
     } catch (error) {
-      setErrorMessage("An unexpected error occurred");
+      console.error('An unexpected error occurred:', error.response?.data.error || error.message);
+      setErrorMessage(error.response?.data.error || "An unexpected error occurred");
     }
-  };
+  };  
 
   return (
     <div className="CreateAccountPage">
