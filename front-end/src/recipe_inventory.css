@@ -87,7 +87,7 @@ input{
 }
 
 
-/* .RECIPE-INV .search .search-tools .square-on {
+.RECIPE-INV .search .search-tools .square-on {
     width: 15px;
     height: 15px;
     margin: auto;
@@ -95,11 +95,15 @@ input{
     margin-right: 15px;
     padding-right: 10px;
     margin-left: 5%;
-} */
+}
 /* .RECIPE-INV .search .search-tools .filter-text {
     flex-grow: 2;
     text-align: left;
     margin: auto;
+
+    margin-right: 15px;
+    padding-right: 10px;
+    margin-left: 5%;
 } */
 
 /* .RECIPE-INV .recipe-list { */
