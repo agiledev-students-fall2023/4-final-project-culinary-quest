@@ -17,8 +17,7 @@ const RecipeInv = props => {
             .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/search`, { params: {y: search, z: toggle}})
             .then(response => {
                 console.log("successfully contacted back end")
-                const recipes = response.data.recipes
-                setRecipes(recipes)
+                setRecipes(response.data.recipes)
             })
             .catch(err => {
                 console.log("error: failed to contact back end")
@@ -33,7 +32,7 @@ const RecipeInv = props => {
         }
     }, [search, toggle])
     
-    // ##########################################################################
+    // ##################################################################################################
 
     return (
         <div className = "container"> 
@@ -42,7 +41,12 @@ const RecipeInv = props => {
 
             {/* --- SEARCH BAR & FILTERS --- */}
             <div className = "search">
-                <input type="text" value = {search} placeholder="Search for a recipe" onChange={(e) => setSearch(e.target.value)}/>
+                <input 
+                    type="text" 
+                    placeholder="Search for a recipe" 
+                    value = {search} 
+                    onChange={(e) => setSearch(e.target.value)}
+                />
                 <div className = "search-tools">
                     {toggle === true ?
                     <button className = "square-on" onClick = {() => setToggle(!toggle)}/> :

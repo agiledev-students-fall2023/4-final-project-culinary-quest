@@ -394,25 +394,26 @@ app.post('/api/update-phone', verifyToken, async (req, res) => {
 const Ingredient = require('./models/Ingredient'); // Import Ingredient model
 
 // Route to fetch all ingredients - ingredient inventory
-app.get("/api/ingredients", verifyToken, async (req, res) => {
-  const { searchQuery } = req.query;
-  try {
-    let query = {};
-    if (searchQuery) {
-      query.name = { $regex: searchQuery, $options: 'i' }; // Case-insensitive search
-    }
+// app.get("/api/ingredients", async (req, res) => {
+//   const { searchQuery } = req.query;
+//   console.log("gg2")
+//   try {
+//     let query = {};
+//     if (searchQuery) {
+//       query.name = { $regex: searchQuery, $options: 'i' }; // Case-insensitive search
+//     }
 
-    // Fetch and sort ingredients by 'lastViewed' in descending order
-    const ingredients = await Ingredient.find(query).sort({ lastViewed: -1 });
-    res.json({ ingredients: ingredients, status: 'All good - ingredients have been fetched!' });
-  } catch (err) {
-    console.error(err);
-    res.status(400).json({ error: err, status: 'Failed to retrieve ingredients :(' });
-  }
-});
+//     // Fetch and sort ingredients by 'lastViewed' in descending order
+//     const ingredients = await Ingredient.find(query).sort({ lastViewed: -1 });
+//     res.json({ ingredients: ingredients, status: 'All good - ingredients have been fetched!' });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(400).json({ error: err, status: 'Failed to retrieve ingredients :(' });
+//   }
+// });
 
 // Rounte to fetch single ingredient 
-app.get("/api/ingredients/:id", verifyToken, async (req, res) => {
+app.get("/api/ingredients/single/:id", verifyToken, async (req, res) => {
   const id = req.params.id;
   console.log("Looking up ingredient with ID:", id); // Log the ID
 
@@ -494,24 +495,34 @@ app.post("/api/ingredients", verifyToken, async (req, res) => {
 
 
 // Route for ingredient search
-app.get("/api/ingredients/:name", verifyToken, async (req, res) => {
+app.get("/api/ingredients/search", verifyToken, async (req, res) => {
   try {
     // get the search query from the URL 
-    const searchQuery = req.params.name;
-
+    let searchTerms = { $regex: req.query.searchQuery, $options: 'i' }
     // make sure ingredients is defined 
-    let ingredients = [];
+    // let ingredients = [];
 
-    if (searchQuery) {
-      // if there is a search query, filter ingredients by name
-      ingredients = ingredients.filter((ingredient) =>
-        ingredient.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+    // if (searchQuery) {
+    //   // if there is a search query, filter ingredients by name
+    //   ingredients = ingredients.filter((ingredient) =>
+    //     ingredient.name.toLowerCase().includes(searchQuery.toLowerCase())
+    //   );
+    // }
+
+    if (searchTerms != '') {
+      let ingredients = await Ingredient.find( {name: searchTerms} ).sort({ lastViewed: -1 })
+      res.json({
+        ingredients: ingredients,
+        status: 'all good',
+      });
     }
-    res.json({
-      ingredients: ingredients,
-      status: 'all good',
-    });
+    else {
+      let ingredients = await Ingredient.find().sort({ lastViewed: -1 })
+      res.json({
+        ingredients: ingredients,
+        status: 'all good',
+      });
+    }
   } catch (err) {
     console.error(err);
     res.status(400).json({
@@ -528,7 +539,6 @@ const Recipe = require('./models/Recipe')
 app.get("/api/recipes/search", verifyToken, async (req, res) => {
   try {
     let searchTerms = { $regex: req.query.y, $options: 'i' } // Saves query as a case-insensitive regular expression
-
     // If the user is filtering by available ingredients
     if (req.query.z == "true") {
       let aIngr = await Ingredient.find({amount: {$ne: "0"}}) // Pulls all non-zero ingredients as an object

@@ -7,15 +7,12 @@ import axios from 'axios';
 
 const Ingredient_Inventory = () => {
   const [ingredients, setIngredients] = useState([]);
+  const [search, setSearch] = useState("");
   const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
 
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const fetchIngredients = (query = "") => {
+  const fetchIngredients = (props) => {
     axios
-      .get(`${REACT_APP_SERVER_HOSTNAME}/api/ingredients`, {
-        params: { searchQuery: query },
-      })
+      .get(`${REACT_APP_SERVER_HOSTNAME}/api/ingredients/search`, { params: { searchQuery: search }})
       .then((response) => {
         // handle the filtered ingredients
         setIngredients(response.data.ingredients);
@@ -25,18 +22,18 @@ const Ingredient_Inventory = () => {
       });
   };
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
+  // const handleSearchChange = (e) => {
+  //   setSearchQuery(e.target.value);
+  // };
 
-  const handleSearchClick = () => {
-    fetchIngredients(searchQuery);
-  };
+  // const handleSearchClick = () => {
+  //   fetchIngredients(searchQuery);
+  // };
 
   useEffect(() => {
     // Initial fetch
     fetchIngredients();
-  }, []);
+  }, [search]);
 
   return (
     <div className="container">
@@ -46,13 +43,13 @@ const Ingredient_Inventory = () => {
         <input
           className="search-text"
           type="text"
-          placeholder="Search"
-          value={searchQuery}
-          onChange={handleSearchChange}
+          placeholder="Search for an ingredient"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
-        <button className="submit-button" onClick={handleSearchClick}>
+        {/* <button className="submit-button" onClick={handleSearchClick}>
           Search
-        </button>
+        </button> */}
       </div>
 
       <div className="columns_ing">

@@ -21,7 +21,7 @@ const Ingredient = () => {
     useEffect(() => {
         const fetchIngredient = () => {
             axios
-                .get(`${REACT_APP_SERVER_HOSTNAME}/api/ingredients/${id}`)
+                .get(`${REACT_APP_SERVER_HOSTNAME}/api/ingredients/single/${id}`)
                 .then(response => {
                     setIngredient(response.data); // Update the ingredient state
                     if (justUpdated.current) {
