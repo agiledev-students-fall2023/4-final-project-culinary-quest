@@ -25,6 +25,12 @@ import UpdatePhone from "./UpdatePhone";
 import RecipeSearch from "./RecipeSearch";
 
 import "./App.css";
+import axios from "axios";
+
+const token = localStorage.getItem('token');
+if (token) {
+  axios.defaults.headers.common['Authorization'] = `${token}`;
+}
 
 function Main() {
   const [menuState, activateMenu] = useState(0);
