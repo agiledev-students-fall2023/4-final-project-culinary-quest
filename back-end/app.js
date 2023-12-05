@@ -177,7 +177,7 @@ const verifyToken = (req, res, next) => {
 };
 
 // Home route
-app.get("/home", async (req, res) => {
+app.get("/home", verifyToken, async (req, res) => {
   try {
     res.json({
       message: 'Home route',
@@ -193,7 +193,7 @@ app.get("/home", async (req, res) => {
   }
 })
 
-app.get('/api/protected-route', (req, res) => {
+app.get('/api/protected-route', verifyToken, (req, res) => {
   try {
     // Access the authenticated user's information from req.user
     const { userId, username } = req.user;
@@ -215,7 +215,7 @@ app.get('/api/protected-route', (req, res) => {
 });
 
 // Profile picture upload route  (need to check once login setup)
-app.post('/api/upload-profile-picture', upload.single('profilePicture'), async (req, res) => {
+app.post('/api/upload-profile-picture', verifyToken, upload.single('profilePicture'), async (req, res) => {
   if (!req.file) {
     return res.status(400).send({ message: 'No file uploaded.' });
   }
@@ -258,7 +258,7 @@ app.post('/api/forgot-password', (req, res) => {
 });
 
 // Change-Username route
-app.post('/api/change-username', async (req, res) => {
+app.post('/api/change-username', verifyToken, async (req, res) => {
   const { newUsername } = req.body;
   const userId = req.user.userId; // Extract userId from the JWT token
 
@@ -292,7 +292,7 @@ app.post('/api/change-username', async (req, res) => {
 });
 
 // Change-Password route
-app.post('/api/change-password', async (req, res) => {
+app.post('/api/change-password', verifyToken, async (req, res) => {
   const { password, newPassword, newPasswordAgain } = req.body;
   if (password && newPassword && newPasswordAgain) {
     res.json({
@@ -308,7 +308,7 @@ app.post('/api/change-password', async (req, res) => {
 });
 
 // Update-username route
-app.post('/api/update-username', async (req, res) => {
+app.post('/api/update-username', verifyToken, async (req, res) => {
   const { newUsername } = req.body;
   const username = req.user.username; // Assuming the user ID is stored in req.user.id
 
@@ -342,7 +342,7 @@ app.post('/api/update-username', async (req, res) => {
 });
 
 // Update-Phone route
-app.post('/api/update-phone', async (req, res) => {
+app.post('/api/update-phone', verifyToken, async (req, res) => {
   const { newPhone } = req.body;
   const username = req.user.username;
 
@@ -413,7 +413,7 @@ const Ingredient = require('./models/Ingredient'); // Import Ingredient model
 // });
 
 // Rounte to fetch single ingredient 
-app.get("/api/ingredients/single/:id", async (req, res) => {
+app.get("/api/ingredients/single/:id", verifyToken, async (req, res) => {
   const id = req.params.id;
   console.log("Looking up ingredient with ID:", id); // Log the ID
 
@@ -434,7 +434,7 @@ app.get("/api/ingredients/single/:id", async (req, res) => {
 });
 
 // Route for Ingredient Edit 
-app.put("/api/ingredients/:id", async (req, res) => {
+app.put("/api/ingredients/:id", verifyToken, async (req, res) => {
   const { id } = req.params;
   const { name, amount, imageURL } = req.body;
 
@@ -465,7 +465,7 @@ app.put("/api/ingredients/:id", async (req, res) => {
 
 
 // Route for Ingredient add 
-app.post("/api/ingredients", async (req, res) => {
+app.post("/api/ingredients", verifyToken, async (req, res) => {
   const { name, amount, imageURL } = req.body;
 
   if (!name || name.trim() === '') {
@@ -495,7 +495,7 @@ app.post("/api/ingredients", async (req, res) => {
 
 
 // Route for ingredient search
-app.get("/api/ingredients/search", async (req, res) => {
+app.get("/api/ingredients/search", verifyToken, async (req, res) => {
   try {
     // get the search query from the URL 
     let searchTerms = { $regex: req.query.searchQuery, $options: 'i' }
@@ -536,7 +536,7 @@ app.get("/api/ingredients/search", async (req, res) => {
 const Recipe = require('./models/Recipe')
 
 // Route to fetch recipes based on a query (if empty, it will fetch all recipes)
-app.get("/api/recipes/search", async (req, res) => {
+app.get("/api/recipes/search", verifyToken, async (req, res) => {
   try {
     let searchTerms = { $regex: req.query.y, $options: 'i' } // Saves query as a case-insensitive regular expression
     // If the user is filtering by available ingredients
@@ -576,7 +576,7 @@ app.get("/api/recipes/search", async (req, res) => {
 })
 
 // Route to fetch a single recipe
-app.get("/api/recipes/single/:id", async (req, res) => {
+app.get("/api/recipes/single/:id", verifyToken, async (req, res) => {
   try {
     const id = req.params.id // Saves requested recipe id as a variable for brevity
 
@@ -601,7 +601,7 @@ app.get("/api/recipes/single/:id", async (req, res) => {
 })
 
 // Recipe Edit
-app.put("/api/recipes/edit/:id", async (req, res) => {
+app.put("/api/recipes/edit/:id", verifyToken, async (req, res) => {
   const id = req.params.id; // the id of the recipe to update
   const { name, img, size, time, desc, ingr, steps } = req.body; // the updated values for the recipe
   // console.log("recieved for edit", id)
@@ -670,7 +670,7 @@ app.put("/api/recipes/edit/:id", async (req, res) => {
 // });
 
 // Recipe add
-app.post("/api/recipes", async (req, res) => {
+app.post("/api/recipes", verifyToken, async (req, res) => {
   const { name, img, size, time, desc, ingr, steps } = req.body; // extract ingr from the body directly
 
   if (!name || name.trim() === '') {
