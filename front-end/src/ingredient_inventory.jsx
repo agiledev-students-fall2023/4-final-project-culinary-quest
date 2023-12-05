@@ -36,17 +36,20 @@ const Ingredient_Inventory = () => {
   }, [search]);
 
   return (
-    <div className="container">
+    <div className="container-ing-inv">
       <h1>Your Ingredients</h1>
-      <div className="spacer"></div>
-      <div className="search-bar">
+      <div className="ingredient-inventory"></div>
+      <div className="search-bar-container-ing">
         <input
-          className="search-text"
+          className="search-input-ing"
           type="text"
           placeholder="Search for an ingredient"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+        <Link to="/ingredient-add" >
+          <button className="add-ing-btn">+</button>
+        </Link>
         {/* <button className="submit-button" onClick={handleSearchClick}>
           Search
         </button> */}

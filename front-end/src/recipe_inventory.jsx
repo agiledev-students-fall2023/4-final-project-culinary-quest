@@ -48,7 +48,9 @@ const RecipeInv = props => {
                     onChange={(e) => setSearch(e.target.value)}
                     className="search-input"
                 />
-                <button className="add-recipe-btn">+</button>
+                <Link to="/recipe-add" >
+                    <button className="add-recipe-btn">+</button>
+                </Link>
             </div>
             <div className="filter-container">
                 {toggle === true ?
