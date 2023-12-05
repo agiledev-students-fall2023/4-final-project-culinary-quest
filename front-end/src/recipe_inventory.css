@@ -54,20 +54,19 @@
 
 
 .add-recipe-btn {
-    padding: 10px 10px; /* Reduced padding */
-    margin-left: 10px; /* Adds some space to the left of the button */
-    background-color: #DC4733; /* Example red background */
-    color: white; /* Text color */
+    padding: 10px 10px; 
+    margin-left: 10px; 
+    background-color: #DC4733;
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
-    font-size: 35px; /* Reduced font size for the plus sign */
+    font-size: 35px; 
     font-family: 'Arial Rounded MT Bold', sans-serif;
-    font-weight: bold; /* Bold font weight for the plus sign */
-    /* Adjust width and height if you want the button to have a specific size */
-    width: 40px; /* Example fixed width */
-    height: 40px; /* Example fixed height */
+    font-weight: bold;
+    width: 40px; 
+    height: 40px; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -118,68 +117,6 @@ input{
 
 }
 
-.RECIPE-INV .search .search-tools .square-off {
-    width: 15px;
-    height: 15px;
-    margin: auto;
-
-    border: none;
-    background-color: #989898;
-    margin-right: 15px;
-    padding-right: 10px;
-    margin-left: 5%;
-}
-
-
-.RECIPE-INV .search .search-tools .square-on {
-    width: 15px;
-    height: 15px;
-    margin: auto;
-    background-color: black;
-    margin-right: 15px;
-    padding-right: 10px;
-    margin-left: 5%;
-}
-/* .RECIPE-INV .search .search-tools .filter-text {
-    flex-grow: 2;
-    text-align: left;
-    margin: auto;
-
-    margin-right: 15px;
-    padding-right: 10px;
-    margin-left: 5%;
-} */
-
-/* .RECIPE-INV .recipe-list { */
-    /* background-color: aqua; */
-    /* width: 75%;
-    padding-top: 15px;
-    margin: auto;
-    list-style-type: none;
-    
-} */
-
-/* .RECIPE-INV .columns_ing .column_rec .recipe-tile {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 15px;
-    height: 200px;
-    text-decoration: none;
-    color: black;
-} */
-
-/* .RECIPE-INV .recipe-list .recipe-tile .recipe-photo {
-    aspect-ratio: 1 / 1;
-    background-color: gray;
-    text-align: center;
-    margin: auto;
-    min-width: 150px;
-    max-width: 150px;
-    border: 2px solid red;
-} */
-
 .recipe-tile {
     text-decoration: none;
 }
@@ -191,10 +128,7 @@ input{
     text-wrap: nowrap;
     max-height: 3em;
 }
-/* 
-.RECIPE-INV .recipe-list .recipe-tile .recipe-text h2 {
-    margin-bottom: 15px;
-} */
+
 
 h1 {
     /* background-color: aqua; */
