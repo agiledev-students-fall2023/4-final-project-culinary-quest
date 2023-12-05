@@ -34,6 +34,50 @@
     justify-content: flex-start; 
   }
   
+.search-input {
+    border: none;
+    background-color: #989898;
+    border-radius: 10px;
+    width: calc(100% - 40px); /* Adjusted width to fill container minus button width and margin */
+    min-width: 300px;/* Remove max-width property or adjust as necessary */
+    margin-left: 60px;
+}
+
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 85%; /* Keep as is or adjust to stretch the container across the parent */
+    padding: 0; /* Ensure there's no padding inside the container that could affect the length of the input */
+    margin-bottom: 15px; /* Adjust space below the search bar container */
+}
+
+
+.add-recipe-btn {
+    padding: 10px 10px; /* Reduced padding */
+    margin-left: 10px; /* Adds some space to the left of the button */
+    background-color: #DC4733; /* Example red background */
+    color: white; /* Text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 35px; /* Reduced font size for the plus sign */
+    font-family: 'Arial Rounded MT Bold', sans-serif;
+    font-weight: bold; /* Bold font weight for the plus sign */
+    /* Adjust width and height if you want the button to have a specific size */
+    width: 40px; /* Example fixed width */
+    height: 40px; /* Example fixed height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.add-recipe-btn:hover {
+    box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
+    background-color: #ff5a3c;
+}
   
 .RECIPE-INV {
     /* background-color: chartreuse; */
@@ -45,8 +89,8 @@
     flex-direction: column;
     justify-content: center;
     background-color: deeppink; */
-    align-items:center;
-    margin: auto;
+    align-items:flex-start;
+    margin: column;
     margin-top: 15px;
     width: 85%;
 }
@@ -172,4 +216,36 @@ img {
 
 li{
     list-style-type: none;
+}
+.filter-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 85%; /* Match the width of the search bar container for alignment */
+    margin-bottom: 20px; /* Space below the filter container */
+
+}
+
+.filter-btn {
+    /* Style for the filter button */
+    background-color: #989898; /* Neutral color for the button */
+    border: none;
+    border-radius: 5px;
+    width: 30px; /* Example size */
+    height: 30px; /* Example size */
+    cursor: pointer;
+    margin-right: 10px; /* Space between the button and the filter text */
+    margin-left: 65px;
+}
+
+.filter-btn:hover, .filter-btn.square-on {
+    background-color: black; /* Button turns black when hovered or active */
+}
+
+.filter-text {
+    /* Style for the filter text */
+    color: black; /* Text color */
+    margin-left: 0px; /* Space after the filter button */
+    margin-top: 5px;
+    /* Add other styles for the text as needed */
 }
