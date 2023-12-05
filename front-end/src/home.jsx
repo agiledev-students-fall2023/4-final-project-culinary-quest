@@ -14,13 +14,12 @@ const Home = () => {
   useEffect(() => {
     // Fetch the ingredients from the backend
     const fetchIngredients = async () => {
-      console.log("h1")
       try {
-        const response = await axios.get(`${REACT_APP_SERVER_HOSTNAME}/api/ingredients`);
-        const ingredients = response.data.ingredients;
+        const response = await axios.get(`${REACT_APP_SERVER_HOSTNAME}/api/ingredients/search`, {params: {searchQuery: ''}})
+        const ingredients = response.data.ingredients
         // Set the first ingredient as the most recent
         if (ingredients.length > 0) {
-          setRecentIngredient(ingredients[0]);
+          setRecentIngredient(ingredients[0])
         }
       } catch (error) {
         console.error('Failed to fetch ingredients:', error);
