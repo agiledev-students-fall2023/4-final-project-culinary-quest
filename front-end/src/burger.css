@@ -22,15 +22,14 @@
 .SIDEBAR .bar .profile {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  /* background-color: deeppink; */
+  justify-content: space-evenly;
   margin: 15px;
+  padding-top: 25px;
 }
 
 .SIDEBAR .bar .profile p {
   font-size: 1.5em;
-  /* background-color: bisque; */
+  /* background-color: aqua; */
 }
 
 .SIDEBAR .bar .profile .profile-pic {

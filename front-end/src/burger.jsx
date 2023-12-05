@@ -11,7 +11,7 @@ const Burger = (props) => {
         <div className="bar">
           <div className = "profile">
             <div className = "profile-pic" />
-            <p>Welcome, [USERNAME]</p>
+            <p>Welcome!</p>
           </div>
           <div className = "buttons">
             {/* Home button  */}
