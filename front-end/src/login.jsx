@@ -23,7 +23,7 @@ function Login() {
           localStorage.setItem('token', response.data.token);
 
           // Add token to axios headers for subsequent requests
-          axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+          axios.defaults.headers.common['Authorization'] = `${response.data.token}`;
 
           // If successful, navigate to the home page
           navigate("/home");
