@@ -44,6 +44,7 @@
 .SIDEBAR .bar .buttons {
   /* background-color: bisque; */
   margin: 15px;
+  padding-top: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

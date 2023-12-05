@@ -9,10 +9,10 @@ const Burger = (props) => {
     return (
       <aside className="SIDEBAR">
         <div className="bar">
-          <div className = "profile">
+          {/* <div className = "profile">
             <div className = "profile-pic" />
             <p>Welcome!</p>
-          </div>
+          </div> */}
           <div className = "buttons">
             {/* Home button  */}
             <Link
