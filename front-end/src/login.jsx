@@ -10,40 +10,34 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    if (username && password) {
-      try {
-        // Make the POST request to the back-end
-        const response = await axios.post("http://localhost:3001/api/login", {
-          username,
-          password,
-        });
-
-        if (response.data.token) {
-          // Store the token in local storage
-          localStorage.setItem('token', response.data.token);
-
-          // Add token to axios headers for subsequent requests
-          axios.defaults.headers.common['Authorization'] = `${response.data.token}`;
-
-          // If successful, navigate to the home page
-          navigate("/home");
-
-          // Log to console
-          console.log('User logged in:', response.data.token);
-        } else {
-          // If unsuccessful, display an error message
-          setErrorMessage("Login failed: Invalid username or password");
-        }
-      } catch (error) {
-        // Handle any unexpected errors
-        const message = error.response?.data?.error || "An unexpected error occurred";
-        setErrorMessage(message);
+    try {
+      const response = await axios.post("http://localhost:3001/api/login", {
+        username,
+        password,
+      });
+  
+      if (response.data.token) {
+        // Store the token in local storage
+        localStorage.setItem('token', response.data.token);
+  
+        // Add token to axios headers for subsequent requests
+        axios.defaults.headers.common['Authorization'] = `${response.data.token}`;
+  
+        // If successful, navigate to the home page
+        navigate("/home");
+  
+        // Log to console
+        console.log('User logged in:', response.data.token);
+      } else {
+        // If unsuccessful, display an error message
+        setErrorMessage("Login failed: Invalid username or password");
       }
-    } else {
-      // If username or password is missing, display an error message
-      setErrorMessage("Please provide both username and password");
+    } catch (error) {
+      // Handle any unexpected errors
+      const message = error.response?.data?.error || "An unexpected error occurred";
+      setErrorMessage(message);
     }
-  }
+  };  
 
   return (
     <div className="LoginPage">

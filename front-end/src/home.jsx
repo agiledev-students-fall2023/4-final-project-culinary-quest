@@ -6,6 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FaArrowRight } from "react-icons/fa";
 
+const token = localStorage.getItem('token');
+if (token) {
+  axios.defaults.headers.common['Authorization'] = `
+  ${token}`;
+}
+
 const Home = () => {
   const [recentIngredient, setRecentIngredient] = useState(null);
   const [recentRecipe, setRecentRecipe] = useState(null);

@@ -142,6 +142,10 @@ app.post('/api/login', async (req, res) => {
     const user = await User.findOne({ username });
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = jwt.sign({ userId: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+      // Log the generated token
+      console.log('Generated JWT token:', token);
+
       res.json({ message: 'Login successful', status: 'success', token });
     } else {
       res.status(401).json({ error: 'Invalid credentials', status: 'failed' });
@@ -156,6 +160,7 @@ app.post('/api/login', async (req, res) => {
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization;
   console.log('Received token:', token);
+
   if (!token) {
     return res.status(401).json({
       error: 'Unauthorized',
