@@ -600,42 +600,55 @@ const Recipe = require('./models/Recipe')
 // Route to fetch recipes based on a query (if empty, it will fetch all recipes)
 app.get("/api/recipes/search", verifyToken, async (req, res) => {
   try {
-    let searchTerms = { $regex: req.query.y, $options: 'i' } // Saves query as a case-insensitive regular expression
+    // Get the user ID from the token
+    const userId = req.user.userId;
+
+    let searchTerms = { $regex: req.query.y, $options: 'i' }; // Saves query as a case-insensitive regular expression
+
     // If the user is filtering by available ingredients
     if (req.query.z == "true") {
-      let aIngr = await Ingredient.find({amount: {$ne: "0"}}) // Pulls all non-zero ingredients as an object
+      let aIngr = await Ingredient.find({ amount: { $ne: "0" }, user_id: userId }); // Pulls all non-zero ingredients for the current user
 
-      // If searchTerms are present, it pulls recipes filtering by available ingredients and search terms. If not, it pulls recipes only filtering by availableIngredients
+      // If searchTerms are present, it pulls recipes filtering by available ingredients and search terms for the current user. If not, it pulls recipes only filtering by available ingredients for the current user.
       if (searchTerms != '') {
-        let recipes = await Recipe.find({$or:[{name: searchTerms}, {desc: searchTerms}, {ingr: searchTerms, aIngr}]}).sort({ lastViewed: -1 })
-        res.json({recipes: recipes, status: "All good - recipes recieved"})
-      }
-      else {
-        let recipes = await Recipe.find({ingr: aIngr}).sort({ lastViewed: -1 })
-        res.json({recipes: recipes, status: "All good - recipes recieved"})
+        let recipes = await Recipe.find({
+          $and: [
+            { $or: [{ name: searchTerms }, { desc: searchTerms }, { ingr: searchTerms }] },
+            { user_id: userId },
+            { ingr: { $in: aIngr.map(ingredient => ingredient._id) } }
+          ]
+        }).sort({ lastViewed: -1 });
+        res.json({ recipes: recipes, status: "All good - recipes received" });
+      } else {
+        let recipes = await Recipe.find({ ingr: { $in: aIngr.map(ingredient => ingredient._id) }, user_id: userId }).sort({ lastViewed: -1 });
+        res.json({ recipes: recipes, status: "All good - recipes received" });
       }
     }
 
     // If the user is not filtering by available ingredients (works same as above but without ingredients)
     else {
       if (searchTerms != '') {
-        let recipes = await Recipe.find({$or:[{name: searchTerms}, {desc: searchTerms}, {ingr: searchTerms}]}).sort({ lastViewed: -1 })
-        res.json({recipes: recipes, status: "All good - recipes recieved"})
-      }
-      else {
-        let recipes = await Recipe.find().sort({ lastViewed: -1 })
-        res.json({recipes: recipes, status: "All good - recipes recieved"})
+        let recipes = await Recipe.find({
+          $and: [
+            { $or: [{ name: searchTerms }, { desc: searchTerms }, { ingr: searchTerms }] },
+            { user_id: userId }
+          ]
+        }).sort({ lastViewed: -1 });
+        res.json({ recipes: recipes, status: "All good - recipes received" });
+      } else {
+        let recipes = await Recipe.find({ user_id: userId }).sort({ lastViewed: -1 });
+        res.json({ recipes: recipes, status: "All good - recipes received" });
       }
     }
-  } 
-  catch (err) {
-    console.error(err)
+  } catch (err) {
+    console.error(err);
     res.status(400).json({
       error: err,
       status: 'failed to find recipes',
-    })
+    });
   }
-})
+});
+
 
 // Route to fetch a single recipe
 app.get("/api/recipes/single/:id", verifyToken, async (req, res) => {
@@ -731,44 +744,36 @@ app.put("/api/recipes/edit/:id", verifyToken, async (req, res) => {
 //   }
 // });
 
+
 // Recipe add
 app.post("/api/recipes", verifyToken, async (req, res) => {
-  const { name, img, size, time, desc, ingr, steps } = req.body; // extract ingr from the body directly
+  const { name, img, size, time, desc, ingr, steps } = req.body;
 
   if (!name || name.trim() === '') {
     return res.status(400).json({ message: "Recipe name is required." });
   }
 
   try {
-    const data = await fs.readFile('./static/recipes.json', 'utf8');
-    let recipes = JSON.parse(data);
-
-    // Generate the next ID
-    const nextId = recipes.length > 0 ? Math.max(...recipes.map(r => r.id)) + 1 : 1;
     const userId = req.user.userId;  // Extracting userId from token
 
-    // Create a new recipe object
-    const newRecipe = {
-      id: nextId,
+    const newRecipe = new Recipe({
       name,
-      img,
+      img: img || '/apple.jpg',
       size: parseInt(size, 10),
       time: parseInt(time, 10),
       desc,
       ingr, // Use the passed array
       steps,
-      lastViewed: Date.now(), 
-      user_id: userId  // Adding the user_id field
-    };
+      lastViewed:Date.now(),
+      user_id: userId,  // Adding the user_id field
+    });
 
-    // Append the new recipe to the array
-    recipes.push(newRecipe);
-
-    // Write the updated array back to the file
-    await fs.writeFile('./static/recipes.json', JSON.stringify(recipes, null, 2), 'utf8');
+    const savedRecipe = await newRecipe.save();
+    console.log('New Recipe created with ID:', savedRecipe._id)
 
     // Send a success response with the new recipe
-    res.status(201).json(newRecipe);
+    res.status(201).json(savedRecipe);
+    
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error while adding new recipe" });
