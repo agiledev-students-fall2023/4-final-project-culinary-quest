@@ -758,7 +758,7 @@ app.post("/api/recipes", verifyToken, async (req, res) => {
 
     const newRecipe = new Recipe({
       name,
-      img: img || '/apple.jpg',
+      img: img || '/pasta.jpg',
       size: parseInt(size, 10),
       time: parseInt(time, 10),
       desc,
