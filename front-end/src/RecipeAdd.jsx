@@ -31,7 +31,7 @@ const RecipeAdd = () => {
       return;
     }
 
-    const finalImageSrc = imageSrc || '/apple.jpg';
+    const finalImageSrc = imageSrc || '/pasta.jpg';
     const ingredientsArray = ingr.split(',').map(ingredient => ingredient.trim());
 
 
