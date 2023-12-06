@@ -270,6 +270,22 @@ app.post('/api/forgot-password', (req, res) => {
   }
 });
 
+// Delete Account route
+app.delete('/api/delete-account', verifyToken, async (req, res) => {
+  const userId = req.user.userId;
+
+  try {
+      // Find and delete the user
+      await User.findByIdAndDelete(userId);
+
+      res.json({ message: 'Account successfully deleted' });
+  } catch (error) {
+      console.error('Error deleting account:', error);
+      res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 // Change-Username route
 app.post('/api/change-username', verifyToken, async (req, res) => {
   const { newUsername } = req.body;
