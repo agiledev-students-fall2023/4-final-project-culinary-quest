@@ -46,7 +46,7 @@ const IndivRecipe = (props)  => {
             <label className="title-label">{recipe.name}</label>
 
             <div className="image-section">
-                <img src = {recipe.imgURL} alt = {recipe.name} />
+                <img src = {recipe.img} alt = {recipe.name} />
                 <br />
             </div>
 
