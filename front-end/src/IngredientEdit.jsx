@@ -55,6 +55,7 @@ const IngredientEdit = () => {
 
     return (
         <div className="ingredient-edit">
+            <h1>EDIT INGREDIENT</h1>
             <label className="image-upload-label">
                 {imageSrc ? <img src={imageSrc} alt="Uploaded Ingredient" className="uploaded-image"/> : 
                 <div className="image-section">INGREDIENT IMAGE<br />Upload a picture or take a picture</div>}

@@ -38,6 +38,7 @@ const Ingredient = () => {
   
     return ingredient ? (
       <div className="ingredient-view">
+        <h1>View Ingredient</h1>
         <label className="title-label">{ingredient.name}</label>
         <div className="image-section-ingredient">
           <img src={ingredient.imageURL} alt={ingredient.name} /><br />
@@ -46,7 +47,7 @@ const Ingredient = () => {
         <label className="text-box">{ingredient.amount}</label>
         <div className="button-container">
             <Link to={`/ingredient-edit/${id}`} className="button">Edit Ingredient</Link>
-            <Link to="/inventory" className="button">Return to Ingredient Inventory</Link> 
+            <Link to="/inventory" className="button">Ingredient Inventory</Link> 
         </div>
       </div>
     ) : (

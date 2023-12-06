@@ -48,7 +48,7 @@ function ForgotPassword() {
           />
         </div>
         <span className="ResetMessage">
-          Please enter your username to reset the password
+          *Please enter your username to reset the password
         </span>
         <div className="ResetButton">
           <button className="Reset" onClick={handleForgotPassword}>
@@ -61,6 +61,9 @@ function ForgotPassword() {
           </Link>
         </div>
         <div className="AppLogo" />
+        <div className="title">
+        <h1>Forgot Password</h1>
+        </div>
       </div>
       {errorMessage && <div className="error-message-FP">{errorMessage}</div>}
     </div>

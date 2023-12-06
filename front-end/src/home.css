@@ -162,6 +162,17 @@
   border-radius: 5px;
 }
 
+h3{
+  font-family: cream;
+  text-transform: uppercase;
+  color:#DC4733
+}
+
+p{
+  font-family: cream;
+  color: black;
+}
+
 .ingredient-description h3 {
   font-size: 1.2rem;
   margin: 0;

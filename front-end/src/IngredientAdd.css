@@ -27,15 +27,15 @@ h1{
   
 .image-section {
     background: linear-gradient(180deg, rgb(255, 149.81, 149.81) 0%, rgba(255, 204.7, 204.7, 0.48) 53.65%, rgba(255, 255, 255, 0) 100%);
-    border: 5px solid #DC4733;
-    border-radius: 25px;
+    /* border: 5px solid #DC4733; */
+    /* border-radius: 25px; */
     height: 352px;
     width: 352px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    color:#DC4733;
+    /* color:#DC4733; */
     font-family: cream;
 }
 

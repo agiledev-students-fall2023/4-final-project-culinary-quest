@@ -43,6 +43,7 @@ const IndivRecipe = (props)  => {
 
     return (
         <div className="recipe-view">
+            <h1>View Recipe</h1>
             <label className="title-label">{recipe.name}</label>
 
             <div className="image-section-recipe">
@@ -61,7 +62,7 @@ const IndivRecipe = (props)  => {
             <div className="button-container">
                 <Link to={`/recipe-edit/${recipe._id}`} className="button">Edit Recipe</Link>
 
-                <Link to="/recipe-inventory" className="button">Return to Recipe Inventory</Link> {/* for now home should point to recipe inventory later*/}
+                <Link to="/recipe-inventory" className="button">Recipe Inventory</Link> {/* for now home should point to recipe inventory later*/}
             </div>
         </div>
     );
