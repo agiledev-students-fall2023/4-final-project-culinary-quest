@@ -65,7 +65,7 @@ const RecipeAdd = () => {
           <div className="image-section">
             RECIPE IMAGE
             <br />
-            take a picture / upload a picture
+            Upload or take a picture
           </div>
         )}
         <input type="file" className="image-upload-input" accept="image/*" onChange={handleImageChange} />

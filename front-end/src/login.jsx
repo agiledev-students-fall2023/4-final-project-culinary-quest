@@ -43,6 +43,9 @@ function Login() {
     <div className="LoginPage">
       <div className="LoginContainer">
       <div className="AppLogo" />
+      <div className = "title">
+      <h1>Culinary Quest</h1>
+      </div>
         <div className="InputUsername">
           <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
         </div>
