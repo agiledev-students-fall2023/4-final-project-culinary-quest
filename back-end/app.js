@@ -536,13 +536,15 @@ app.post("/api/ingredients", verifyToken, async (req, res) => {
   }
 
   const finalAmount = amount && amount.trim() !== '' ? amount : "Out of Stock";
-
+  const userId = req.user.userId;  // Extracting userId from token
+  
   try {
     const newIngredient = new Ingredient({
       name,
       amount: finalAmount,
       imageURL: imageURL || '/apple.jpg',
-      lastViewed: Date.now()
+      lastViewed: Date.now(),
+      user_id: userId  // Adding the user_id field
     });
 
     const savedIngredient = await newIngredient.save(); // This will have an _id
@@ -560,32 +562,28 @@ app.post("/api/ingredients", verifyToken, async (req, res) => {
 // Route for ingredient search
 app.get("/api/ingredients/search", verifyToken, async (req, res) => {
   try {
-    // get the search query from the URL 
-    let searchTerms = { $regex: req.query.searchQuery, $options: 'i' }
-    // make sure ingredients is defined 
-    // let ingredients = [];
+    // Get the user ID from the token
+    const userId = req.user.userId;
 
-    // if (searchQuery) {
-    //   // if there is a search query, filter ingredients by name
-    //   ingredients = ingredients.filter((ingredient) =>
-    //     ingredient.name.toLowerCase().includes(searchQuery.toLowerCase())
-    //   );
-    // }
+    // Get the search query from the URL
+    let searchTerms = { $regex: req.query.searchQuery, $options: 'i' };
 
-    if (searchTerms != '') {
-      let ingredients = await Ingredient.find( {name: searchTerms} ).sort({ lastViewed: -1 })
-      res.json({
-        ingredients: ingredients,
-        status: 'all good',
-      });
+    let ingredients;
+    if (searchTerms !== '') {
+      // Filter ingredients by name and user ID
+      ingredients = await Ingredient.find({
+        name: searchTerms,
+        user_id: userId,
+      }).sort({ lastViewed: -1 });
+    } else {
+      // Only retrieve ingredients with the user's ID
+      ingredients = await Ingredient.find({ user_id: userId }).sort({ lastViewed: -1 });
     }
-    else {
-      let ingredients = await Ingredient.find().sort({ lastViewed: -1 })
-      res.json({
-        ingredients: ingredients,
-        status: 'all good',
-      });
-    }
+
+    res.json({
+      ingredients: ingredients,
+      status: 'all good',
+    });
   } catch (err) {
     console.error(err);
     res.status(400).json({
@@ -594,6 +592,7 @@ app.get("/api/ingredients/search", verifyToken, async (req, res) => {
     });
   }
 });
+
 
 // RECIPES
 const Recipe = require('./models/Recipe')
