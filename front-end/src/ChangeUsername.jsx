@@ -16,7 +16,7 @@ function ChangeUsername() {
 
             try {
                 // Make the POST request to the back-end with axiosWithAuth
-                const response = await axiosWithAuth().post('http://localhost:3001/api/change-username', {
+                const response = await axios.post('http://localhost:3001/api/change-username', {
                     newUsername
                 });
 
