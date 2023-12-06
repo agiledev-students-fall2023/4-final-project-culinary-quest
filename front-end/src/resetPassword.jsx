@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 function ResetPassword() {
-    const [password, setPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [newPasswordAgain, setNewPasswordAgain] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -15,7 +14,7 @@ function ResetPassword() {
         e.preventDefault();
 
         // Check if all fields are filled
-        if (!password || !newPassword || !newPasswordAgain) {
+        if (!newPassword || !newPasswordAgain) {
             setErrorMessage('All boxes must be filled out');
             return;
         }
@@ -26,21 +25,13 @@ function ResetPassword() {
             return;
         }
 
-        // Check if new password is different from current
-        if (password === newPassword) {
-            setErrorMessage('Current password & new password cannot be the same');
-            return;
-        }
-
         try {
             // If all validations pass, make the POST request to the backend
-            const response = await axios.post('http://localhost:3001/api/change-password', {
-                password, newPassword, newPasswordAgain
+            const response = await axios.post('http://localhost:3001/api/reset-password', {
+                newPassword, newPasswordAgain
             });
 
-            // const data = response.data;
-
-            navigate('/settings');
+            navigate('/login');
 
         } catch (error) {
             // Catch and display network or other errors
@@ -51,14 +42,7 @@ function ResetPassword() {
 
     return (
         <div className="profile-container">
-            <div className="profile-picture"></div>
             <div className="settings-container">
-                <input
-                    type="password"
-                    placeholder="Current Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
                 <input
                     type="password"
                     placeholder="New Password"
@@ -72,7 +56,7 @@ function ResetPassword() {
                     onChange={(e) => setNewPasswordAgain(e.target.value)}
                 />
                 <div className="button-group">
-                <button onClick={handleSubmit}>Submit</button>
+                <button onClick={handleSubmit}>Reset</button>
                 </div>
                 {errorMessage && <div className="error-message">{errorMessage}</div>}
             </div>

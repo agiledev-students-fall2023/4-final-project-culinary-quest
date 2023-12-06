@@ -286,11 +286,11 @@ app.post('/api/forgot-password', async (req, res) => {
 
 // Reset Password route
 app.post('/api/reset-password', verifyToken, async (req, res) => {
-  const { password, newPassword, newPasswordAgain } = req.body;
+  const { newPassword, newPasswordAgain } = req.body;
   const userId = req.user.userId; // Extract userId from the JWT token
 
   // Check if all fields are provided
-  if (!password || !newPassword || !newPasswordAgain) {
+  if (!newPassword || !newPasswordAgain) {
     return res.status(400).json({
       error: 'All fields are required',
       status: 'failed',
@@ -304,22 +304,11 @@ app.post('/api/reset-password', verifyToken, async (req, res) => {
       return res.status(404).json({ message: "User not found." });
     }
 
-    // Check if the current password matches the user's password
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ error: 'Current password is incorrect', status: 'failed' });
-    }
-
     // Check if newPassword and newPasswordAgain match
     if (newPassword !== newPasswordAgain) {
       return res.status(400).json({ error: 'New passwords do not match', status: 'failed' });
     }
-
-    // Check if newPassword is different from the current password
-    if (password === newPassword) {
-      return res.status(400).json({ error: 'New password must be different from the current password', status: 'failed' });
-    }
-
+    
     // Update the user's password
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
     user.password = hashedNewPassword;
