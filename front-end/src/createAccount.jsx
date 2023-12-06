@@ -86,8 +86,11 @@ function CreateAccount() {
             <FaArrowLeft />
           </Link>
         </div>
-        <div className="AppLogo" />
-      </div>
+        <div className="AppLogo-sign-up" />
+        <div className="title-sign-up">
+          <h1>Sign Up</h1>
+          </div>
+        </div>
       {errorMessage && <div className="error-message-CA">{errorMessage}</div>}
     </div>
   );

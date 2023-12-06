@@ -12,7 +12,11 @@
     /* border: 2px dotted blue; */
     background-color: #ffffff;
   }
-
+h2{
+    font-family: cream;
+    color: #DC4733;
+    text-transform: uppercase;
+}
 .spacer{
     margin-top: 30px;
   }

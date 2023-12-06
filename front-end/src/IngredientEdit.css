@@ -1,3 +1,13 @@
+@font-face {
+    font-family: chocolatedonut;
+    src: url("fonts/chocolatedonut.otf");
+}
+
+h1{
+    font-family: chocolatedonut;
+}
+
+
 .ingredient-edit {
     background-color: #ffffff;
     display: flex;
@@ -24,6 +34,7 @@
 .image-upload-label {
     cursor: pointer;
     display: block;
+    /* border:solid 5px #DC4733; */
 }
 
 .image-upload-input {
