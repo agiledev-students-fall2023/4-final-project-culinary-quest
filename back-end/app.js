@@ -181,22 +181,30 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-// Home route
 app.get("/home", verifyToken, async (req, res) => {
   try {
+    // Access the JWT token from the request headers
+    const token = req.headers.authorization;
+    console.log('Received token in /home route:', token);
+
+    // Access the authenticated user's information from req.user
+    const { userId, username } = req.user;
+
+    // Your route logic here
     res.json({
       message: 'Home route',
       status: 'success',
-    })
-  } 
-  catch (err) {
-    console.error(err)
-    res.status(400).json({
-      error: err,
+      userId,
+      username,
+    });
+  } catch (error) {
+    console.error(err);
+    res.status(500).json({
+      error: 'Internal server error',
       status: 'failed',
-    })
+    });
   }
-})
+});
 
 app.get('/api/protected-route', verifyToken, (req, res) => {
   try {
