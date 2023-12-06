@@ -181,9 +181,9 @@ div.title-sign-up{
 .error-message-CA{
   color: red;
   font-size: 12px;
-  font-family: "Inter-Regular", Helvetica;
+  font-family: cream;
   position: absolute;
-  top: 890px;
+  top: 740px;
   left: auto;
   text-align: center;
 }
