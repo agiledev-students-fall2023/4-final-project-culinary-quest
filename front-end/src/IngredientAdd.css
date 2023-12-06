@@ -10,7 +10,7 @@
 
 h1{
     font-family: chocolatedonut;
-    padding-bottom: 40px;
+    position:relative;
 }
 
 .ingredient-add {
@@ -99,7 +99,7 @@ label.input-label{
     font-size: 14px;
 }
 
-.add-button {
+button.add-button {
     background-color: #DC4733;
     border: 2px solid #DC4733;
     border-radius: 15px;
@@ -107,10 +107,11 @@ label.input-label{
     width: 242px;
     margin-top: 50px;
     margin-left: 20px;
-    color: #000000;
-    font-family: "Inter-Bold", Helvetica;
+    color: white;
+    font-family: cream;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: lighter;
+    /* font-weight: 700; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -118,7 +119,12 @@ label.input-label{
     transition: background-color 0.3s, box-shadow 0.3s; /* smooth transition for hover effect */
 }
 
-.add-button:hover {
+/* button.add-button{
+    font-family: cream;
+} */
+
+button.add-button:hover {
     box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
     background-color: #ff5a3c;
+    
 }
