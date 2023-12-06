@@ -7,6 +7,7 @@ import IndivRecipe from "./indiv_recipe";
 import CreateAccount from "./createAccount";
 import Login from "./login";
 import ForgotPassword from "./forgotPassword";
+import ResetPassword from "./resetPassword";
 import Ingredient_Inventory from "./ingredient_inventory";
 import Ingredient_Search from "./ingredient_search";
 import ChangePassword from "./ChangePassword";
@@ -39,7 +40,7 @@ function Main() {
   return (
     <div className="App">
       <div className="app-window">
-      { !['/create-account', '/login', '/forgot-password', '/'].includes(location.pathname) && 
+      { !['/create-account', '/login', '/forgot-password', '/reset-password', '/'].includes(location.pathname) && 
           <Header menuState={menuState} activateMenu={activateMenu} /> 
         }
         <Burger menuState={menuState} activateMenu={activateMenu} />
@@ -48,6 +49,7 @@ function Main() {
             <Route path="/home" element={<Home />} />
             <Route path="/create-account" element={<CreateAccount />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/change-password" element={<ChangePassword />} />
             <Route path="/change-username" element={<ChangeUsername />} />

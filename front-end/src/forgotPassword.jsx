@@ -12,16 +12,16 @@ function ForgotPassword() {
   const handleForgotPassword = async () => {
     if (username) {
       setErrorMessage("");
-
+  
       try {
         // Make the POST request to the back-end
         const response = await axios.post("http://localhost:3001/api/forgot-password", {
           username,
         });
-
+  
         if (response.status === 200) {
           // If successful, navigate to the change-password page
-          navigate("/change-password");
+          navigate("/reset-password");
         } else {
           // If unsuccessful, display an error message
           setErrorMessage(response.data.error || "An error occurred while resetting the password");
@@ -34,7 +34,7 @@ function ForgotPassword() {
       // If username is missing, display an error message
       setErrorMessage("Please enter your username address");
     }
-  };
+  };  
 
   return (
     <div className="ForgotPasswordPage">
