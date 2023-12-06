@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./forgotPassword.css";
 import { FaArrowLeft } from "react-icons/fa";
 import axios from "axios";
+import "./forgotPassword.css";
 
 function ForgotPassword() {
   const [username, setUsername] = useState("");
@@ -12,13 +12,13 @@ function ForgotPassword() {
   const handleForgotPassword = async () => {
     if (username) {
       setErrorMessage("");
-  
+
       try {
         // Make the POST request to the back-end
         const response = await axios.post("http://localhost:3001/api/forgot-password", {
           username,
         });
-  
+
         if (response.status === 200) {
           // If successful, navigate to the change-password page
           navigate("/reset-password");
@@ -34,7 +34,7 @@ function ForgotPassword() {
       // If username is missing, display an error message
       setErrorMessage("Please enter your username address");
     }
-  };  
+  };
 
   return (
     <div className="ForgotPasswordPage">

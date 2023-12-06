@@ -15,17 +15,17 @@ function Login() {
         username,
         password,
       });
-  
+
       if (response.data.token) {
         // Store the token in local storage
         localStorage.setItem('token', response.data.token);
-  
+
         // Add token to axios headers for subsequent requests
         axios.defaults.headers.common['Authorization'] = `${response.data.token}`;
-  
+
         // If successful, navigate to the home page
         navigate("/home");
-  
+
         // Log to console
         console.log('User logged in:', response.data.token);
       } else {
@@ -42,10 +42,10 @@ function Login() {
   return (
     <div className="LoginPage">
       <div className="LoginContainer">
-      <div className="AppLogo" />
-      <div className = "title">
-      <h1>Culinary Quest</h1>
-      </div>
+        <div className="AppLogo" />
+        <div className="title">
+          <h1>Culinary Quest</h1>
+        </div>
         <div className="InputUsername">
           <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
         </div>
