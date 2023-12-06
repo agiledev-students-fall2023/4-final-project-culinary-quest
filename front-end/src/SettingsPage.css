@@ -1,3 +1,13 @@
+@font-face {
+    font-family: chocolatedonut;
+    src: url("fonts/chocolatedonut.otf");
+}
+
+@font-face {
+    font-family: cream;
+    src: url("fonts/cream.ttf");
+}
+
 .profile-container {
     display: flex;
     flex-direction: column;
@@ -20,7 +30,7 @@
 }
 
 .profile-picture:hover {
-    border-color: #4CAF50;
+    border-color: #DC4733;
 }
 
 .settings-container {
@@ -51,10 +61,10 @@ input::placeholder {
     color: white;
 }
 
-input:focus {
+/* input:focus {
     border-color: #4CAF50; 
     color: white;
-}
+} */
 
 .input-box {
     margin-bottom: 20px;
@@ -82,7 +92,7 @@ button {
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    background-color: #4CAF50;
+    background-color: #DC4733;
     color: white;
     display: inline-block; 
     margin-bottom: 10px; 
@@ -105,22 +115,30 @@ button {
     cursor: pointer;
     display: block;
     border-radius: 10px;
+
+    font-family: cream;
 }
 
 .input-like-button:hover {
-    border-color: #4CAF50;
+    border-color: #DC4733;
 }
 
 button:not(.danger) {
     margin-right: 15px;
+    font-family: cream;
+    color:white;
 }
 
 button.danger {
     background-color: #DC4733;
     margin-left: 15px;
+    width: 150px;
+    font-family: cream;
+    color:white;
 }
 
+
 .input-like-button:focus {
-    border-color: #4CAF50; 
+    border-color: #DC4733; 
     background-color: #989898;
 }

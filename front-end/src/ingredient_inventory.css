@@ -1,3 +1,16 @@
+@font-face {
+  font-family: cream;
+  src: url("fonts/cream.ttf");
+}
+h1{
+  color: #000000;
+  font-family: "chocolatedonut";
+  font-size: 38px;
+  font-weight: bolder;
+  letter-spacing: .3rem;
+  text-transform: uppercase;
+}
+
 .container-ing-inv {
   display: flex;
   flex-direction: column;
@@ -59,6 +72,10 @@
   margin: 0; /* Remove default margins */
 }
 
+a{
+  text-decoration: none;
+}
+
 .add-ing-btn {
   padding: 10px 10px;
   margin-left: 0px; 
@@ -69,7 +86,7 @@
   cursor: pointer;
   margin-top: 10px;
   font-size: 35px;
-  font-family: 'Arial Rounded MT Bold', sans-serif;
+  font-family: cream;
   font-weight: bold; /* Bold font weight for the plus sign */
   /* Adjust width and height if you want the button to have a specific size */
   width: 40px; /* Example fixed width */
@@ -111,6 +128,8 @@
   max-width: 300px;/* Remove max-width property or adjust as necessary */
   margin-left: 80px;
   margin-right:10px;
+
+  font-family: cream;
 }
 
 .search-bar-container-ing {
