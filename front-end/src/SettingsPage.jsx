@@ -1,43 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import './SettingsPage.css';
 import { useNavigate } from 'react-router-dom';
-import { axiosWithAuth } from './api';
 
 function SettingsPage() {
     const navigate = useNavigate();
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [profilePicture, setProfilePicture] = useState(null); // State to store the profile picture
+    const [profilePicture, setProfilePicture] = useState(null);
+    const [isImageChanged, setIsImageChanged] = useState(false); // New state variable
+    const [uploadError, setUploadError] = useState(null);
+    const fileInputRef = useRef(null);
 
-    const handleFileSelect = (event) => {
-        const file = event.target.files[0];
+    useEffect(() => {
+        // Fetch user data when the component mounts
+        const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
+        axios
+          .get(`${REACT_APP_SERVER_HOSTNAME}/api/user`)
+          .then(response => {
+            const user = response.data.user;
+            setProfilePicture(user.profilePicture);
+            setIsImageChanged(false); // Reset here
+          })
+          .catch(err => {
+            console.error("Failed to fetch user:", err);
+          });
+    }, []);
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
         if (file) {
-            setSelectedFile(file);
-            setProfilePicture(URL.createObjectURL(file)); // Create a URL for the selected file
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setProfilePicture(reader.result);
+                setIsImageChanged(true); // Set to true when a new image is selected
+            };
+            reader.readAsDataURL(file);
         }
     };
 
-    const uploadProfilePicture = async () => {
-        if (selectedFile) {
-            const formData = new FormData();
-            formData.append('profilePicture', selectedFile);
-    
-            try {
-                // Replace '/api/upload-profile-picture' with your actual endpoint
-                const response = await axios.post('/api/upload-profile-picture', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                });
-    
-                // After successful upload, you can update the UI or state accordingly
-                console.log('Upload successful', response.data);
-                setSelectedFile(null);
-                setProfilePicture(null); // Reset the local profile picture preview
-            } catch (error) {
-                console.error('Error uploading file:', error);
-            }
-        }
+    const handleImageClick = () => {
+        //fileInputRef.current.click();
+    };
+
+    const handleSave = () => {
+        const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
+        axios
+            .post(`${REACT_APP_SERVER_HOSTNAME}/api/upload-profile-picture`, {
+                imageURL: profilePicture
+            })
+            .then(response => {
+                setIsImageChanged(false); // Reset after saving
+            })
+            .catch(err => {
+                console.error("Failed to save profile:", err);
+                setUploadError(err.message);
+            });
     };
 
     const deleteAccount = async () => {
@@ -56,17 +72,25 @@ function SettingsPage() {
     return (
         <div className="profile-container">
             <h1>Settings</h1>
-            <div className="profile-picture" onClick={() => document.getElementById('fileInput').click()} style={profilePicture ? { backgroundImage: `url(${profilePicture})`, backgroundSize: 'cover' } : {}}></div>
-            <input type="file" id="fileInput" style={{ display: 'none' }} onChange={handleFileSelect} />
-            {selectedFile && <button onClick={uploadProfilePicture}>Upload Picture</button>}
+
+            <label className="profile-picture" onClick={handleImageClick}>
+                <img src={profilePicture} alt="Profile" className="profile-picture"/>
+                <input type="file" ref={fileInputRef} className="image-upload-input" accept="image/*" capture onChange={handleImageChange} style={{ display: 'none' }} />
+            </label>
+
+            {isImageChanged && (
+                <button onClick={handleSave} className="save-button">Save Profile Image</button>
+            )}
+
             <div className="settings-container">
                 <button className="input-like-button" onClick={() => navigate('/change-username')}>Change Username</button>
                 <button className="input-like-button" onClick={() => navigate('/change-password')}>Change Password</button>
                 <div className="button-group">
-                    <button classname ="logoutbtn" onClick={() => navigate('/')}>Logout</button>
+                    <button className="logoutbtn" onClick={() => navigate('/')}>Logout</button>
                     <button className="danger" onClick={deleteAccount}>Delete Account</button>
                 </div>
             </div>
+            
         </div>
     );
 }
