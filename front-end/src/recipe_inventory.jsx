@@ -40,22 +40,23 @@ const RecipeInv = props => {
             <h1>Your Recipes</h1>
 
             {/* --- SEARCH BAR & FILTERS --- */}
-            <div className = "search">
+            <div className="search-bar-container">
                 <input 
                     type="text" 
                     placeholder="Search for a recipe" 
-                    value = {search} 
+                    value={search} 
                     onChange={(e) => setSearch(e.target.value)}
+                    className="search-input"
                 />
-                <div className = "search-tools">
-                    {toggle === true ?
-                    <button className = "square-on" onClick = {() => setToggle(!toggle)}/> :
-                    <button className = "square-off" onClick = {() => setToggle(!toggle)}/>
-                    }
-                    <div className = "filter-text">
-                        <p>Filter by available ingredients</p>
-                    </div>
-                </div>
+                <Link to="/recipe-add" >
+                    <button className="add-recipe-btn">+</button>
+                </Link>
+            </div>
+            <div className="filter-container">
+                {toggle === true ?
+                <button className="filter-btn square-on" onClick={() => setToggle(!toggle)} /> :
+                <button className="filter-btn square-off" onClick={() => setToggle(!toggle)} />}
+                <p className="filter-text">Filter by available ingredients</p>
             </div>
             </div>
 

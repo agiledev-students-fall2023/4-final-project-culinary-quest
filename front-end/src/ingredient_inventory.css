@@ -1,12 +1,26 @@
-.container {
+@font-face {
+  font-family: cream;
+  src: url("fonts/cream.ttf");
+}
+h1{
+  color: #000000;
+  font-family: "chocolatedonut";
+  font-size: 38px;
+  font-weight: bolder;
+  letter-spacing: .3rem;
+  text-transform: uppercase;
+}
+
+.container-ing-inv {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   padding: 20px;
-  /* border: 2px dotted blue; */
+  padding-top: 100px;
   background-color: #ffffff;
 }
+
 
 .columns_ing {
   display: flex;
@@ -57,3 +71,72 @@
 .ingredient-description p {
   margin: 0; /* Remove default margins */
 }
+
+a{
+  text-decoration: none;
+}
+
+.add-ing-btn {
+  padding: 10px 10px;
+  margin-left: 0px; 
+  background-color: #DC4733; /* Example red background */
+  color: white; /* Text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 35px;
+  font-family: cream;
+  font-weight: bold; /* Bold font weight for the plus sign */
+  /* Adjust width and height if you want the button to have a specific size */
+  width: 40px; /* Example fixed width */
+  height: 40px; /* Example fixed height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  
+}
+
+
+.add-ing-btn:hover {
+  box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
+  background-color: #ff5a3c;
+}
+
+
+.ingredient-inventory {
+  /* background-color: chartreuse; */
+  padding-top: 0px;
+}
+
+.ingredient-inventory .search {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: deeppink; */
+  align-items:flex-start;
+  margin: column;
+  margin-top: 15px;
+  width: 85%;
+}
+
+.search-input-ing {
+  border: none;
+  background-color: #989898;
+  border-radius: 10px;
+  max-width: 300px;/* Remove max-width property or adjust as necessary */
+  margin-left: 80px;
+  margin-right:10px;
+
+  font-family: cream;
+}
+
+.search-bar-container-ing {
+  display: flex;
+  align-items: center;
+  width: 85%; /* Keep as is or adjust to stretch the container across the parent */
+  padding: 0; /* Ensure there's no padding inside the container that could affect the length of the input */
+  margin-bottom: 15px; /* Adjust space below the search bar container */
+}
+

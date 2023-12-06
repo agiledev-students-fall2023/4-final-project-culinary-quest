@@ -142,6 +142,10 @@ app.post('/api/login', async (req, res) => {
     const user = await User.findOne({ username });
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = jwt.sign({ userId: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+      // Log the generated token
+      console.log('Generated JWT token:', token);
+
       res.json({ message: 'Login successful', status: 'success', token });
     } else {
       res.status(401).json({ error: 'Invalid credentials', status: 'failed' });
@@ -156,6 +160,7 @@ app.post('/api/login', async (req, res) => {
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization;
   console.log('Received token:', token);
+
   if (!token) {
     return res.status(401).json({
       error: 'Unauthorized',
@@ -176,22 +181,30 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-// Home route
 app.get("/home", verifyToken, async (req, res) => {
   try {
+    // Access the JWT token from the request headers
+    const token = req.headers.authorization;
+    console.log('Received token in /home route:', token);
+
+    // Access the authenticated user's information from req.user
+    const { userId, username } = req.user;
+
+    // Your route logic here
     res.json({
       message: 'Home route',
       status: 'success',
-    })
-  } 
-  catch (err) {
-    console.error(err)
-    res.status(400).json({
-      error: err,
+      userId,
+      username,
+    });
+  } catch (error) {
+    console.error(err);
+    res.status(500).json({
+      error: 'Internal server error',
       status: 'failed',
-    })
+    });
   }
-})
+});
 
 app.get('/api/protected-route', verifyToken, (req, res) => {
   try {
@@ -257,6 +270,22 @@ app.post('/api/forgot-password', (req, res) => {
   }
 });
 
+// Delete Account route
+app.delete('/api/delete-account', verifyToken, async (req, res) => {
+  const userId = req.user.userId;
+
+  try {
+      // Find and delete the user
+      await User.findByIdAndDelete(userId);
+
+      res.json({ message: 'Account successfully deleted' });
+  } catch (error) {
+      console.error('Error deleting account:', error);
+      res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 // Change-Username route
 app.post('/api/change-username', verifyToken, async (req, res) => {
   const { newUsername } = req.body;
@@ -294,18 +323,52 @@ app.post('/api/change-username', verifyToken, async (req, res) => {
 // Change-Password route
 app.post('/api/change-password', verifyToken, async (req, res) => {
   const { password, newPassword, newPasswordAgain } = req.body;
-  if (password && newPassword && newPasswordAgain) {
-    res.json({
-      message: 'Password successfully changed',
-      status: 'success',
-    });
-  } else {
-    res.status(400).json({
-      error: 'Failed to reset password',
+  const userId = req.user.userId; // Extract userId from the JWT token
+
+  // Check if all fields are provided
+  if (!password || !newPassword || !newPasswordAgain) {
+    return res.status(400).json({
+      error: 'All fields are required',
       status: 'failed',
     });
   }
+
+  try {
+    // Find the logged-in user by userId
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Check if the current password matches the user's password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: 'Current password is incorrect', status: 'failed' });
+    }
+
+    // Check if newPassword and newPasswordAgain match
+    if (newPassword !== newPasswordAgain) {
+      return res.status(400).json({ error: 'New passwords do not match', status: 'failed' });
+    }
+
+    // Check if newPassword is different from the current password
+    if (password === newPassword) {
+      return res.status(400).json({ error: 'New password must be different from the current password', status: 'failed' });
+    }
+
+    // Update the user's password
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedNewPassword;
+    await user.save();
+
+    res.json({ message: 'Password successfully changed', status: 'success' });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error', status: 'failed' });
+  }
 });
+
 
 // Update-username route
 app.post('/api/update-username', verifyToken, async (req, res) => {
@@ -473,13 +536,15 @@ app.post("/api/ingredients", verifyToken, async (req, res) => {
   }
 
   const finalAmount = amount && amount.trim() !== '' ? amount : "Out of Stock";
-
+  const userId = req.user.userId;  // Extracting userId from token
+  
   try {
     const newIngredient = new Ingredient({
       name,
       amount: finalAmount,
       imageURL: imageURL || '/apple.jpg',
-      lastViewed: Date.now()
+      lastViewed: Date.now(),
+      user_id: userId  // Adding the user_id field
     });
 
     const savedIngredient = await newIngredient.save(); // This will have an _id
@@ -497,32 +562,28 @@ app.post("/api/ingredients", verifyToken, async (req, res) => {
 // Route for ingredient search
 app.get("/api/ingredients/search", verifyToken, async (req, res) => {
   try {
-    // get the search query from the URL 
-    let searchTerms = { $regex: req.query.searchQuery, $options: 'i' }
-    // make sure ingredients is defined 
-    // let ingredients = [];
+    // Get the user ID from the token
+    const userId = req.user.userId;
 
-    // if (searchQuery) {
-    //   // if there is a search query, filter ingredients by name
-    //   ingredients = ingredients.filter((ingredient) =>
-    //     ingredient.name.toLowerCase().includes(searchQuery.toLowerCase())
-    //   );
-    // }
+    // Get the search query from the URL
+    let searchTerms = { $regex: req.query.searchQuery, $options: 'i' };
 
-    if (searchTerms != '') {
-      let ingredients = await Ingredient.find( {name: searchTerms} ).sort({ lastViewed: -1 })
-      res.json({
-        ingredients: ingredients,
-        status: 'all good',
-      });
+    let ingredients;
+    if (searchTerms !== '') {
+      // Filter ingredients by name and user ID
+      ingredients = await Ingredient.find({
+        name: searchTerms,
+        user_id: userId,
+      }).sort({ lastViewed: -1 });
+    } else {
+      // Only retrieve ingredients with the user's ID
+      ingredients = await Ingredient.find({ user_id: userId }).sort({ lastViewed: -1 });
     }
-    else {
-      let ingredients = await Ingredient.find().sort({ lastViewed: -1 })
-      res.json({
-        ingredients: ingredients,
-        status: 'all good',
-      });
-    }
+
+    res.json({
+      ingredients: ingredients,
+      status: 'all good',
+    });
   } catch (err) {
     console.error(err);
     res.status(400).json({
@@ -532,48 +593,62 @@ app.get("/api/ingredients/search", verifyToken, async (req, res) => {
   }
 });
 
+
 // RECIPES
 const Recipe = require('./models/Recipe')
 
 // Route to fetch recipes based on a query (if empty, it will fetch all recipes)
 app.get("/api/recipes/search", verifyToken, async (req, res) => {
   try {
-    let searchTerms = { $regex: req.query.y, $options: 'i' } // Saves query as a case-insensitive regular expression
+    // Get the user ID from the token
+    const userId = req.user.userId;
+
+    let searchTerms = { $regex: req.query.y, $options: 'i' }; // Saves query as a case-insensitive regular expression
+
     // If the user is filtering by available ingredients
     if (req.query.z == "true") {
-      let aIngr = await Ingredient.find({amount: {$ne: "0"}}) // Pulls all non-zero ingredients as an object
+      let aIngr = await Ingredient.find({ amount: { $ne: "0" }, user_id: userId }); // Pulls all non-zero ingredients for the current user
 
-      // If searchTerms are present, it pulls recipes filtering by available ingredients and search terms. If not, it pulls recipes only filtering by availableIngredients
+      // If searchTerms are present, it pulls recipes filtering by available ingredients and search terms for the current user. If not, it pulls recipes only filtering by available ingredients for the current user.
       if (searchTerms != '') {
-        let recipes = await Recipe.find({$or:[{name: searchTerms}, {desc: searchTerms}, {ingr: searchTerms, aIngr}]}).sort({ lastViewed: -1 })
-        res.json({recipes: recipes, status: "All good - recipes recieved"})
-      }
-      else {
-        let recipes = await Recipe.find({ingr: aIngr}).sort({ lastViewed: -1 })
-        res.json({recipes: recipes, status: "All good - recipes recieved"})
+        let recipes = await Recipe.find({
+          $and: [
+            { $or: [{ name: searchTerms }, { desc: searchTerms }, { ingr: searchTerms }] },
+            { user_id: userId },
+            { ingr: { $in: aIngr.map(ingredient => ingredient._id) } }
+          ]
+        }).sort({ lastViewed: -1 });
+        res.json({ recipes: recipes, status: "All good - recipes received" });
+      } else {
+        let recipes = await Recipe.find({ ingr: { $in: aIngr.map(ingredient => ingredient._id) }, user_id: userId }).sort({ lastViewed: -1 });
+        res.json({ recipes: recipes, status: "All good - recipes received" });
       }
     }
 
     // If the user is not filtering by available ingredients (works same as above but without ingredients)
     else {
       if (searchTerms != '') {
-        let recipes = await Recipe.find({$or:[{name: searchTerms}, {desc: searchTerms}, {ingr: searchTerms}]}).sort({ lastViewed: -1 })
-        res.json({recipes: recipes, status: "All good - recipes recieved"})
-      }
-      else {
-        let recipes = await Recipe.find().sort({ lastViewed: -1 })
-        res.json({recipes: recipes, status: "All good - recipes recieved"})
+        let recipes = await Recipe.find({
+          $and: [
+            { $or: [{ name: searchTerms }, { desc: searchTerms }, { ingr: searchTerms }] },
+            { user_id: userId }
+          ]
+        }).sort({ lastViewed: -1 });
+        res.json({ recipes: recipes, status: "All good - recipes received" });
+      } else {
+        let recipes = await Recipe.find({ user_id: userId }).sort({ lastViewed: -1 });
+        res.json({ recipes: recipes, status: "All good - recipes received" });
       }
     }
-  } 
-  catch (err) {
-    console.error(err)
+  } catch (err) {
+    console.error(err);
     res.status(400).json({
       error: err,
       status: 'failed to find recipes',
-    })
+    });
   }
-})
+});
+
 
 // Route to fetch a single recipe
 app.get("/api/recipes/single/:id", verifyToken, async (req, res) => {
@@ -614,22 +689,22 @@ app.put("/api/recipes/edit/:id", verifyToken, async (req, res) => {
     if (name) {
       recipe.name = name
     }
-    else if (img) {
+    if (img) {
       recipe.img = img
     }
-    else if (size) {
+    if (size) {
       recipe.size = size
     }
-    else if (time) {
+    if (time) {
       recipe.time = time
     }
-    else if (desc) {
+    if (desc) {
       recipe.desc = desc
     }
-    else if (ingr) {
+    if (ingr) {
       recipe.ingr = ingr
     }
-    else if (steps) {
+    if (steps) {
       recipe.steps = steps
     }
     // console.log("new recipe: ", recipe)
@@ -669,42 +744,36 @@ app.put("/api/recipes/edit/:id", verifyToken, async (req, res) => {
 //   }
 // });
 
+
 // Recipe add
 app.post("/api/recipes", verifyToken, async (req, res) => {
-  const { name, img, size, time, desc, ingr, steps } = req.body; // extract ingr from the body directly
+  const { name, img, size, time, desc, ingr, steps } = req.body;
 
   if (!name || name.trim() === '') {
     return res.status(400).json({ message: "Recipe name is required." });
   }
 
   try {
-    const data = await fs.readFile('./static/recipes.json', 'utf8');
-    let recipes = JSON.parse(data);
+    const userId = req.user.userId;  // Extracting userId from token
 
-    // Generate the next ID
-    const nextId = recipes.length > 0 ? Math.max(...recipes.map(r => r.id)) + 1 : 1;
-
-    // Create a new recipe object
-    const newRecipe = {
-      id: nextId,
+    const newRecipe = new Recipe({
       name,
-      img,
+      img: img || '/apple.jpg',
       size: parseInt(size, 10),
       time: parseInt(time, 10),
       desc,
       ingr, // Use the passed array
       steps,
-      lastViewed: Date.now()
-    };
+      lastViewed:Date.now(),
+      user_id: userId,  // Adding the user_id field
+    });
 
-    // Append the new recipe to the array
-    recipes.push(newRecipe);
-
-    // Write the updated array back to the file
-    await fs.writeFile('./static/recipes.json', JSON.stringify(recipes, null, 2), 'utf8');
+    const savedRecipe = await newRecipe.save();
+    console.log('New Recipe created with ID:', savedRecipe._id)
 
     // Send a success response with the new recipe
-    res.status(201).json(newRecipe);
+    res.status(201).json(savedRecipe);
+    
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error while adding new recipe" });

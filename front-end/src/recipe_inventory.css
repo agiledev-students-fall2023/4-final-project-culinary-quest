@@ -1,3 +1,8 @@
+@font-face {
+    font-family: cream;
+    src: url("fonts/cream.ttf");
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -34,6 +39,52 @@
     justify-content: flex-start; 
   }
   
+.search-input {
+    border: none;
+    background-color: #989898;
+    border-radius: 10px;
+    width: calc(100% - 40px); /* Adjusted width to fill container minus button width and margin */
+    min-width: 300px;/* Remove max-width property or adjust as necessary */
+    margin-left: 60px;
+
+    font-family: cream;
+    
+}
+
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 85%; /* Keep as is or adjust to stretch the container across the parent */
+    padding: 0; /* Ensure there's no padding inside the container that could affect the length of the input */
+    margin-bottom: 15px; /* Adjust space below the search bar container */
+}
+
+
+.add-recipe-btn {
+    padding: 10px 10px; 
+    margin-left: 10px; 
+    background-color: #DC4733;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 35px; 
+    font-family: 'Arial Rounded MT Bold', sans-serif;
+    font-weight: bold;
+    width: 40px; 
+    height: 40px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.add-recipe-btn:hover {
+    box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
+    background-color: #ff5a3c;
+}
   
 .RECIPE-INV {
     /* background-color: chartreuse; */
@@ -45,8 +96,8 @@
     flex-direction: column;
     justify-content: center;
     background-color: deeppink; */
-    align-items:center;
-    margin: auto;
+    align-items:flex-start;
+    margin: column;
     margin-top: 15px;
     width: 85%;
 }
@@ -56,6 +107,7 @@
     background-color: aquamarine; 
     min-width: 550px;
 } */
+
 
 input{
     border: none;
@@ -74,64 +126,6 @@ input{
 
 }
 
-.RECIPE-INV .search .search-tools .square-off {
-    width: 15px;
-    height: 15px;
-    margin: auto;
-
-    border: none;
-    background-color: #989898;
-    margin-right: 15px;
-    padding-right: 10px;
-    margin-left: 5%;
-}
-
-
-/* .RECIPE-INV .search .search-tools .square-on {
-    width: 15px;
-    height: 15px;
-    margin: auto;
-    background-color: black;
-    margin-right: 15px;
-    padding-right: 10px;
-    margin-left: 5%;
-} */
-/* .RECIPE-INV .search .search-tools .filter-text {
-    flex-grow: 2;
-    text-align: left;
-    margin: auto;
-} */
-
-/* .RECIPE-INV .recipe-list { */
-    /* background-color: aqua; */
-    /* width: 75%;
-    padding-top: 15px;
-    margin: auto;
-    list-style-type: none;
-    
-} */
-
-/* .RECIPE-INV .columns_ing .column_rec .recipe-tile {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 15px;
-    height: 200px;
-    text-decoration: none;
-    color: black;
-} */
-
-/* .RECIPE-INV .recipe-list .recipe-tile .recipe-photo {
-    aspect-ratio: 1 / 1;
-    background-color: gray;
-    text-align: center;
-    margin: auto;
-    min-width: 150px;
-    max-width: 150px;
-    border: 2px solid red;
-} */
-
 .recipe-tile {
     text-decoration: none;
 }
@@ -143,10 +137,7 @@ input{
     text-wrap: nowrap;
     max-height: 3em;
 }
-/* 
-.RECIPE-INV .recipe-list .recipe-tile .recipe-text h2 {
-    margin-bottom: 15px;
-} */
+
 
 h1 {
     /* background-color: aqua; */
@@ -168,4 +159,37 @@ img {
 
 li{
     list-style-type: none;
+}
+.filter-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 85%; /* Match the width of the search bar container for alignment */
+    margin-bottom: 20px; /* Space below the filter container */
+
+}
+
+.filter-btn {
+    /* Style for the filter button */
+    background-color: #989898; /* Neutral color for the button */
+    border: none;
+    border-radius: 5px;
+    width: 30px; /* Example size */
+    height: 30px; /* Example size */
+    cursor: pointer;
+    margin-right: 10px; /* Space between the button and the filter text */
+    margin-left: 65px;
+}
+
+.filter-btn:hover, .filter-btn.square-on {
+    background-color: #DC4733; /* Button turns black when hovered or active */
+}
+
+.filter-text {
+    /* Style for the filter text */
+    color: black; /* Text color */
+    margin-left: 0px; /* Space after the filter button */
+    margin-top: 5px;
+    /* Add other styles for the text as needed */
+    font-family: cream;
 }

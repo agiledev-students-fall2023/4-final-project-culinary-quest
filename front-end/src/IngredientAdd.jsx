@@ -45,12 +45,13 @@ const IngredientAdd = () => {
 
     return (
         <div className="ingredient-add">
+            <h1>ADD INGREDIENT</h1>
             <label className="image-upload-label">
                 {imageSrc ? <img src={imageSrc} alt="Uploaded Ingredient" className="uploaded-image"/> : 
-                <div className="image-section">INGREDIENT IMAGE<br />Upload a picture or take a picture</div>}
+                <div className="image-section">INGREDIENT IMAGE<br />Upload or take a picture</div>}
                 <input type="file" className="image-upload-input" accept="image/*" capture onChange={handleImageChange} />
             </label>
-
+            
             <label className="input-label">Ingredient Name:</label>
             <div className="input-box">
                 <input 

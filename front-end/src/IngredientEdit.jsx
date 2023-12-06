@@ -13,7 +13,7 @@ const IngredientEdit = () => {
     useEffect(() => {
       const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
       axios
-        .get(`${REACT_APP_SERVER_HOSTNAME}/api/ingredients/${id}`)
+        .get(`${REACT_APP_SERVER_HOSTNAME}/api/ingredients/single/${id}`)
         .then(response => {
           const ingredient = response.data;
           setIngredientName(ingredient.name);

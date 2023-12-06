@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './ChangePassword.css';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { axiosWithAuth } from './api';
 
 function ChangePassword() {
     const [password, setPassword] = useState('');
@@ -38,18 +39,14 @@ function ChangePassword() {
                 password, newPassword, newPasswordAgain
             });
 
-            const data = response.data;
+            // const data = response.data;
 
-            if (response.status === 200) {
-                // Navigate to /settings if the password change is successful
-                navigate('/settings');
-            } else {
-                // If the backend returns an error, display it
-                setErrorMessage(data.error);
-            }
+            navigate('/settings');
+
         } catch (error) {
             // Catch and display network or other errors
-            setErrorMessage('Failed to change password. Please try again later.');
+            const message = error.response?.data?.error || 'Failed to change password. Please try again later.';
+            setErrorMessage(message);
         }
     };
 
