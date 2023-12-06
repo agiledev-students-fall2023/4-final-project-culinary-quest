@@ -254,19 +254,80 @@ app.post('/api/upload-profile-picture', verifyToken, upload.single('profilePictu
 });
 
 // Forgot-Password route
-app.post('/api/forgot-password', (req, res) => {
+app.post('/api/forgot-password', async (req, res) => {
   const { username } = req.body;
 
-  if (username) {
-    res.json({
-      message: 'Password reset username sent',
-      status: 'success'
-    });
-  } else {
-    res.status(400).json({
-      error: 'Failed to send password reset username',
+  try {
+    // Check if the username exists in the database
+    const existingUser = await User.findOne({ username });
+
+    if (existingUser) {
+      // Username found, respond with success message
+      res.json({
+        message: 'Password reset username sent',
+        status: 'success'
+      });
+    } else {
+      // Username not found, respond with error message
+      res.status(400).json({
+        error: 'Username not found in the database',
+        status: 'failed'
+      });
+    }
+  } catch (error) {
+    // Handle any unexpected errors
+    console.error('Error in forgot-password route:', error);
+    res.status(500).json({
+      error: 'Internal server error',
       status: 'failed'
     });
+  }
+});
+
+// Reset Password route
+app.post('/api/reset-password', verifyToken, async (req, res) => {
+  const { newPassword, newPasswordAgain } = req.body;
+  const userId = req.user.userId; // Extract userId from the JWT token
+
+  // Check if all fields are provided
+  if (!newPassword || !newPasswordAgain) {
+    return res.status(400).json({
+      error: 'All fields are required',
+      status: 'failed',
+    });
+  }
+
+  // Validate password with regex
+  if (!passwordRegex.test(newPassword)) {
+    console.log('Error: Invalid password');
+    return res.status(400).json({
+      error: 'Password must be at least 8 characters long, contain at least one number, one special character, and one uppercase letter.',
+      status: 'failed',
+    });
+  }
+
+  try {
+    // Find the logged-in user by userId
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Check if newPassword and newPasswordAgain match
+    if (newPassword !== newPasswordAgain) {
+      return res.status(400).json({ error: 'New passwords do not match', status: 'failed' });
+    }
+
+    // Update the user's password
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedNewPassword;
+    await user.save();
+
+    res.json({ message: 'Password successfully changed', status: 'success' });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error', status: 'failed' });
   }
 });
 
@@ -333,6 +394,15 @@ app.post('/api/change-password', verifyToken, async (req, res) => {
     });
   }
 
+  // Validate password with regex
+  if (!passwordRegex.test(newPassword)) {
+    console.log('Error: Invalid password');
+    return res.status(400).json({
+      error: 'Password must be at least 8 characters long, contain at least one number, one special character, and one uppercase letter.',
+      status: 'failed',
+    });
+  }
+  
   try {
     // Find the logged-in user by userId
     const user = await User.findById(userId);
@@ -368,7 +438,6 @@ app.post('/api/change-password', verifyToken, async (req, res) => {
     res.status(500).json({ message: 'Server error', status: 'failed' });
   }
 });
-
 
 // Update-username route
 app.post('/api/update-username', verifyToken, async (req, res) => {

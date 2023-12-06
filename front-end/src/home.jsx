@@ -2,14 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import "./home.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FaArrowRight } from "react-icons/fa";
 
 const token = localStorage.getItem('token');
 if (token) {
-  axios.defaults.headers.common['Authorization'] = `
-  ${token}`;
+  axios.defaults.headers.common['Authorization'] = `${token}`;
 }
 
 const Home = () => {
@@ -21,11 +18,11 @@ const Home = () => {
     // Fetch the ingredients from the backend
     const fetchIngredients = async () => {
       try {
-        const response = await axios.get(`${REACT_APP_SERVER_HOSTNAME}/api/ingredients/search`, {params: {searchQuery: ''}})
-        const ingredients = response.data.ingredients
+        const response = await axios.get(`${REACT_APP_SERVER_HOSTNAME}/api/ingredients/search`, { params: { searchQuery: '' } });
+        const ingredients = response.data.ingredients;
         // Set the first ingredient as the most recent
         if (ingredients.length > 0) {
-          setRecentIngredient(ingredients[0])
+          setRecentIngredient(ingredients[0]);
         }
       } catch (error) {
         console.error('Failed to fetch ingredients:', error);
@@ -33,22 +30,22 @@ const Home = () => {
     };
 
     const fetchRecipes = () => {
-      console.log("fetching recipe")
+      console.log("fetching recipe");
       axios
-        .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/search`, {params: {y: ''}})
+        .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/search`, { params: { y: '' } })
         .then(response => {
-          const recipes = response.data.recipes
-          console.log("resp: ", response.data.recipes)
-          console.log("recent rec: ", recipes[0] )
-          
+          const recipes = response.data.recipes;
+          console.log("resp: ", response.data.recipes);
+          console.log("recent rec: ", recipes[0]);
+
           if (recipes.length > 0) {
-            setRecentRecipe(recipes[0])
+            setRecentRecipe(recipes[0]);
           }
         })
         .catch(err => {
-          console.log("Help 3")
-        })
-  }
+          console.log("Help 3");
+        });
+    };
 
     fetchIngredients();
     fetchRecipes();
@@ -87,14 +84,15 @@ const Home = () => {
           All Recipes<FaArrowRight className="Arrow"/>
         </Link>
 
-        <div className = "recipeTile">
-          {recentRecipe && (<Link to={`/recipes/single/${recentRecipe._id}`} className="sampleRecipe">
-            <img src={recentRecipe.img} alt={recentRecipe.name} />
-            <div className="description">
-              <h3>{recentRecipe.name}</h3>
-              <p>{recentRecipe.desc}</p>
-            </div>
-          </Link>
+        <div className="recipeTile">
+          {recentRecipe && (
+            <Link to={`/recipes/single/${recentRecipe._id}`} className="sampleRecipe">
+              <img src={recentRecipe.img} alt={recentRecipe.name} />
+              <div className="description">
+                <h3>{recentRecipe.name}</h3>
+                <p>{recentRecipe.desc}</p>
+              </div>
+            </Link>
           )}
         </div>
         

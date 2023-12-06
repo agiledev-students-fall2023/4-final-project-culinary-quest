@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./forgotPassword.css";
 import { FaArrowLeft } from "react-icons/fa";
 import axios from "axios";
+import "./forgotPassword.css";
 
 function ForgotPassword() {
   const [username, setUsername] = useState("");
@@ -21,7 +21,7 @@ function ForgotPassword() {
 
         if (response.status === 200) {
           // If successful, navigate to the change-password page
-          navigate("/change-password");
+          navigate("/reset-password");
         } else {
           // If unsuccessful, display an error message
           setErrorMessage(response.data.error || "An error occurred while resetting the password");
