@@ -9,7 +9,11 @@ const recipeSchema = new mongoose.Schema({
     desc: String,
     ingr: [String],
     steps: [String],
-    lastViewed: Date
+    lastViewed: Date, 
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+      }
 })
 
 const Recipe = mongoose.model('Recipe', recipeSchema)

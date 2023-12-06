@@ -745,6 +745,7 @@ app.post("/api/recipes", verifyToken, async (req, res) => {
 
     // Generate the next ID
     const nextId = recipes.length > 0 ? Math.max(...recipes.map(r => r.id)) + 1 : 1;
+    const userId = req.user.userId;  // Extracting userId from token
 
     // Create a new recipe object
     const newRecipe = {
@@ -756,7 +757,8 @@ app.post("/api/recipes", verifyToken, async (req, res) => {
       desc,
       ingr, // Use the passed array
       steps,
-      lastViewed: Date.now()
+      lastViewed: Date.now(), 
+      user_id: userId  // Adding the user_id field
     };
 
     // Append the new recipe to the array
