@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ChangePassword.css';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
@@ -9,7 +9,22 @@ function ChangePassword() {
     const [newPassword, setNewPassword] = useState('');
     const [newPasswordAgain, setNewPasswordAgain] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [profilePicture, setProfilePicture] = useState(null);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // Fetch user data when the component mounts
+        const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
+        axios
+          .get(`${REACT_APP_SERVER_HOSTNAME}/api/user`)
+          .then(response => {
+            const user = response.data.user;
+            setProfilePicture(user.profilePicture);
+          })
+          .catch(err => {
+            console.error("Failed to fetch user:", err);
+          });
+    }, []);
 
     const handleSubmit = async (e) => {
 
@@ -52,7 +67,7 @@ function ChangePassword() {
 
     return (
         <div className="profile-container">
-            <div className="profile-picture"></div>
+            <img src={profilePicture} alt="Profile" className="profile-picture"/>
             <div className="settings-container">
                 <input
                     type="password"
