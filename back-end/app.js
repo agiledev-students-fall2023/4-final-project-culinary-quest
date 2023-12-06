@@ -297,6 +297,15 @@ app.post('/api/reset-password', verifyToken, async (req, res) => {
     });
   }
 
+  // Validate password with regex
+  if (!passwordRegex.test(newPassword)) {
+    console.log('Error: Invalid password');
+    return res.status(400).json({
+      error: 'Password must be at least 8 characters long, contain at least one number, one special character, and one uppercase letter.',
+      status: 'failed',
+    });
+  }
+
   try {
     // Find the logged-in user by userId
     const user = await User.findById(userId);
@@ -308,7 +317,7 @@ app.post('/api/reset-password', verifyToken, async (req, res) => {
     if (newPassword !== newPasswordAgain) {
       return res.status(400).json({ error: 'New passwords do not match', status: 'failed' });
     }
-    
+
     // Update the user's password
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
     user.password = hashedNewPassword;
@@ -385,6 +394,15 @@ app.post('/api/change-password', verifyToken, async (req, res) => {
     });
   }
 
+  // Validate password with regex
+  if (!passwordRegex.test(newPassword)) {
+    console.log('Error: Invalid password');
+    return res.status(400).json({
+      error: 'Password must be at least 8 characters long, contain at least one number, one special character, and one uppercase letter.',
+      status: 'failed',
+    });
+  }
+  
   try {
     // Find the logged-in user by userId
     const user = await User.findById(userId);
