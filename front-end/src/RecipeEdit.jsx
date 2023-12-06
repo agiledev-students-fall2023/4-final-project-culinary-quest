@@ -70,7 +70,9 @@ const RecipeEdit = () => {
   }
 
   return (
+    <div classname="container">
     <div className="recipe-edit">
+      <h1>Edit Recipe</h1>
       <label className="image-upload-label">
           {imageSrc ? <img src={imageSrc} alt="Uploaded Recipe" className="uploaded-image"/> : 
           <div className="image-section">RECIPE IMAGE<br />Upload a picture or take a picture</div>}
@@ -123,7 +125,7 @@ const RecipeEdit = () => {
       </div>
 
       <label className="input-label">Recipe Steps:</label>
-      <div className="input-box">
+      <div className="input-box-steps">
         <textarea 
           value={recipeSteps} 
           onChange={(e) => setRecipeSteps(e.target.value)}
@@ -131,6 +133,7 @@ const RecipeEdit = () => {
       </div>
 
       <button onClick={handleSave} className="save-button">Save Recipe</button>
+    </div>
     </div>
   );
 };
