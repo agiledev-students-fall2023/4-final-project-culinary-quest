@@ -39,7 +39,7 @@ const Ingredient = () => {
     return ingredient ? (
       <div className="ingredient-view">
         <label className="title-label">{ingredient.name}</label>
-        <div className="image-section">
+        <div className="image-section-ingredient">
           <img src={ingredient.imageURL} alt={ingredient.name} /><br />
         </div>
         <label className="text-label">Ingredient Amount:</label>
