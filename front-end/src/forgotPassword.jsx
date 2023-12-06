@@ -5,18 +5,18 @@ import { FaArrowLeft } from "react-icons/fa";
 import axios from "axios";
 
 function ForgotPassword() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleForgotPassword = async () => {
-    if (email) {
+    if (username) {
       setErrorMessage("");
 
       try {
         // Make the POST request to the back-end
         const response = await axios.post("http://localhost:3001/api/forgot-password", {
-          email,
+          username,
         });
 
         if (response.status === 200) {
@@ -31,24 +31,24 @@ function ForgotPassword() {
         setErrorMessage("An unexpected error occurred");
       }
     } else {
-      // If email is missing, display an error message
-      setErrorMessage("Please enter your email address");
+      // If username is missing, display an error message
+      setErrorMessage("Please enter your username address");
     }
   };
 
   return (
     <div className="ForgotPasswordPage">
       <div className="ForgotPasswordContainer">
-        <div className="EnterEmail">
+        <div className="EnterUsername">
           <input
             type="text"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <span className="ResetMessage">
-          Please enter your email to reset the password
+          Please enter your username to reset the password
         </span>
         <div className="ResetButton">
           <button className="Reset" onClick={handleForgotPassword}>
