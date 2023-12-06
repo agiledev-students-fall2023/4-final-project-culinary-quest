@@ -228,30 +228,46 @@ app.get('/api/protected-route', verifyToken, (req, res) => {
 });
 
 // Profile picture upload route  (need to check once login setup)
-app.post('/api/upload-profile-picture', verifyToken, upload.single('profilePicture'), async (req, res) => {
-  if (!req.file) {
-    return res.status(400).send({ message: 'No file uploaded.' });
-  }
+app.post('/api/upload-profile-picture', verifyToken, async (req, res) => {
+  const userId = req.user.userId;
+  const {imageURL} = req.body;
 
   try {
-    const username = req.user.username;
-    const filePath = req.file.path; // This is the path of the uploaded file
+    const user = await User.findById(userId);
 
-    // Update user's profile picture in the database
-    const user = await User.findById(username);
     if (!user) {
-      return res.status(404).send({ message: 'User not found.' });
+      return res.status(404).json({ message: "User not found" });
     }
 
-    user.profilePicture = filePath;
-    await user.save();
+    user.profilePicture = imageURL || user.imageURL;
 
-    res.send({ message: 'Profile picture uploaded successfully.' });
+    const updatedUser = await user.save();
+
+    res.json({ user: updatedUser, message: "User updated successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error while updating image" });
+  }
+  
+});
+
+// Get user profile
+app.get('/api/user', verifyToken, async (req, res) => {
+  try {
+      // Assuming your authenticateToken middleware adds the user ID to req.user
+      const user = await User.findById(req.user.userId);
+
+      if (!user) {
+          return res.status(404).json({ message: "User not found" });
+      }
+
+      res.json({ user: user });
   } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: 'Error uploading file.' });
+      console.error(error);
+      res.status(500).json({ message: "Server error" });
   }
 });
+
 
 // Forgot-Password route
 app.post('/api/forgot-password', async (req, res) => {
