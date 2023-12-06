@@ -1,3 +1,8 @@
+@font-face {
+  font-family: chocolatedonut;
+  src: url("fonts/chocolatedonut.otf");
+}
+
 .SIDEBAR {
   position: absolute;
   aspect-ratio: 9 / 16;
@@ -59,4 +64,9 @@
   font-size: 1.5em;
   font-weight: normal;
   text-align: left;
+  color: white;
+  
+  font-family: chocolatedonut;
+  text-transform: uppercase;
 }
+

@@ -42,6 +42,7 @@ function Login() {
   return (
     <div className="LoginPage">
       <div className="LoginContainer">
+      <div className="AppLogo" />
         <div className="InputUsername">
           <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
         </div>
@@ -61,10 +62,9 @@ function Login() {
             Don’t have an account? {" "}
           </span>
           <Link to="/create-account" className="SignUpText">
-            Sign Up
+            Sign Up!
           </Link>
         </div>
-        <div className="AppLogo" />
       </div>
       {errorMessage && <div className="error-message-log">{errorMessage}</div>}
     </div>
