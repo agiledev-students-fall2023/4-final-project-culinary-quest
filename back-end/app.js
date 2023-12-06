@@ -689,22 +689,22 @@ app.put("/api/recipes/edit/:id", verifyToken, async (req, res) => {
     if (name) {
       recipe.name = name
     }
-    else if (img) {
+    if (img) {
       recipe.img = img
     }
-    else if (size) {
+    if (size) {
       recipe.size = size
     }
-    else if (time) {
+    if (time) {
       recipe.time = time
     }
-    else if (desc) {
+    if (desc) {
       recipe.desc = desc
     }
-    else if (ingr) {
+    if (ingr) {
       recipe.ingr = ingr
     }
-    else if (steps) {
+    if (steps) {
       recipe.steps = steps
     }
     // console.log("new recipe: ", recipe)
