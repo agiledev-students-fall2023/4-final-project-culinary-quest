@@ -307,18 +307,52 @@ app.post('/api/change-username', verifyToken, async (req, res) => {
 // Change-Password route
 app.post('/api/change-password', verifyToken, async (req, res) => {
   const { password, newPassword, newPasswordAgain } = req.body;
-  if (password && newPassword && newPasswordAgain) {
-    res.json({
-      message: 'Password successfully changed',
-      status: 'success',
-    });
-  } else {
-    res.status(400).json({
-      error: 'Failed to reset password',
+  const userId = req.user.userId; // Extract userId from the JWT token
+
+  // Check if all fields are provided
+  if (!password || !newPassword || !newPasswordAgain) {
+    return res.status(400).json({
+      error: 'All fields are required',
       status: 'failed',
     });
   }
+
+  try {
+    // Find the logged-in user by userId
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Check if the current password matches the user's password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: 'Current password is incorrect', status: 'failed' });
+    }
+
+    // Check if newPassword and newPasswordAgain match
+    if (newPassword !== newPasswordAgain) {
+      return res.status(400).json({ error: 'New passwords do not match', status: 'failed' });
+    }
+
+    // Check if newPassword is different from the current password
+    if (password === newPassword) {
+      return res.status(400).json({ error: 'New password must be different from the current password', status: 'failed' });
+    }
+
+    // Update the user's password
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedNewPassword;
+    await user.save();
+
+    res.json({ message: 'Password successfully changed', status: 'success' });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error', status: 'failed' });
+  }
 });
+
 
 // Update-username route
 app.post('/api/update-username', verifyToken, async (req, res) => {
