@@ -55,7 +55,9 @@ const RecipeAdd = () => {
   };
 
   return (
+    <div className="container">
     <div className="recipe-add">
+      <h1>Add Recipe</h1>
       <label className="image-upload-label">
         {imageSrc ? (
           <img src={imageSrc} alt="Uploaded Recipe" className="uploaded-image" />
@@ -102,6 +104,7 @@ const RecipeAdd = () => {
       <button onClick={handleAddRecipe} className="add-button">
         Add Recipe
       </button>
+    </div>
     </div>
   );
 };
