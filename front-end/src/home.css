@@ -1,3 +1,13 @@
+@font-face {
+  font-family: chocolateDonut;
+  src: url("fonts/chocolatedonut.otf");
+}
+
+@font-face {
+  font-family: cream;
+  src: url("fonts/cream.ttf");
+}
+
 .HomePage {
   display: flex;
   flex-direction: row;
@@ -14,12 +24,14 @@
 
 .HomeTitle{
   color: #000000;
-  font-family: "Inter-Regular", Helvetica;
-  font-size: 30px;
+  font-family: "chocolatedonut";
+  font-size: 45px;
   font-weight: bolder;
   left: 160px;
   position: absolute;
   top: -32px;
+  letter-spacing: .3rem;
+  text-transform: uppercase;
 }
 
 .SearchBar {
@@ -39,6 +51,7 @@
   background-color: #989898; 
   border: none; 
   border-radius: 10px;
+  font-family: cream;
 }
 
 .SearchButton {
@@ -66,8 +79,10 @@
 
 .RecentIngredients {
   color: #000000;
-  font-family: "Inter-Regular", Helvetica;
+  font-family: cream;
   font-size: 20px;
+  text-transform: uppercase;
+
   font-weight: bolder;
   left: -87px;
   position: absolute;
@@ -80,12 +95,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 140px;
+  width: 200px;
   font-size: 18px;
   position: absolute;
   text-decoration: none;
   top: 85px;
-  left: 343px;
+  left: 275px;
+
+  font-family: cream;
+  font-weight: bolder;
+  text-transform: uppercase;
 }
 
 .Arrow {
@@ -107,8 +126,8 @@
 .AddIngredient {
   background-color: #DC4733;
   border-radius: 20px;
-  color: #000000;
-  font-family: "Inter-Regular", Helvetica;
+  color: white;
+  font-family: cream;
   font-size: 15px;
   font-weight: 400;
   height: 39px;
@@ -159,7 +178,9 @@
 
 .RecentRecipes {
   color: #000000;
-  font-family: "Inter-Regular", Helvetica;
+  font-family: cream;
+  text-transform: uppercase;
+
   font-size: 20px;
   font-weight: bolder;
   left: -87px;
@@ -171,14 +192,18 @@
   color: #476ae9;
   height: auto;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 111px;
+  align-items: right;
+  justify-content: right;
+  width: 200px;
   font-size: 18px;
   position: absolute;
   text-decoration: none;
   top: 540px;
-  left: 370px;
+  left: 260px;
+
+  font-family: cream;
+  font-weight: bolder;
+  text-transform: uppercase;
 }
 
 .Arrow {
@@ -219,8 +244,8 @@
 .AddRecipe {
   background-color: #DC4733;
   border-radius: 20px;
-  color: #000000;
-  font-family: "Inter-Regular", Helvetica;
+  color: white;
+  font-family: cream;
   font-size: 15px;
   font-weight: 400;
   height: 39px;

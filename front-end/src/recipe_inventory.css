@@ -1,3 +1,8 @@
+@font-face {
+    font-family: cream;
+    src: url("fonts/cream.ttf");
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -41,6 +46,9 @@
     width: calc(100% - 40px); /* Adjusted width to fill container minus button width and margin */
     min-width: 300px;/* Remove max-width property or adjust as necessary */
     margin-left: 60px;
+
+    font-family: cream;
+    
 }
 
 .search-bar-container {
@@ -99,6 +107,7 @@
     background-color: aquamarine; 
     min-width: 550px;
 } */
+
 
 input{
     border: none;
@@ -173,7 +182,7 @@ li{
 }
 
 .filter-btn:hover, .filter-btn.square-on {
-    background-color: black; /* Button turns black when hovered or active */
+    background-color: #DC4733; /* Button turns black when hovered or active */
 }
 
 .filter-text {
@@ -182,4 +191,5 @@ li{
     margin-left: 0px; /* Space after the filter button */
     margin-top: 5px;
     /* Add other styles for the text as needed */
+    font-family: cream;
 }

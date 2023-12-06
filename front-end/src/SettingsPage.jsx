@@ -55,6 +55,7 @@ function SettingsPage() {
 
     return (
         <div className="profile-container">
+            <h1>Settings</h1>
             <div className="profile-picture" onClick={() => document.getElementById('fileInput').click()} style={profilePicture ? { backgroundImage: `url(${profilePicture})`, backgroundSize: 'cover' } : {}}></div>
             <input type="file" id="fileInput" style={{ display: 'none' }} onChange={handleFileSelect} />
             {selectedFile && <button onClick={uploadProfilePicture}>Upload Picture</button>}
@@ -62,7 +63,7 @@ function SettingsPage() {
                 <button className="input-like-button" onClick={() => navigate('/change-username')}>Change Username</button>
                 <button className="input-like-button" onClick={() => navigate('/change-password')}>Change Password</button>
                 <div className="button-group">
-                    <button onClick={() => navigate('/')}>Logout</button>
+                    <button classname ="logoutbtn" onClick={() => navigate('/')}>Logout</button>
                     <button className="danger" onClick={deleteAccount}>Delete Account</button>
                 </div>
             </div>
