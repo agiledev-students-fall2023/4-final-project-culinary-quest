@@ -27,7 +27,7 @@ const mongoose = require('mongoose')
 const User = require('./models/User');
 const jwt = require('jsonwebtoken'); // Import jsonwebtoken
 const bcrypt = require("bcrypt");
-const { axiosWithAuth } = require('../front-end/src/api');
+const { axiosWithAuth } = require('./api');
 // ---------------------------------------------------------------------------
 
 const multer = require('multer');
