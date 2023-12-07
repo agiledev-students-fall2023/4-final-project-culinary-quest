@@ -806,6 +806,25 @@ app.put("/api/ingredients/:id", verifyToken, async (req, res) => {
   }
 });
 
+// Route for deleting an ingredient
+app.delete("/api/ingredients/:id", verifyToken, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await Ingredient.deleteOne({ _id: id });
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "Ingredient not found" });
+    }
+
+    res.json({ message: "Ingredient deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error while deleting ingredient" });
+  }
+});
+
+
+
 
 // Route for Ingredient add 
 app.post("/api/ingredients", verifyToken, async (req, res) => {
