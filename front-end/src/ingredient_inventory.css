@@ -17,7 +17,7 @@ h1{
   align-items: center;
   text-align: center;
   padding: 20px;
-  padding-top: 100px;
+  /* padding-top: 100px; */
   background-color: #ffffff;
 }
 
@@ -35,7 +35,7 @@ h1{
   border: 1px solid #ccc;
   border-radius: 5px;
   padding-bottom: 20px; 
-  width: calc(50% - 20px);
+  width: 100%;
   max-width: 220px; 
   box-sizing: border-box;
   overflow: hidden; /* This will prevent content from spilling out */

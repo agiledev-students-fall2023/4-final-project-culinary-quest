@@ -12,7 +12,7 @@ function SettingsPage() {
 
     useEffect(() => {
         // Fetch user data when the component mounts
-        const REACT_APP_SERVER_HOSTNAME = 'https://whale-app-bio98.ondigitalocean.app';
+        const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
         axios
           .get(`${REACT_APP_SERVER_HOSTNAME}/api/user`)
           .then(response => {
@@ -42,7 +42,7 @@ function SettingsPage() {
     };
 
     const handleSave = () => {
-        const REACT_APP_SERVER_HOSTNAME = 'https://whale-app-bio98.ondigitalocean.app';
+        const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
         axios
             .post(`${REACT_APP_SERVER_HOSTNAME}/api/upload-profile-picture`, {
                 imageURL: profilePicture
@@ -59,7 +59,7 @@ function SettingsPage() {
     const deleteAccount = async () => {
         try {
             console.log("Attempting to delete account");
-            const response = await axios.delete('hhttps://whale-app-bio98.ondigitalocean.app/api/delete-account');
+            const response = await axios.delete('http://localhost:3001/api/delete-account');
             console.log("Delete response:", response);
     
             localStorage.clear();
@@ -71,7 +71,7 @@ function SettingsPage() {
 
     return (
         <div className="profile-container">
-            <h1>Settings</h1>
+            <div className="settingstitle"><h1>Settings</h1></div>
 
             <label className="profile-picture" onClick={handleImageClick}>
                 <img src={profilePicture} alt="Profile" className="profile-picture"/>

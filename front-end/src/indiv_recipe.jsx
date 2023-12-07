@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react';
 
 const IndivRecipe = (props)  => {
     const [recipe, setRecipe] = useState([])
-    const REACT_APP_SERVER_HOSTNAME = 'https://whale-app-bio98.ondigitalocean.app'
+    const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001'
 
     // const loc = useLocation()
     const { id } = useParams()
@@ -48,17 +48,29 @@ const IndivRecipe = (props)  => {
             <label className="title-label">{recipe.name}</label>
 
             <div className="image-section-recipe">
-                <img src = {recipe.img} alt = {recipe.name} /><br />
+                <img src = {"/"+recipe.img} alt = {recipe.name} /><br />
             </div>
 
             <label className="text-label">Recipe Description:</label>
             <label className="text-box">{recipe.desc}</label>
 
             <label className="text-label">Recipe Ingredients:</label>
-            <label className="text-box">{Array.isArray(recipe.ingr) ? recipe.ingr.join(', ') : recipe.ingr}</label>
+            <div className="text-box-ingredients">
+                {recipe.ingr && recipe.ingr.map((ingredient, index) => (
+                    <div key={index}>{ingredient}</div>
+                ))}
+            </div>
 
             <label className="text-label">Recipe Steps:</label>
-            <label className="text-box-recipesteps">{recipe.steps}</label>
+            <div className="text-box-recipesteps">
+                {recipe.steps && recipe.steps.map((step, index) => (
+                <React.Fragment key={index}>
+                    <div>{step}</div>
+                    <div>&nbsp;</div> {/* Empty row */}
+                </React.Fragment>
+                ))}
+            </div>
+
 
             <div className="button-container">
                 <Link to={`/recipe-edit/${recipe._id}`} className="button">Edit Recipe</Link>

@@ -27,7 +27,7 @@
   font-family: "chocolatedonut";
   font-size: 45px;
   font-weight: bolder;
-  left: 160px;
+  left: 140px;
   position: absolute;
   top: -32px;
   letter-spacing: .3rem;
@@ -144,22 +144,35 @@
 }
 
 .sampleIngredient {
-  position: absolute;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
-  width: 100%;
-  max-width: 300px;
+  width: 250px; 
   text-align: center;
-  top: 130px;
-  left: 40px;
+  margin-bottom: 20px;
 }
 
+
 .sampleIngredient img {
-  max-width: 70%;
+  max-width: 90%;
   height: auto;
   border-radius: 5px;
+  display: block; /* Center the image */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ingredientsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  justify-content: center; /* Center the grid horizontally */
+  gap: 10px; /* Space between grid items */
+  position: absolute;
+  top: 130px;
+  left: 50%;
+  transform: translateX(-50%); /* Center the grid container */
+  width: auto; /* Adjust as needed */
 }
 
 h3{
@@ -226,23 +239,27 @@ p{
 }
 
 .sampleRecipe {
-  position: absolute;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
-  width: 100%;
-  max-width: 300px;
+  width: 250px; /* Adjust the width as per your layout */
   text-align: center;
-  top: 600px;
-  left: 40px;
+  margin-bottom: 20px; /* Space between rows */
+  margin-left: auto;
+  margin-right: auto;
 }
 
+
 .sampleRecipe img {
-  max-width: 70%;
+  max-width: 90%;
   height: auto;
   border-radius: 5px;
+  display: block; /* Center the image */
+  margin-left: auto;
+  margin-right: auto;
 }
+
 
 .AddRecipeButton {
   height: 39px;
@@ -275,4 +292,17 @@ p{
 .description{
   overflow: hidden;
   max-height: 5em;
+}
+
+.recipesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  justify-content: center; /* Center the grid horizontally */
+  gap: 10px; /* Space between grid items */
+  position: absolute; /* Adjust as needed */
+  top: 600px; /* Adjust as needed */
+  padding: 0 20px; /* Padding on sides */
+  transform: translateX(-50%); /* Center the grid container */
+  left: 50%;
+  width: auto; /* Adjust as needed */
 }

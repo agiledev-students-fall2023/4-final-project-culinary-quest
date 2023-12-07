@@ -90,11 +90,6 @@ h2{
     background-color: #ff5a3c;
 }
   
-.RECIPE-INV {
-    /* background-color: chartreuse; */
-    padding-top: 80px;
-}
-
 .RECIPE-INV .search {
     /* display: flex;
     flex-direction: column;

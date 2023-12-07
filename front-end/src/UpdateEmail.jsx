@@ -13,7 +13,7 @@ function UpdateEmail() {
             setErrorMessage('');
 
             // Make the POST request to the back-end
-            const response = await axios.post('https://whale-app-bio98.ondigitalocean.app/api/update-email', {
+            const response = await axios.post('http://localhost:3001/api/update-email', {
                 newEmail
             });
 

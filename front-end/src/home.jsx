@@ -10,9 +10,9 @@ if (token) {
 }
 
 const Home = () => {
-  const [recentIngredient, setRecentIngredient] = useState(null);
-  const [recentRecipe, setRecentRecipe] = useState(null);
-  const REACT_APP_SERVER_HOSTNAME = 'https://whale-app-bio98.ondigitalocean.app';
+  const [recentIngredients, setRecentIngredients] = useState([]);
+  const [recentRecipes, setRecentRecipes] = useState([]);
+  const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
 
   useEffect(() => {
     // Fetch the ingredients from the backend
@@ -22,8 +22,8 @@ const Home = () => {
         const ingredients = response.data.ingredients;
         // Set the first ingredient as the most recent
         if (ingredients.length > 0) {
-          setRecentIngredient(ingredients[0]);
-        }
+          setRecentIngredients(ingredients.slice(0, 2));
+        }        
       } catch (error) {
         console.error('Failed to fetch ingredients:', error);
       }
@@ -39,7 +39,7 @@ const Home = () => {
           console.log("recent rec: ", recipes[0]);
 
           if (recipes.length > 0) {
-            setRecentRecipe(recipes[0]);
+            setRecentRecipes(recipes.slice(0, 2));
           }
         })
         .catch(err => {
@@ -60,15 +60,17 @@ const Home = () => {
         <span className="RecentIngredients">
           Recent Ingredients: 
         </span>
-        {recentIngredient && (
-          <Link to={`/ingredients/${recentIngredient._id}`} className="sampleIngredient">
-            <img src={recentIngredient.imageURL} alt={recentIngredient.name} />
+        <div className="ingredientsGrid">
+        {recentIngredients.map(ingredient => (
+          <Link key={ingredient._id} to={`/ingredients/${ingredient._id}`} className="sampleIngredient">
+            <img src={ingredient.imageURL} alt={ingredient.name} />
             <div className="description">
-              <h3>{recentIngredient.name}</h3>
-              <p>{recentIngredient.amount}</p>
+              <h3>{ingredient.name}</h3>
+              <p>{ingredient.amount}</p>
             </div>
           </Link>
-        )}
+        ))}
+        </div>
         <Link to="/inventory" className="AllIngredients">
           All Ingredients<FaArrowRight className="Arrow"/>
         </Link>
@@ -84,16 +86,16 @@ const Home = () => {
           All Recipes<FaArrowRight className="Arrow"/>
         </Link>
 
-        <div className="recipeTile">
-          {recentRecipe && (
-            <Link to={`/recipes/single/${recentRecipe._id}`} className="sampleRecipe">
-              <img src={recentRecipe.img} alt={recentRecipe.name} />
+        <div className="recipesGrid">
+          {recentRecipes.map(recipe => (
+            <Link key={recipe._id} to={`/recipes/single/${recipe._id}`} className="sampleRecipe">
+              <img src={recipe.img} alt={recipe.name} />
               <div className="description">
-                <h3>{recentRecipe.name}</h3>
-                <p>{recentRecipe.desc}</p>
+                <h3>{recipe.name}</h3>
+                <p>{recipe.desc}</p>
               </div>
             </Link>
-          )}
+          ))}
         </div>
         
         <div className="AddRecipeButton">

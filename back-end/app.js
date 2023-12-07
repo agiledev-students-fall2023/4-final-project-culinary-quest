@@ -62,7 +62,7 @@ const defaultIngredients = [
  { name: 'Flour',
  imageURL: "/flour.png"  },
 
- { name: 'Eggs',
+ { name: 'Egg',
  imageURL: "/eggs.png"  },
 
  { name: 'Milk',
@@ -81,12 +81,24 @@ const defaultIngredients = [
  imageURL: "/raw-pasta.png"  },
  
  { name: 'Rice',
- imageURL: "/rice.png"  }
+ imageURL: "/rice.png"  },
+
+ { name: 'Cereal',
+ imageURL: "/cereal-box.png"  },
+
+ { name: 'Vegetable Oil',
+ imageURL: "/vegetable-oil.png"  },
+
+ { name: 'Baking Powder',
+ imageURL: "/baking-powder.png"  },
+
+ { name: 'Sugar',
+ imageURL: "/sugar.png"  }
   ];
 
 const defaultRecipes = [
   { name: 'Waffles', 
-  img: "/waffle.png",
+  img: "waffle.png",
   size: 4,
   time: 30,
   desc: "Here's your new go-to waffle recipe for family breakfast, a brunch gathering, or just because. By Martha Stewart!",
@@ -218,6 +230,15 @@ const defaultRecipes = [
   steps: ["1. In a bowl, mix black beans, corn, diced red bell pepper, and shredded cheddar cheese.", "2. Place a tortilla on a hot griddle or skillet.", 
   "3. Spoon the bean and cheese mixture onto one half of the tortilla.", "4. Fold the other half over the filling, press down gently, and cook until the tortilla is golden brown on both sides.", 
   "5. Repeat with remaining tortillas. Serve with sour cream and salsa."]
+  },
+  { name: 'Cereal', 
+  img: "cereal.png",
+  size: 1,
+  time: 5,
+  desc: "Quick and easy breakfast or dinner!",
+  ingr: ["Milk",
+    "Cereal"], 
+  steps: ["Pour the desired amount of milk into a bowl and then add in the cereal and mix it up.", "Enjoy!"]
   }
 ]
 
@@ -806,6 +827,41 @@ app.put("/api/ingredients/:id", verifyToken, async (req, res) => {
   }
 });
 
+// Route for deleting an ingredient
+app.delete("/api/ingredients/:id", verifyToken, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await Ingredient.deleteOne({ _id: id });
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "Ingredient not found" });
+    }
+
+    res.json({ message: "Ingredient deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error while deleting ingredient" });
+  }
+});
+
+// Route for deleting a recipe
+app.delete("/api/recipes/:id", verifyToken, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await Recipe.deleteOne({ _id: id });
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "Recipe not found" });
+    }
+
+    res.json({ message: "Recipe deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error while deleting recipe" });
+  }
+});
+
+
 
 // Route for Ingredient add 
 app.post("/api/ingredients", verifyToken, async (req, res) => {
@@ -880,47 +936,49 @@ const Recipe = require('./models/Recipe')
 // Route to fetch recipes based on a query (if empty, it will fetch all recipes)
 app.get("/api/recipes/search", verifyToken, async (req, res) => {
   try {
-    // Get the user ID from the token
     const userId = req.user.userId;
+    let searchTerms = { $regex: req.query.y, $options: 'i' };
 
-    let searchTerms = { $regex: req.query.y, $options: 'i' }; // Saves query as a case-insensitive regular expression
-
-    // If the user is filtering by available ingredients
     if (req.query.z == "true") {
-      let aIngr = await Ingredient.find({ amount: { $ne: "Out of Stock" }, user_id: userId }); // Pulls all non-zero ingredients for the current user
-      console.log(aIngr)
-      console.log(aIngr.map(ingredient => ingredient.name))
+      let availableIngredients = await Ingredient.find({ 
+        amount: { $ne: "Out of Stock" }, 
+        user_id: userId 
+      });
 
-      // If searchTerms are present, it pulls recipes filtering by available ingredients and search terms for the current user. If not, it pulls recipes only filtering by available ingredients for the current user.
-      if (searchTerms != '') {
-        let recipes = await Recipe.find({
-          $and: [
-            { $or: [{ name: searchTerms }, { desc: searchTerms }, { ingr: searchTerms }] },
-            { user_id: userId },
-            { ingr: { $in: aIngr.map(ingredient => ingredient.name) } }
-          ]
-        }).sort({ lastViewed: -1 });
-        res.json({ recipes: recipes, status: "All good - recipes received" });
-      } else {
-        let recipes = await Recipe.find({ ingr: { $in: aIngr.map(ingredient => ingredient._id) }, user_id: userId }).sort({ lastViewed: -1 });
-        res.json({ recipes: recipes, status: "All good - recipes received" });
+      let availableIngredientNames = availableIngredients.map(ingredient => ingredient.name.toLowerCase());
+
+      let recipes = await Recipe.find({ user_id: userId });
+
+      let filteredRecipes = recipes.filter(recipe => {
+        return recipe.ingr.every(requiredIngredient => 
+          availableIngredientNames.some(availableIngredient => 
+            requiredIngredient.toLowerCase().includes(availableIngredient)
+          )
+        );
+      });
+
+      if (searchTerms.$regex != '') {
+        filteredRecipes = filteredRecipes.filter(recipe => 
+          recipe.name.match(searchTerms) || 
+          recipe.desc.match(searchTerms) || 
+          recipe.ingr.some(ingredient => ingredient.match(searchTerms))
+        );
       }
-    }
 
-    // If the user is not filtering by available ingredients (works same as above but without ingredients)
-    else {
-      if (searchTerms != '') {
-        let recipes = await Recipe.find({
+      res.json({ recipes: filteredRecipes, status: "All good - recipes received" });
+    } else {
+      let recipes;
+      if (searchTerms.$regex != '') {
+        recipes = await Recipe.find({
           $and: [
             { $or: [{ name: searchTerms }, { desc: searchTerms }, { ingr: searchTerms }] },
             { user_id: userId }
           ]
         }).sort({ lastViewed: -1 });
-        res.json({ recipes: recipes, status: "All good - recipes received" });
       } else {
-        let recipes = await Recipe.find({ user_id: userId }).sort({ lastViewed: -1 });
-        res.json({ recipes: recipes, status: "All good - recipes received" });
+        recipes = await Recipe.find({ user_id: userId }).sort({ lastViewed: -1 });
       }
+      res.json({ recipes: recipes, status: "All good - recipes received" });
     }
   } catch (err) {
     console.error(err);
@@ -930,6 +988,7 @@ app.get("/api/recipes/search", verifyToken, async (req, res) => {
     });
   }
 });
+
 
 
 // Route to fetch a single recipe
@@ -1061,6 +1120,7 @@ app.post("/api/recipes", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Server error while adding new recipe" });
   }
 });
+
 
 // export the express app we created to make it available to other modules
 module.exports = app
