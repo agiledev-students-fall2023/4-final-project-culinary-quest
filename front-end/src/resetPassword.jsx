@@ -26,7 +26,7 @@ function ResetPassword() {
 
     try {
       // If all validations pass, make the POST request to the backend
-      const response = await axios.post('https://whale-app-bio98.ondigitalocean.app/api/reset-password', {
+      const response = await axios.post('http://localhost:3001/api/reset-password', {
         newPassword,
         newPasswordAgain,
       });

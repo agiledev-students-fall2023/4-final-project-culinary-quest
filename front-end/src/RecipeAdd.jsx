@@ -12,7 +12,7 @@ const RecipeAdd = () => {
   const [steps, setSteps] = useState('');
   const [imageSrc, setImageSrc] = useState(null);
   const navigate = useNavigate();
-  const REACT_APP_SERVER_HOSTNAME = 'https://whale-app-bio98.ondigitalocean.app';
+  const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
