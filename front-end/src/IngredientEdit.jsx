@@ -11,7 +11,7 @@ const IngredientEdit = () => {
     const navigate = useNavigate(); // Hook to navigate to different routes
 
     useEffect(() => {
-      const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
+      const REACT_APP_SERVER_HOSTNAME = 'https://whale-app-bio98.ondigitalocean.app';
       axios
         .get(`${REACT_APP_SERVER_HOSTNAME}/api/ingredients/single/${id}`)
         .then(response => {

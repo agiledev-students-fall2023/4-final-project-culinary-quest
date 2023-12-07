@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react';
 
 const IndivRecipe = (props)  => {
     const [recipe, setRecipe] = useState([])
-    const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001'
+    const REACT_APP_SERVER_HOSTNAME = 'https://whale-app-bio98.ondigitalocean.app'
 
     // const loc = useLocation()
     const { id } = useParams()

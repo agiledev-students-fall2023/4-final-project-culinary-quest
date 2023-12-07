@@ -7,7 +7,7 @@ const Ingredient = () => {
     const [ingredient, setIngredient] = useState(null);
     const { id } = useParams(); // This hook gives us access to the `id` in the URL
     const location = useLocation(); // Access the state passed during navigation
-    const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
+    const REACT_APP_SERVER_HOSTNAME = 'https://whale-app-bio98.ondigitalocean.app';
     const justUpdated = useRef(false); // useRef to track if the ingredient was just updated
 
     // Effect to set the ref when the component is navigated to after an update

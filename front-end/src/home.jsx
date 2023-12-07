@@ -10,9 +10,9 @@ if (token) {
 }
 
 const Home = () => {
-  const [recentIngredients, setRecentIngredients] = useState([]);
-  const [recentRecipes, setRecentRecipes] = useState([]);
-  const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
+  const [recentIngredient, setRecentIngredient] = useState(null);
+  const [recentRecipe, setRecentRecipe] = useState(null);
+  const REACT_APP_SERVER_HOSTNAME = 'https://whale-app-bio98.ondigitalocean.app';
 
   useEffect(() => {
     // Fetch the ingredients from the backend

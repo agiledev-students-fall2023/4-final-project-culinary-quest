@@ -14,7 +14,7 @@ function ChangePassword() {
 
     useEffect(() => {
         // Fetch user data when the component mounts
-        const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
+        const REACT_APP_SERVER_HOSTNAME = 'https://whale-app-bio98.ondigitalocean.app';
         axios
           .get(`${REACT_APP_SERVER_HOSTNAME}/api/user`)
           .then(response => {
@@ -50,7 +50,7 @@ function ChangePassword() {
 
         try {
             // If all validations pass, make the POST request to the backend
-            const response = await axios.post('http://localhost:3001/api/change-password', {
+            const response = await axios.post('https://whale-app-bio98.ondigitalocean.app/api/change-password', {
                 password, newPassword, newPasswordAgain
             });
 
