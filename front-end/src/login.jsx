@@ -11,7 +11,7 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://localhost:3001/api/login", {
+      const response = await axios.post("https://whale-app-bio98.ondigitalocean.app:3001/api/login", {
         username,
         password,
       });
