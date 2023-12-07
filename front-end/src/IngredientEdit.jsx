@@ -67,8 +67,9 @@ const IngredientEdit = () => {
     
 
     return (
+        <div className = "container-ingredient">
         <div className="ingredient-edit">
-            <h1>EDIT INGREDIENT</h1>
+            <h1 className="ingredientTitle">EDIT INGREDIENT</h1>
             <label className="image-upload-label">
                 {imageSrc ? <img src={imageSrc} alt="Uploaded Ingredient" className="uploaded-image"/> : 
                 <div className="image-section">INGREDIENT IMAGE<br />Upload a picture or take a picture</div>}
@@ -97,6 +98,7 @@ const IngredientEdit = () => {
             <button onClick={handleSave} className="save-button">Save Ingredient</button>  
 
             <button onClick={handleDelete} className="save-button">Delete Ingredient</button>  
+        </div>
         </div>
     );
 };
