@@ -11,7 +11,7 @@ const IngredientEdit = () => {
     const navigate = useNavigate(); // Hook to navigate to different routes
 
     useEffect(() => {
-      const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
+      const REACT_APP_SERVER_HOSTNAME = process.env.REACT_APP_BACKEND_URL;
       axios
         .get(`${REACT_APP_SERVER_HOSTNAME}/api/ingredients/single/${id}`)
         .then(response => {
@@ -38,7 +38,7 @@ const IngredientEdit = () => {
 
 
     const handleSave = () => {
-        const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
+        const REACT_APP_SERVER_HOSTNAME = process.env.REACT_APP_BACKEND_URL;
         axios
             .put(`${REACT_APP_SERVER_HOSTNAME}/api/ingredients/${id}`, {
                 name: ingredientName,
@@ -54,7 +54,7 @@ const IngredientEdit = () => {
     };
 
     const handleDelete = () => {
-        const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
+        const REACT_APP_SERVER_HOSTNAME = process.env.REACT_APP_BACKEND_URL;
         axios
             .delete(`${REACT_APP_SERVER_HOSTNAME}/api/ingredients/${id}`)
             .then(response => {

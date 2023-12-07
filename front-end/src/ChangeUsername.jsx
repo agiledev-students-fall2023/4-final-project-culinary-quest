@@ -12,7 +12,7 @@ function ChangeUsername() {
 
     useEffect(() => {
         // Fetch user data when the component mounts
-        const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
+        const REACT_APP_SERVER_HOSTNAME = process.env.REACT_APP_BACKEND_URL;
         axios
           .get(`${REACT_APP_SERVER_HOSTNAME}/api/user`)
           .then(response => {
@@ -26,12 +26,13 @@ function ChangeUsername() {
 
 
     const handleChangeUsername = async () => {
+        const REACT_APP_SERVER_HOSTNAME = process.env.REACT_APP_BACKEND_URL;
         if (newUsername) {
             setErrorMessage('');
 
             try {
                 // Make the POST request to the back-end with axiosWithAuth
-                const response = await axios.post('http://localhost:3001/api/change-username', {
+                const response = await axios.post(`${REACT_APP_SERVER_HOSTNAME}/api/change-username`, {
                     newUsername
                 });
 

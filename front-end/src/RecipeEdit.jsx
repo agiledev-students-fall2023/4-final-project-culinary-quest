@@ -13,7 +13,7 @@ const RecipeEdit = () => {
   const [imageSrc, setImageSrc] = useState('');
   const { id } = useParams();
   const navigate = useNavigate();
-  const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
+  const REACT_APP_SERVER_HOSTNAME = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     axios
@@ -71,7 +71,7 @@ const RecipeEdit = () => {
   }
 
   const handleDelete = () => {
-    const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
+    const REACT_APP_SERVER_HOSTNAME = process.env.REACT_APP_BACKEND_URL;
     axios
         .delete(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/${id}`)
         .then(response => {

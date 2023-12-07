@@ -8,6 +8,8 @@ function ResetPassword() {
   const [newPasswordAgain, setNewPasswordAgain] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+  const REACT_APP_SERVER_HOSTNAME = process.env.REACT_APP_BACKEND_URL;
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +28,7 @@ function ResetPassword() {
 
     try {
       // If all validations pass, make the POST request to the backend
-      const response = await axios.post('http://localhost:3001/api/reset-password', {
+      const response = await axios.post(`${REACT_APP_SERVER_HOSTNAME}/api/reset-password`, {
         newPassword,
         newPasswordAgain,
       });
