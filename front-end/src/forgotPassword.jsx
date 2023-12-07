@@ -15,7 +15,7 @@ function ForgotPassword() {
 
       try {
         // Make the POST request to the back-end
-        const response = await axios.post("http://localhost:3001/api/forgot-password", {
+        const response = await axios.post("https://whale-app-bio98.ondigitalocean.app/api/forgot-password", {
           username,
         });
 

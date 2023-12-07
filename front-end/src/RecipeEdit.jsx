@@ -13,7 +13,7 @@ const RecipeEdit = () => {
   const [imageSrc, setImageSrc] = useState('');
   const { id } = useParams();
   const navigate = useNavigate();
-  const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
+  const REACT_APP_SERVER_HOSTNAME = 'https://whale-app-bio98.ondigitalocean.app';
 
   useEffect(() => {
     axios
