@@ -27,7 +27,7 @@ const mongoose = require('mongoose')
 const User = require('./models/User');
 const jwt = require('jsonwebtoken'); // Import jsonwebtoken
 const bcrypt = require("bcrypt");
-const { axiosWithAuth } = require('../front-end/src/api');
+const { axiosWithAuth } = require('./api');
 // ---------------------------------------------------------------------------
 
 const multer = require('multer');
@@ -1038,7 +1038,7 @@ app.post("/api/recipes", verifyToken, async (req, res) => {
 
     const newRecipe = new Recipe({
       name,
-      img: img || '/pasta.jpg',
+      img: img || '/recipe-icon.png',
       size: parseInt(size, 10),
       time: parseInt(time, 10),
       desc,
