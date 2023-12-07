@@ -18,7 +18,7 @@ function CreateAccount() {
     try {
       console.log('Sending request to create account:', { newName, newUsername, newPassword, newRePassword });
 
-      const response = await axios.post("https://whale-app-bio98.ondigitalocean.app/api/create-account", {
+      const response = await axios.post("http://localhost:3001/api/create-account", {
         newName,
         newUsername,
         newPassword,

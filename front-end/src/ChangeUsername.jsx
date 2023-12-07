@@ -12,7 +12,7 @@ function ChangeUsername() {
 
     useEffect(() => {
         // Fetch user data when the component mounts
-        const REACT_APP_SERVER_HOSTNAME = 'https://whale-app-bio98.ondigitalocean.app';
+        const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
         axios
           .get(`${REACT_APP_SERVER_HOSTNAME}/api/user`)
           .then(response => {
@@ -31,7 +31,7 @@ function ChangeUsername() {
 
             try {
                 // Make the POST request to the back-end with axiosWithAuth
-                const response = await axios.post('https://whale-app-bio98.ondigitalocean.app/api/change-username', {
+                const response = await axios.post('http://localhost:3001/api/change-username', {
                     newUsername
                 });
 

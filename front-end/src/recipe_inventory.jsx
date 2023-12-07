@@ -9,7 +9,7 @@ const RecipeInv = props => {
     const [recipes, setRecipes] = useState([])
     const [search, setSearch] = useState("")
     const [toggle, setToggle] = useState(false)
-    const REACT_APP_SERVER_HOSTNAME = 'https://whale-app-bio98.ondigitalocean.app'
+    const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001'
 
     const searchRecipes = (props) => {
         // console.log(search)
