@@ -823,6 +823,22 @@ app.delete("/api/ingredients/:id", verifyToken, async (req, res) => {
   }
 });
 
+// Route for deleting a recipe
+app.delete("/api/recipes/:id", verifyToken, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await Recipe.deleteOne({ _id: id });
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "Recipe not found" });
+    }
+
+    res.json({ message: "Recipe deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error while deleting recipe" });
+  }
+});
 
 
 
@@ -1080,6 +1096,7 @@ app.post("/api/recipes", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Server error while adding new recipe" });
   }
 });
+
 
 // export the express app we created to make it available to other modules
 module.exports = app

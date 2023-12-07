@@ -69,6 +69,18 @@ const RecipeEdit = () => {
     }
   }
 
+  const handleDelete = () => {
+    const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
+    axios
+        .delete(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/${id}`)
+        .then(response => {
+            navigate('/recipe-inventory'); // Redirect to the recipes list after deletion
+        })
+        .catch(err => {
+            console.error("Failed to delete recipe:", err);
+        });
+  };
+
   return (
     <div classname="container">
     <div className="recipe-edit">
@@ -133,6 +145,7 @@ const RecipeEdit = () => {
       </div>
 
       <button onClick={handleSave} className="save-button">Save Recipe</button>
+      <button onClick={handleDelete} className="save-button">Delete Recipe</button>
     </div>
     </div>
   );
