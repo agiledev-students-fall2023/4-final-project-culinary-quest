@@ -10,8 +10,8 @@ if (token) {
 }
 
 const Home = () => {
-  const [recentIngredient, setRecentIngredient] = useState(null);
-  const [recentRecipe, setRecentRecipe] = useState(null);
+  const [recentIngredients, setRecentIngredients] = useState(null);
+  const [recentRecipes, setRecentRecipes] = useState(null);
   const REACT_APP_SERVER_HOSTNAME = 'https://whale-app-bio98.ondigitalocean.app';
 
   useEffect(() => {
