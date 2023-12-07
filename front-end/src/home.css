@@ -1,0 +1,308 @@
+@font-face {
+  font-family: chocolateDonut;
+  src: url("fonts/chocolatedonut.otf");
+}
+
+@font-face {
+  font-family: cream;
+  src: url("fonts/cream.ttf");
+}
+
+.HomePage {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  padding-top: 10%;
+}
+
+.HomePageContainer {
+  height: 844px;
+  position: relative;
+  width: 390px;
+}
+
+.HomeTitle{
+  color: #000000;
+  font-family: "chocolatedonut";
+  font-size: 45px;
+  font-weight: bolder;
+  left: 140px;
+  position: absolute;
+  top: -32px;
+  letter-spacing: .3rem;
+  text-transform: uppercase;
+}
+
+.SearchBar {
+  height: 25px;
+  left: -88px;
+  position: absolute;
+  top: 20px;
+  width: 450px;
+}
+
+.SearchBar input{
+  width: 100%;
+  height: 150%;
+  padding: 8px;
+  font-size: 15px;
+  color: #000000;
+  background-color: #989898; 
+  border: none; 
+  border-radius: 10px;
+  font-family: cream;
+}
+
+.SearchButton {
+  left: 377px;
+  top: 30px;
+  position: absolute;
+}
+
+.Search {
+  background-color: #DC4733;
+  border-radius: 10px;
+  color: #000000;
+  height: 37px;
+  line-height: 38px;
+  text-align: center;
+  width: 105px;
+  display: block;
+  font-size: 18px;
+}
+
+.Search:hover {
+  box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
+  background-color: #ff5a3c;
+}
+
+.RecentIngredients {
+  color: #000000;
+  font-family: cream;
+  font-size: 20px;
+  text-transform: uppercase;
+
+  font-weight: bolder;
+  left: -87px;
+  position: absolute;
+  top: 85px;
+}
+
+.AllIngredients {
+  color: #476ae9;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  font-size: 18px;
+  position: absolute;
+  text-decoration: none;
+  top: 85px;
+  left: 275px;
+
+  font-family: cream;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+.Arrow {
+  margin-left: 5px;
+}
+
+.AllIngredients:hover {
+  color: #15e0e3;
+}
+
+.AddIngredientButton {
+  height: 39px;
+  left: 105px;
+  position: absolute;
+  top: 480px;
+  width: 234px;
+}
+
+.AddIngredient {
+  background-color: #DC4733;
+  border-radius: 20px;
+  color: white;
+  font-family: cream;
+  font-size: 15px;
+  font-weight: 400;
+  height: 39px;
+  line-height: 39px;
+  text-align: center;
+  width: 80%;
+  text-decoration: none;
+  display: block;
+}
+
+.AddIngredient:hover {
+  box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
+  background-color: #ff5a3c;
+}
+
+.sampleIngredient {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  width: 250px; 
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+.sampleIngredient img {
+  max-width: 90%;
+  height: auto;
+  border-radius: 5px;
+  display: block; /* Center the image */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ingredientsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  justify-content: center; /* Center the grid horizontally */
+  gap: 10px; /* Space between grid items */
+  position: absolute;
+  top: 130px;
+  left: 50%;
+  transform: translateX(-50%); /* Center the grid container */
+  width: auto; /* Adjust as needed */
+}
+
+h3{
+  font-family: cream;
+  text-transform: uppercase;
+  color:#DC4733
+}
+
+p{
+  font-family: cream;
+  color: black;
+}
+
+.ingredient-description h3 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.ingredient-description p {
+  font-size: 1rem;
+  color: #333;
+}
+
+.spacer{
+  margin-top: 30px;
+}
+
+.RecentRecipes {
+  color: #000000;
+  font-family: cream;
+  text-transform: uppercase;
+
+  font-size: 20px;
+  font-weight: bolder;
+  left: -87px;
+  position: absolute;
+  top: 540px;
+}
+
+.AllRecipes {
+  color: #476ae9;
+  height: auto;
+  display: flex;
+  align-items: right;
+  justify-content: right;
+  width: 200px;
+  font-size: 18px;
+  position: absolute;
+  text-decoration: none;
+  top: 540px;
+  left: 260px;
+
+  font-family: cream;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+.Arrow {
+  margin-left: 5px;
+}
+
+.AllRecipes:hover {
+  color: #15e0e3;
+}
+
+.sampleRecipe {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  width: 250px; /* Adjust the width as per your layout */
+  text-align: center;
+  margin-bottom: 20px; /* Space between rows */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.sampleRecipe img {
+  max-width: 90%;
+  height: auto;
+  border-radius: 5px;
+  display: block; /* Center the image */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.AddRecipeButton {
+  height: 39px;
+  left: 105px;
+  position: absolute;
+  top: 950px;
+  width: 234px;
+}
+
+.AddRecipe {
+  background-color: #DC4733;
+  border-radius: 20px;
+  color: white;
+  font-family: cream;
+  font-size: 15px;
+  font-weight: 400;
+  height: 39px;
+  line-height: 39px;
+  text-align: center;
+  width: 80%;
+  text-decoration: none;
+  display: block;
+}
+
+.AddRecipe:hover {
+  box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
+  background-color: #ff5a3c;
+}
+
+.description{
+  overflow: hidden;
+  max-height: 5em;
+}
+
+.recipesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  justify-content: center; /* Center the grid horizontally */
+  gap: 10px; /* Space between grid items */
+  position: absolute; /* Adjust as needed */
+  top: 600px; /* Adjust as needed */
+  padding: 0 20px; /* Padding on sides */
+  transform: translateX(-50%); /* Center the grid container */
+  left: 50%;
+  width: auto; /* Adjust as needed */
+}

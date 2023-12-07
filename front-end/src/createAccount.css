@@ -1,0 +1,199 @@
+@font-face{
+  font-family: chocolatedonut;
+  src: url("fonts/chocolatedonut.otf");
+
+}
+
+@font-face {
+  font-family: cream;
+  src: url("fonts/cream.ttf");
+}
+
+h1{
+  font-family: chocolatedonut;
+  text-transform: uppercase;
+}
+
+div.title-sign-up{
+  position: absolute;
+  top: 220px;
+  justify-content: left;
+  align-items: left;
+  right: 0px;
+  width: 100%;
+}
+
+
+.CreateAccountPage {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  padding-top: 10%;
+}
+
+.CreateAccountContainer {
+  height: 844px;
+  position: relative;
+  width: 390px;
+}
+
+.CreateName {
+  height: 25px;
+  left: 83px;
+  position: absolute;
+  top: 300px;
+  width: 230px;
+}
+
+.CreateName input{
+  width: 100%;
+  height: 150%;
+  padding: 8px;
+  font-size: 15px;
+  color: #000000;
+  background-color: #989898; 
+  border: none; 
+  border-radius: 10px; 
+}
+
+.CreateUsername {
+  height: 25px;
+  left: 83px;
+  position: absolute;
+  top: 350px;
+  width: 230px;
+}
+
+.CreateUsername input{
+  width: 100%;
+  height: 150%;
+  padding: 8px;
+  font-size: 15px;
+  color: #000000;
+  background-color: #989898; 
+  border: none; 
+  border-radius: 10px; 
+  left: 10px;
+}
+
+.PasswordRequirement {
+  height: 25px;
+  left: 90px;
+  position: absolute;
+  top: 405px;
+  width: 230px;
+  color: #DC4733;
+  font-family: cream;
+  font-size: 10.7px;
+}
+
+.CreatePassword {
+  height: 25px;
+  left: 83px;
+  position: absolute;
+  top: 490px;
+  width: 230px;
+}
+
+.CreatePassword input{
+  width: 100%;
+  height: 150%;
+  padding: 8px;
+  font-size: 15px;
+  color: #000000;
+  background-color: #989898; 
+  border: none; 
+  border-radius: 10px; 
+}
+
+.Re-enterPassword {
+  height: 25px;
+  left: 83px;
+  position: absolute;
+  top: 540px;
+  width: 230px;
+}
+
+.Re-enterPassword input{
+  width: 100%;
+  height: 150%;
+  padding: 8px;
+  font-size: 15px;
+  color: #000000;
+  background-color: #989898; 
+  border: none; 
+  border-radius: 10px; 
+}
+
+.CreateButton {
+  height: 39px;
+  left: 70px;
+  position: absolute;
+  top: 620px;
+  width: 234px;
+}
+
+.Create {
+  background-color: #DC4733;
+  border-radius: 20px;
+  color: #000000;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 15px;
+  font-weight: 400;
+  height: 39px;
+  line-height: 21px;
+  text-align: center;
+  width: 80%;
+  text-decoration: none;
+  display: block;
+}
+
+.Create:hover {
+  box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
+  background-color: #ff5a3c;
+}
+
+.BackButton {
+  height: 39px;
+  left: -85px;
+  position: relative;
+  top: -40px;
+  width: 234px;
+}
+
+.Back {
+  background-color: #DC4733;
+  border-radius: 20px;
+  color: #000000;
+  height: 35px;
+  line-height: 39px;
+  text-align: center;
+  width: 25%;
+  display: block;
+}
+
+.Back:hover {
+  box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
+  background-color: #ff5a3c;
+}
+
+.error-message-CA{
+  color: red;
+  font-size: 12px;
+  font-family: cream;
+  position: absolute;
+  top: 740px;
+  left: auto;
+  text-align: center;
+}
+div.AppLogo-sign-up {
+  background-image: url(../public/IMG_1702.jpg);
+  background-size: 100%;
+  height: 140px;
+  left: 120px;
+  position: absolute;
+  top: 50px;
+  width: 140px;
+  border-radius: 20px;
+}

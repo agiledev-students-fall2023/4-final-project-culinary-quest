@@ -1,0 +1,107 @@
+@font-face {
+    font-family:chocolatedonut;
+    src: url("fonts/chocolatedonut.otf");
+}
+
+@font-face {
+    font-family:cream;
+    src: url("fonts/cream.ttf");
+}
+
+h{
+    font-family: chocolatedonut;
+    text-transform: uppercase;
+}
+
+.ingredient-view {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-top: 20px;
+    height: auto;
+    margin: auto 0;
+}
+  
+.image-section-ingredient img{
+    background: linear-gradient(180deg, rgb(255, 149.81, 149.81) 0%, rgba(255, 204.7, 204.7, 0.48) 53.65%, rgba(255, 255, 255, 0) 100%);
+    border: 5px solid #DC4733;
+    border-radius: 25px;
+    max-height: 352px;
+    max-width: 352px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+label.text-label {
+    color: #000000;
+    font-family: chocolatedonut;
+    font-size: 20px;
+    /* font-weight: 700; */
+    /* margin-top: 20px; */
+    text-transform: uppercase;
+}
+label.title-label {
+    font-family: cream;
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: lowercase;
+    color:#DC4733;
+}
+  
+
+.text-box {
+    background: transparent; 
+    background: linear-gradient(180deg, rgb(255, 173, 173) 0%, rgba(255, 173, 173, 0.45) 55.24%, rgba(255, 173, 173, 0) 100%);
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 242px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    color: #000000;
+    font-size: 14px;
+}
+  
+.button {
+    background-color: #DC4733;
+    border: 2px solid #DC4733;
+    border-radius: 15px;
+    height: 41px;
+    width: 150px;
+    margin-top: 50px;
+    color: #000000;
+    font-family: cream;
+    font-size: 14px;
+    font-weight: lighter;
+    /* font-weight: 700; */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s, box-shadow 0.3s; /* smooth transition for hover effect */
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* space between the buttons */
+    margin-top: 20px;
+}
+
+.button:hover {
+    box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
+    background-color: #ff5a3c;
+}

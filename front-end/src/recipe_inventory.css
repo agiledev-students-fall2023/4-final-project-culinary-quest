@@ -1,0 +1,194 @@
+@font-face {
+    font-family: cream;
+    src: url("fonts/cream.ttf");
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    /* border: 2px dotted blue; */
+    background-color: #ffffff;
+  }
+h2{
+    font-family: cream;
+    color: #DC4733;
+    text-transform: uppercase;
+}
+.spacer{
+    margin-top: 30px;
+  }
+
+.column_rec {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    padding: 10px;
+    width: 100%; 
+    /* width: 75%; */
+    max-width: 200px;
+    text-align: center;
+  }
+
+.columns_rec {
+    display: flex;
+    flex-wrap: wrap;
+    /* border: 2px solid red; */
+    gap: 20px;
+    padding-top: 30px;
+    /* padding-right: 40%; */
+    justify-content: flex-start; 
+  }
+  
+.search-input {
+    border: none;
+    background-color: #989898;
+    border-radius: 10px;
+    width: calc(100% - 40px); /* Adjusted width to fill container minus button width and margin */
+    min-width: 300px;/* Remove max-width property or adjust as necessary */
+    margin-left: 60px;
+
+    font-family: cream;
+    
+}
+
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 85%; /* Keep as is or adjust to stretch the container across the parent */
+    padding: 0; /* Ensure there's no padding inside the container that could affect the length of the input */
+    margin-bottom: 15px; /* Adjust space below the search bar container */
+}
+
+
+.add-recipe-btn {
+    padding: 10px 10px; 
+    margin-left: 10px; 
+    background-color: #DC4733;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 35px; 
+    font-family: 'Arial Rounded MT Bold', sans-serif;
+    font-weight: bold;
+    width: 40px; 
+    height: 40px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.add-recipe-btn:hover {
+    box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
+    background-color: #ff5a3c;
+}
+  
+.RECIPE-INV .search {
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: deeppink; */
+    align-items:flex-start;
+    margin: column;
+    margin-top: 15px;
+    width: 85%;
+}
+
+/* .RECIPE-INV .search .search-bar {
+    display: flex; 
+    background-color: aquamarine; 
+    min-width: 550px;
+} */
+
+
+input{
+    border: none;
+    background-color: #989898;
+    border-radius: 10px;
+    max-width: 380px;
+    width: 100%;
+}
+
+.RECIPE-INV .search .search-tools {
+    display: flex;
+    flex-direction: row;
+    /* background-color: darkorange; */
+    min-width: 500px;
+    margin-top: 15px;
+
+}
+
+.recipe-tile {
+    text-decoration: none;
+}
+
+.recipe-text p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* background-color: aqua; */
+    text-wrap: nowrap;
+    max-height: 3em;
+}
+
+
+h1 {
+    /* background-color: aqua; */
+    text-align: center;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+img {
+    height: 100%;
+    width: 100%;
+}
+
+li{
+    list-style-type: none;
+}
+.filter-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 85%; /* Match the width of the search bar container for alignment */
+    margin-bottom: 20px; /* Space below the filter container */
+
+}
+
+.filter-btn {
+    /* Style for the filter button */
+    background-color: #989898; /* Neutral color for the button */
+    border: none;
+    border-radius: 5px;
+    width: 30px; /* Example size */
+    height: 30px; /* Example size */
+    cursor: pointer;
+    margin-right: 10px; /* Space between the button and the filter text */
+    margin-left: 65px;
+}
+
+.filter-btn:hover, .filter-btn.square-on {
+    background-color: #DC4733; /* Button turns black when hovered or active */
+}
+
+.filter-text {
+    /* Style for the filter text */
+    color: black; /* Text color */
+    margin-left: 0px; /* Space after the filter button */
+    margin-top: 5px;
+    /* Add other styles for the text as needed */
+    font-family: cream;
+}

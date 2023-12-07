@@ -1,0 +1,142 @@
+@font-face {
+  font-family: cream;
+  src: url("fonts/cream.ttf");
+}
+h1{
+  color: #000000;
+  font-family: "chocolatedonut";
+  font-size: 38px;
+  font-weight: bolder;
+  letter-spacing: .3rem;
+  text-transform: uppercase;
+}
+
+.container-ing-inv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  /* padding-top: 100px; */
+  background-color: #ffffff;
+}
+
+
+.columns_ing {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-top: 30px;
+  justify-content: center; 
+}
+
+.column_ing {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding-bottom: 20px; 
+  width: 100%;
+  max-width: 220px; 
+  box-sizing: border-box;
+  overflow: hidden; /* This will prevent content from spilling out */
+  position: relative; /* Needed for absolute positioning of the description */
+}
+
+.column_ing::before {
+  content: '';
+  display: block;
+}
+
+.column img {
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute; /* Absolute position the image */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto; /* This will center the image in the square */
+}
+
+.ingredient-description {
+  position: absolute;
+  width: 100%;
+  bottom: 0; /* Align the description to the bottom */
+  text-align: center;
+  background: rgba(255, 255, 255, 0.8); /* Slight transparency */
+  padding: 10px 0; /* Padding at the top and bottom */
+}
+
+.ingredient-description h3,
+.ingredient-description p {
+  margin: 0; /* Remove default margins */
+}
+
+a{
+  text-decoration: none;
+}
+
+.add-ing-btn {
+  padding: 10px 10px;
+  margin-left: 0px; 
+  background-color: #DC4733; /* Example red background */
+  color: white; /* Text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 35px;
+  font-family: cream;
+  font-weight: bold; /* Bold font weight for the plus sign */
+  /* Adjust width and height if you want the button to have a specific size */
+  width: 40px; /* Example fixed width */
+  height: 40px; /* Example fixed height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  
+}
+
+
+.add-ing-btn:hover {
+  box-shadow: 0 0 20px 0 rgba(220, 71, 51, 0.9);
+  background-color: #ff5a3c;
+}
+
+
+.ingredient-inventory {
+  /* background-color: chartreuse; */
+  padding-top: 0px;
+}
+
+.ingredient-inventory .search {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: deeppink; */
+  align-items:flex-start;
+  margin: column;
+  margin-top: 15px;
+  width: 85%;
+}
+
+.search-input-ing {
+  border: none;
+  background-color: #989898;
+  border-radius: 10px;
+  max-width: 300px;/* Remove max-width property or adjust as necessary */
+  margin-left: 80px;
+  margin-right:10px;
+
+  font-family: cream;
+}
+
+.search-bar-container-ing {
+  display: flex;
+  align-items: center;
+  width: 85%; /* Keep as is or adjust to stretch the container across the parent */
+  padding: 0; /* Ensure there's no padding inside the container that could affect the length of the input */
+  margin-bottom: 15px; /* Adjust space below the search bar container */
+}
+

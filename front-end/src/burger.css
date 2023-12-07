@@ -1,0 +1,72 @@
+@font-face {
+  font-family: chocolatedonut;
+  src: url("fonts/chocolatedonut.otf");
+}
+
+.SIDEBAR {
+  position: absolute;
+  aspect-ratio: 9 / 16;
+  height: 1080px;
+  z-index: 3000;
+  display: flex;
+  flex-direction: row;
+}
+  
+.SIDEBAR .bar {
+  /* background-color: chartreuse; */
+  background-color: white;
+  width: 75%;
+}
+
+.SIDEBAR .overlay {
+  background-color: black;
+  opacity: 0.7;
+  width: 25%;
+}
+  
+.SIDEBAR .bar .profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 15px;
+  padding-top: 25px;
+}
+
+.SIDEBAR .bar .profile p {
+  font-size: 1.5em;
+  /* background-color: aqua; */
+}
+
+.SIDEBAR .bar .profile .profile-pic {
+  background-color: gray;
+  text-align: center;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  margin-right: 30px;
+}
+
+.SIDEBAR .bar .buttons {
+  /* background-color: bisque; */
+  margin: 15px;
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 50%;
+  text-align: left;
+}
+
+.SIDEBAR .bar .buttons .button {
+  margin:auto;
+  height: 60px;
+  width: 60%;
+  font-size: 1.5em;
+  font-weight: normal;
+  text-align: left;
+  color: white;
+  
+  font-family: chocolatedonut;
+  text-transform: uppercase;
+}
+
