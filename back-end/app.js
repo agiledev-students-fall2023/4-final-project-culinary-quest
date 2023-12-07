@@ -11,7 +11,7 @@ dotenv.config(); // Load environmental variables from .env file
 
 const app = express() // instantiate an Express object
 
-app.use(cors()) // allows cross-origin resource sharing
+app.use(cors({ origin: '*' })) // allows cross-origin resource sharing
 app.use(express.json());
 // ----------------------------------------------------------------------------
 
