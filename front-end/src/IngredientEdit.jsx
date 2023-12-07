@@ -36,6 +36,7 @@ const IngredientEdit = () => {
         }
     };
 
+
     const handleSave = () => {
         const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
         axios
@@ -51,11 +52,24 @@ const IngredientEdit = () => {
                 console.error("Failed to save ingredient:", err);
             });
     };
+
+    const handleDelete = () => {
+        const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
+        axios
+            .delete(`${REACT_APP_SERVER_HOSTNAME}/api/ingredients/${id}`)
+            .then(response => {
+                navigate('/inventory'); // Redirect to the ingredients list after deletion
+            })
+            .catch(err => {
+                console.error("Failed to delete ingredient:", err);
+            });
+    };
     
 
     return (
+        <div className = "container-ingredient">
         <div className="ingredient-edit">
-            <h1>EDIT INGREDIENT</h1>
+            <h1 className="ingredientTitle">EDIT INGREDIENT</h1>
             <label className="image-upload-label">
                 {imageSrc ? <img src={imageSrc} alt="Uploaded Ingredient" className="uploaded-image"/> : 
                 <div className="image-section">INGREDIENT IMAGE<br />Upload a picture or take a picture</div>}
@@ -82,6 +96,9 @@ const IngredientEdit = () => {
             
             {/* Use an onClick handler to save the ingredient */}
             <button onClick={handleSave} className="save-button">Save Ingredient</button>  
+
+            <button onClick={handleDelete} className="save-button">Delete Ingredient</button>  
+        </div>
         </div>
     );
 };
