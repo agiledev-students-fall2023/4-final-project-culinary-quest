@@ -1,4 +1,5 @@
-# Project Repository
+# Culinary Quest
+Find our app here: <https://whale-app-bio98.ondigitalocean.app/>
 
 ## Product Vision Statement
 A more organized way to keep track of ingredients and recipes, allowing one to always know what they can make with what is on hand
