@@ -1,5 +1,4 @@
 # Culinary Quest
-Find our app here: <https://whale-app-bio98.ondigitalocean.app/>
 
 ## Product Vision Statement
 A more organized way to keep track of ingredients and recipes, allowing one to always know what they can make with what is on hand
@@ -32,3 +31,4 @@ Most issues that arise tend to occur when running the commands to build the fron
 If it still fails to run, or another issue has arisen, please create an issue marked with the tag ```bug```.
 
 ## Relevant Links
+Find our app here: <https://whale-app-bio98.ondigitalocean.app/>
