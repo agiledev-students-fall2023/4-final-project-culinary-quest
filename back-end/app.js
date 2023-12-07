@@ -51,6 +51,98 @@ mongoose
   .then(data => console.log(`Connected to MongoDB`))
   .catch(err => console.error(`Failed to connect to MongoDB: ${err}`))
 
+
+const defaultIngredients = [
+ { name: 'Salt' },
+ { name: 'Pepper' },
+ { name: 'Flour' },
+ { name: 'Eggs' },
+ { name: 'Milk' },
+ { name: 'Butter' },
+ { name: 'Olive Oil' },
+ { name: 'Bread' },
+ { name: 'Pasta' },
+ { name: 'Rice' }
+  ];
+
+const defaultRecipes = [
+  { name: 'Waffles', 
+  size: 4,
+  time: 30,
+  desc: "Here's your new go-to waffle recipe for family breakfast, a brunch gathering, or just because. By Martha Stewart!",
+  ingr: ["1 cup all-purpose flour, spooned and leveled",
+    "2 tablespoons sugar","1 teaspoon baking powder",
+    "¼ teaspoon salt","1 cup milk","2 large eggs", "4 tablespoons (½ stick) unsalted butter, melted"], 
+  steps: ["Step 1: Preheat waffle iron and combine dry ingredients: Preheat waffle iron according to manufacturer's instructions. In a large bowl, whisk flour, sugar, baking powder, and salt; set aside.",
+  "Step 2: Whisk milk and eggs and add to flour: In a small bowl, whisk milk and eggs; pour over flour mixture, and whisk gently to combine (don't overmix). " ,
+  "Step 3: Add melted butter: Gently whisk in butter.",
+  "Step 4: Cook waffles: Following manufacturer's instructions, cook waffles until deep brown and crisp. (For a standard waffle iron, pour a generous 1/2 cup of batter into center, spreading to within 1/2 inch of edges, and close; waffle will cook in 2 to 3 minutes.)",
+  "Step 5: Serve warm: Serve warm, with maple syrup and butter, as desired"]
+  },
+
+  { name: 'Pancakes',
+  size: 4,
+  time: 20,
+  desc: "This simple recipe will become your go-to for making fluffy pancakes from scratch.  By Martha Stewart!",
+  ingr: ["1 cup all-purpose flour, (spooned and leveled)", "2 tablespoons sugar", 
+    "2 teaspoons baking powder", "½ teaspoon salt", "1 cup milk", "2 tablespoons unsalted butter, melted, or vegetable oil",
+    "1 large egg", "1 tablespoon vegetable oil"], 
+  steps: ["Step 1: Gather ingredients and preheat oven: Preheat oven to 200 degrees. Have a baking sheet or heatproof platter ready to keep cooked pancakes warm in the oven.",
+  "Step 2: Mix dry ingredients: In a small bowl, whisk together flour, sugar, baking powder, and salt; set aside.",
+  "Step 3: Mix wet ingredients: In a medium bowl, whisk together milk, butter (or oil), and egg.",
+  "Step 4: Combine wet and dry ingredients: Add dry ingredients to milk mixture; whisk until just moistened. (Do not overmix; a few small lumps are fine.)",
+  "Step 5: Heat and oil skillet or griddle: Heat a large skillet (nonstick or cast-iron) or griddle over medium. Fold a sheet of paper towel in half, and moisten with oil; carefully rub skillet with oiled paper towel.",
+  "Step 6: Spoon batter onto skillet or griddle: For each pancake, spoon 2 to 3 tablespoons of batter onto skillet, using the back of the spoon to spread batter into a round (you should be able to fit 2 to 3 in a large skillet).",
+  "Step 7: Cook first side: Cook until surface of pancakes have some bubbles and a few have burst, 1 to 2 minutes.",
+  "Step 8: Flip pancakes: Flip carefully with a thin spatula, and cook until browned on the underside, 1 to 2 minutes more.",
+  "Step 9:Serve immediately, or keep warm in oven: Transfer to a baking sheet or platter; cover loosely with aluminum foil, and keep warm in oven. Continue with more oil and remaining batter. (You'll have 12 to 15 pancakes.) Serve warm, with desired toppings."]
+  },
+
+  { name: 'Easy Chicken Noodle Soup',
+  size: 6,
+  time: 35,
+  desc: "Homemade chicken noodle soup is pure comfort in a bowl.", 
+  ingr: ["1 tablespoon olive oil", "2 stalks celery, diced small", "2 medium carrots, diced medium", 
+    "1 medium yellow onion, diced small", "Salt and pepper", "4 cups chicken broth", "1 ¼ pounds boneless, skinless chicken breasts", 
+    "6 ounces vermicelli or angel-hair pasta, broken into 1 ½-inch pieces", "¼ cup chopped fresh dill"],
+  steps: ["Step 1: Sauté celery, carrots, and onions: In a large pot, heat oil over medium-high. Add celery, carrots, and onion and cook until celery and carrots are crisp-tender, about 5 minutes; season with salt and pepper.",
+  "Step 2: Add broth and water: Add broth and 4 cups water and bring to a boil.",
+  "Step 3: Cook chicken: Add chicken, reduce to a simmer, and cover. Cook until chicken is cooked through, about 10 minutes.",
+  "Step 4: Shred chicken: With tongs, remove chicken and chop or shred into bite-size pieces.",
+  "Step 5: Cook pasta: Add pasta to pot and cook until tender, about 4 minutes; season with salt and pepper.",
+  "Step 6: Serve: To serve, stir in chicken and dill."]
+  },
+
+  { name: 'Pan-Fried Steak',
+  size: 2,
+  time: 15,
+  desc: "Make a restaurant-quality steak in 15 minutes.",
+  ingr: ["2 strip steaks (each about 1 inch thick), room temperature", "Kosher salt and freshly ground pepper",
+  "1 teaspoon unsalted butter"],
+  steps: ["Step 1: Heat pan and season steaks: Heat a large heavy-bottomed skillet (preferably cast iron) over high 5 minutes. Generously season steaks with salt and pepper.",
+  "Step 2: Cook steaks: Add 1/2 teaspoon butter to pan, then immediately top with one steak. Repeat with remaining 1/2 teaspoon butter and steak. Cook without moving steaks until a golden brown crust forms, 3 to 4 minutes.",
+  "Step 3: Turn steaks and cook: Turn and cook 2 minutes more for rare, or 3 to 4 minutes more for medium-rare.",
+  "Step 4: Rest, then slice: Transfer to a cutting board and let rest 5 minutes. Slice steaks against the grain; serve with sauce, if desired."]
+  },
+
+
+
+
+
+  { name: 'Milk' },
+  { name: 'Butter' },
+  { name: 'Olive Oil' },
+  { name: 'Bread' },
+  { name: 'Pasta' },
+  { name: 'Rice' }
+   ];
+   
+        //size: Number,
+        //time: Number,
+        //desc: String,
+        //ingr: [String],
+        //steps: [String],
+
 // Create-Account route
 const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z]).{8,}$/;
 
@@ -111,6 +203,30 @@ app.post('/api/create-account', async (req, res) => {
     // Save the user to the database
     try {
       await newUser.save();
+
+      // Create and associate default ingredients with the new user
+      const userDefaultIngredients = defaultIngredients.map(ingredient => ({
+        ...ingredient,
+        user_id: newUser._id, // Replace with your ingredient schema's user reference
+        amount: 1,
+        imageURL: "/apple.jpg",
+        lastViewed: Date.now()
+      }));
+
+      // Insert default ingredients into the database
+      await Ingredient.insertMany(userDefaultIngredients);
+
+      // Create and associate default recipes with the new user
+      const userDefaultRecipes = defaultRecipes.map(recipe => ({
+        ...recipe,
+        user_id: newUser._id, // Replace with your ingredient schema's user reference
+        img: "/pasta.jpg",
+        lastViewed: Date.now()
+      }));
+      
+      // Insert default recipes into the database
+      await Recipe.insertMany(userDefaultRecipes);
+
       const token = jwt.sign({ userId: newUser._id, username: newUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
       
       // Add console log to see the JWT token
@@ -125,6 +241,8 @@ app.post('/api/create-account', async (req, res) => {
         status: 'failed',
       });
     }
+  
+    
   } catch (error) {
     console.error('Unhandled error in create-account route:', error);
     res.status(500).json({
