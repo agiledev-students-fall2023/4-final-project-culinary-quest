@@ -20,13 +20,13 @@ const RecipeEdit = () => {
       .get(`${REACT_APP_SERVER_HOSTNAME}/api/recipes/single/${id}`)
       .then(response => {
         const { name, desc, steps, time, size, ingr, img } = response.data.recipe;
-
+  
         setRecipeName(name || '');
         setRecipeDescription(desc || '');
-        setRecipeSteps(steps || '');
+        setRecipeSteps(steps ? steps.join('\n\n') : ''); // Join steps with newline for display
         setRecipeTime(time ? time.toString() : ''); // Assuming time is a number
         setRecipeSize(size ? size.toString() : ''); // Assuming size is a number
-        setRecipeIngr(ingr ? ingr.join(', ') : ''); // Assuming ingr is an array
+        setRecipeIngr(ingr ? ingr.join('\n\n') : ''); // Join ingredients with newline for display
         setImageSrc(img || '');
       })
       .catch(err => {
@@ -47,7 +47,8 @@ const RecipeEdit = () => {
   };
 
   const handleSave = () => {
-    const ingredientsArray = recipeIngr.split(',').map(ingredient => ingredient.trim());
+    const ingredientsArray = recipeIngr.split('\n').map(ingredient => ingredient.trim());
+    const stepsArray = recipeSteps.split('\n').map(step => step.trim());
     try {
       console.log(`saving ${id}`)
       axios
@@ -102,7 +103,7 @@ const RecipeEdit = () => {
 
       <label className="input-label">Recipe Description:</label>
       <div className="input-box">
-        <input 
+        <textarea
           type="text" 
           value={recipeDescription} 
           onChange={(e) => setRecipeDescription(e.target.value)}
@@ -127,17 +128,17 @@ const RecipeEdit = () => {
         />
       </div>
 
-      <label className="input-label">Ingredients (comma separated):</label>
+      <label className="input-label">Ingredients (row separated):</label>
       <div className="input-box">
-        <input 
-          type="text" 
-          value={recipeIngr} 
+        <textarea
+          value={recipeIngr}
           onChange={(e) => setRecipeIngr(e.target.value)}
         />
       </div>
 
+
       <label className="input-label">Recipe Steps:</label>
-      <div className="input-box-steps">
+      <div className="input-box">
         <textarea 
           value={recipeSteps} 
           onChange={(e) => setRecipeSteps(e.target.value)}
