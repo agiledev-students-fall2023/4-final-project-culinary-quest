@@ -143,12 +143,13 @@ h{
 
 .error-message-log{
   color: red;
+  font-family: cream;
   font-size: 12px;
   font-weight: 400;
   height: 24px;
   left: auto;
   position: absolute;
-  top: 730px;
+  top: 660px;
   width: 230px;
   text-align: center;
 }
