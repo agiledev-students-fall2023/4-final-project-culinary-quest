@@ -98,7 +98,7 @@ const defaultIngredients = [
 
 const defaultRecipes = [
   { name: 'Waffles', 
-  img: "waffle.png",
+  img: "/waffle.png",
   size: 4,
   time: 30,
   desc: "Here's your new go-to waffle recipe for family breakfast, a brunch gathering, or just because. By Martha Stewart!",
@@ -113,7 +113,7 @@ const defaultRecipes = [
   },
 
   { name: 'Pancakes',
-  img: "choco-pancakes.png",
+  img: "/choco-pancakes.png",
   size: 4,
   time: 20,
   desc: "This simple recipe will become your go-to for making fluffy pancakes from scratch.  By Martha Stewart!",
@@ -132,7 +132,7 @@ const defaultRecipes = [
   },
 
   { name: 'Easy Chicken Noodle Soup',
-  img: "noodle-soup.png",
+  img: "/noodle-soup.png",
   size: 6,
   time: 35,
   desc: "Homemade chicken noodle soup is pure comfort in a bowl.", 
@@ -148,7 +148,7 @@ const defaultRecipes = [
   },
 
   { name: 'Pan-Fried Steak',
-  img: "steak.png",
+  img: "/steak.png",
   size: 2,
   time: 15,
   desc: "Make a restaurant-quality steak in 15 minutes.",
@@ -161,7 +161,7 @@ const defaultRecipes = [
   },
 
   { name:"Caramelized Shallot Pasta",
-  img: "shallot-pasta.png",
+  img: "/shallot-pasta.png",
   size: 4,
   time: 40,
   desc: "Pasta with a shallot and tomato sauce",
@@ -173,7 +173,7 @@ const defaultRecipes = [
   }, 
 
   { name: "Spicy Shrimp Stir-Fry",
-  img: "spicy-shrimp.png",
+  img: "/spicy-shrimp.png",
   size: 2,
   time: 30,
   desc: "Quick and flavorful shrimp stir-fry with a spicy kick.",
@@ -185,7 +185,7 @@ const defaultRecipes = [
   },
 
   { name: "Lemon Herb Grilled Chicken",
-  img: "lemon-chicken.png",
+  img: "/lemon-chicken.png",
   size: 4,
   time: 45,
   desc: "Grilled chicken marinated with lemon and herbs for a fresh and zesty flavor.",
@@ -197,7 +197,7 @@ const defaultRecipes = [
   },
 
   { name: "Vegetarian Quinoa Salad",
-  img: "quinoa-salad.png",
+  img: "/quinoa-salad.png",
   size: 6,
   time: 25,
   desc: "A refreshing and nutritious quinoa salad with colorful vegetables.",
@@ -209,7 +209,7 @@ const defaultRecipes = [
   },
 
   { name: "Teriyaki Salmon Bowls",
-  img: "teriyaki-salmon.png",
+  img: "/teriyaki-salmon.png",
   size: 3,
   time: 35,
   desc: "Delicious teriyaki-glazed salmon served over a bed of fluffy rice and steamed vegetables.",
@@ -221,7 +221,7 @@ const defaultRecipes = [
   },
 
   { name: "Black Bean and Corn Quesadillas",
-  img: "black-bean-quesadillas.png",
+  img: "/black-bean-quesadillas.png",
   size: 4,
   time: 20,
   desc: "Quick and satisfying quesadillas filled with black beans, corn, and gooey cheese.",
@@ -232,7 +232,7 @@ const defaultRecipes = [
   "5. Repeat with remaining tortillas. Serve with sour cream and salsa."]
   },
   { name: 'Cereal', 
-  img: "cereal.png",
+  img: "/cereal.png",
   size: 1,
   time: 5,
   desc: "Quick and easy breakfast or dinner!",
@@ -1099,7 +1099,7 @@ app.post("/api/recipes", verifyToken, async (req, res) => {
 
     const newRecipe = new Recipe({
       name,
-      img: img || 'recipe-icon.png',
+      img: img || '/recipe-icon.png',
       size: parseInt(size, 10),
       time: parseInt(time, 10),
       desc,
