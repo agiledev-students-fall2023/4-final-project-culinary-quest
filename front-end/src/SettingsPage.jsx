@@ -71,7 +71,7 @@ function SettingsPage() {
 
     return (
         <div className="profile-container">
-            <h1>Settings</h1>
+            <div className="settingstitle"><h1>Settings</h1></div>
 
             <label className="profile-picture" onClick={handleImageClick}>
                 <img src={profilePicture} alt="Profile" className="profile-picture"/>
