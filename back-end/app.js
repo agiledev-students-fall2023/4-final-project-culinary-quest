@@ -53,20 +53,40 @@ mongoose
 
 
 const defaultIngredients = [
- { name: 'Salt' },
- { name: 'Pepper' },
- { name: 'Flour' },
- { name: 'Eggs' },
- { name: 'Milk' },
- { name: 'Butter' },
- { name: 'Olive Oil' },
- { name: 'Bread' },
- { name: 'Pasta' },
- { name: 'Rice' }
+ { name: 'Salt',
+ imageURL: "/salt.png" },
+
+ { name: 'Pepper',
+ imageURL: "/pepper.png"  },
+
+ { name: 'Flour',
+ imageURL: "/flour.png"  },
+
+ { name: 'Eggs',
+ imageURL: "/eggs.png"  },
+
+ { name: 'Milk',
+ imageURL: "/milk.png"  },
+ 
+ { name: 'Butter',
+ imageURL: "/butter.png"  },
+
+ { name: 'Olive Oil',
+ imageURL: "/olive-oil.png"  },
+
+ { name: 'Bread',
+ imageURL: "/bread.png"  },
+
+ { name: 'Pasta',
+ imageURL: "/raw-pasta.png"  },
+ 
+ { name: 'Rice',
+ imageURL: "/rice.png"  }
   ];
 
 const defaultRecipes = [
   { name: 'Waffles', 
+  img: "/waffle.png",
   size: 4,
   time: 30,
   desc: "Here's your new go-to waffle recipe for family breakfast, a brunch gathering, or just because. By Martha Stewart!",
@@ -81,6 +101,7 @@ const defaultRecipes = [
   },
 
   { name: 'Pancakes',
+  img: "choco-pancakes.png",
   size: 4,
   time: 20,
   desc: "This simple recipe will become your go-to for making fluffy pancakes from scratch.  By Martha Stewart!",
@@ -99,6 +120,7 @@ const defaultRecipes = [
   },
 
   { name: 'Easy Chicken Noodle Soup',
+  img: "noodle-soup.png",
   size: 6,
   time: 35,
   desc: "Homemade chicken noodle soup is pure comfort in a bowl.", 
@@ -114,6 +136,7 @@ const defaultRecipes = [
   },
 
   { name: 'Pan-Fried Steak',
+  img: "steak.png",
   size: 2,
   time: 15,
   desc: "Make a restaurant-quality steak in 15 minutes.",
@@ -125,23 +148,78 @@ const defaultRecipes = [
   "Step 4: Rest, then slice: Transfer to a cutting board and let rest 5 minutes. Slice steaks against the grain; serve with sauce, if desired."]
   },
 
+  { name:"Caramelized Shallot Pasta",
+  img: "shallot-pasta.png",
+  size: 4,
+  time: 40,
+  desc: "Pasta with a shallot and tomato sauce",
+  ingr: ["1/4 cup Olive Oil", "6 Large Shallots, thinly sliced", " 6 Garlic Cloves", 
+    "1 Tube Tomato Paste", " 10 Ounces Pasta"], 
+  steps: ["1. Heat oil in a pan over medium heat. Add shallots and garlic. Fry unlike shallots are browned.", 
+  "2. Add tomato paste and cook until the center turns dark red (brick colored). Set sauce aside.", 
+  "3. In a separate pot, cook pasta according to package instructions", "4. Mix together and serve"]
+  }, 
 
+  { name: "Spicy Shrimp Stir-Fry",
+  img: "spicy-shrimp.png",
+  size: 2,
+  time: 30,
+  desc: "Quick and flavorful shrimp stir-fry with a spicy kick.",
+  ingr: ["2 tbsp Soy Sauce", "1 lb Shrimp, peeled and deveined", "1 Red Bell Pepper, sliced", 
+  "1 cup Snow Peas", "3 tbsp Sriracha Sauce", "8 oz Rice Noodles"],
+  steps: ["1. In a wok, heat soy sauce over medium-high heat.", "2. Add shrimp and stir-fry until pink and opaque.", 
+  "3. Toss in sliced bell pepper and snow peas, stir-fry until vegetables are crisp-tender.", 
+  "4. Mix in Sriracha sauce.", "5. Cook rice noodles according to package instructions, then combine with the stir-fried ingredients."]
+  },
 
+  { name: "Lemon Herb Grilled Chicken",
+  img: "lemon-chicken.png",
+  size: 4,
+  time: 45,
+  desc: "Grilled chicken marinated with lemon and herbs for a fresh and zesty flavor.",
+  ingr:["4 Chicken Breasts", "1/4 cup Olive Oil", "2 Lemons, juiced", "2 tsp Dried Oregano", 
+  "4 Garlic Cloves, minced", "Salt and Pepper to taste"],
+  steps: ["1. In a bowl, mix olive oil, lemon juice, oregano, minced garlic, salt, and pepper.", 
+  "2. Marinate chicken breasts in the mixture for at least 30 minutes.", "3. Preheat grill to medium-high heat.", 
+  "4. Grill chicken for 6-8 minutes per side or until fully cooked.", "5. Serve hot with your favorite side dishes."]
+  },
 
+  { name: "Vegetarian Quinoa Salad",
+  img: "quinoa-salad.png",
+  size: 6,
+  time: 25,
+  desc: "A refreshing and nutritious quinoa salad with colorful vegetables.",
+  ingr: ["1 cup Quinoa, cooked", "1 cup Cherry Tomatoes, halved", "1 Cucumber, diced", 
+  "1/2 Red Onion, finely chopped", "1/4 cup Feta Cheese, crumbled", "2 tbsp Balsamic Vinaigrette"],
+  steps: ["1. In a large bowl, combine cooked quinoa, cherry tomatoes, cucumber, and red onion.", 
+  "2. Gently fold in crumbled feta cheese.", "3. Drizzle with balsamic vinaigrette and toss until well coated.", 
+  "4. Serve chilled as a refreshing salad side dish.", "5. Optional: Add grilled chicken for a protein boost."]
+  },
 
-  { name: 'Milk' },
-  { name: 'Butter' },
-  { name: 'Olive Oil' },
-  { name: 'Bread' },
-  { name: 'Pasta' },
-  { name: 'Rice' }
-   ];
-   
-        //size: Number,
-        //time: Number,
-        //desc: String,
-        //ingr: [String],
-        //steps: [String],
+  { name: "Teriyaki Salmon Bowls",
+  img: "teriyaki-salmon.png",
+  size: 3,
+  time: 35,
+  desc: "Delicious teriyaki-glazed salmon served over a bed of fluffy rice and steamed vegetables.",
+  ingr: ["3 Salmon Fillets", "1/2 cup Teriyaki Sauce", "2 cups White Rice, cooked", "1 cup Broccoli Florets, steamed", 
+  "1 Carrot, julienned", "Sesame Seeds for garnish"],
+  steps: ["1. Preheat oven to 400°F (200°C).", "2. Place salmon fillets on a baking sheet and brush with teriyaki sauce.", 
+  "3. Bake for 15-20 minutes or until salmon flakes easily.", "4. In bowls, assemble cooked rice, steamed broccoli, and julienned carrot.", 
+  "5. Top with teriyaki-glazed salmon and garnish with sesame seeds."]
+  },
+
+  { name: "Black Bean and Corn Quesadillas",
+  img: "black-bean-quesadillas.png",
+  size: 4,
+  time: 20,
+  desc: "Quick and satisfying quesadillas filled with black beans, corn, and gooey cheese.",
+  ingr: ["1 can Black Beans, drained and rinsed", "1 cup Corn Kernels", "1 cup Shredded Cheddar Cheese", "1/2 Red Bell Pepper, diced", 
+  "8 Flour Tortillas", "Sour Cream and Salsa for serving"],
+  steps: ["1. In a bowl, mix black beans, corn, diced red bell pepper, and shredded cheddar cheese.", "2. Place a tortilla on a hot griddle or skillet.", 
+  "3. Spoon the bean and cheese mixture onto one half of the tortilla.", "4. Fold the other half over the filling, press down gently, and cook until the tortilla is golden brown on both sides.", 
+  "5. Repeat with remaining tortillas. Serve with sour cream and salsa."]
+  }
+]
 
 // Create-Account route
 const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z]).{8,}$/;
@@ -198,6 +276,7 @@ app.post('/api/create-account', async (req, res) => {
       username: newName,
       username: newUsername,
       password: hashedPassword,
+      profilePicture: "/profile_pic.png"
     });
 
     // Save the user to the database
@@ -209,7 +288,6 @@ app.post('/api/create-account', async (req, res) => {
         ...ingredient,
         user_id: newUser._id, // Replace with your ingredient schema's user reference
         amount: 1,
-        imageURL: "/apple.jpg",
         lastViewed: Date.now()
       }));
 
@@ -220,7 +298,6 @@ app.post('/api/create-account', async (req, res) => {
       const userDefaultRecipes = defaultRecipes.map(recipe => ({
         ...recipe,
         user_id: newUser._id, // Replace with your ingredient schema's user reference
-        img: "/pasta.jpg",
         lastViewed: Date.now()
       }));
       
