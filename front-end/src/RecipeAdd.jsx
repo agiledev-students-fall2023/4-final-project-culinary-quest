@@ -31,7 +31,7 @@ const RecipeAdd = () => {
       return;
     }
 
-    const finalImageSrc = imageSrc || 'recipe-icon.png';
+    const finalImageSrc = imageSrc || '/recipe-icon.png';
     const ingredientsArray = ingr.split(',').map(ingredient => ingredient.trim());
 
 
