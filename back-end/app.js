@@ -51,6 +51,176 @@ mongoose
   .then(data => console.log(`Connected to MongoDB`))
   .catch(err => console.error(`Failed to connect to MongoDB: ${err}`))
 
+
+const defaultIngredients = [
+ { name: 'Salt',
+ imageURL: "/salt.png" },
+
+ { name: 'Pepper',
+ imageURL: "/pepper.png"  },
+
+ { name: 'Flour',
+ imageURL: "/flour.png"  },
+
+ { name: 'Eggs',
+ imageURL: "/eggs.png"  },
+
+ { name: 'Milk',
+ imageURL: "/milk.png"  },
+ 
+ { name: 'Butter',
+ imageURL: "/butter.png"  },
+
+ { name: 'Olive Oil',
+ imageURL: "/olive-oil.png"  },
+
+ { name: 'Bread',
+ imageURL: "/bread.png"  },
+
+ { name: 'Pasta',
+ imageURL: "/raw-pasta.png"  },
+ 
+ { name: 'Rice',
+ imageURL: "/rice.png"  }
+  ];
+
+const defaultRecipes = [
+  { name: 'Waffles', 
+  img: "/waffle.png",
+  size: 4,
+  time: 30,
+  desc: "Here's your new go-to waffle recipe for family breakfast, a brunch gathering, or just because. By Martha Stewart!",
+  ingr: ["1 cup all-purpose flour, spooned and leveled",
+    "2 tablespoons sugar","1 teaspoon baking powder",
+    "¼ teaspoon salt","1 cup milk","2 large eggs", "4 tablespoons (½ stick) unsalted butter, melted"], 
+  steps: ["Step 1: Preheat waffle iron and combine dry ingredients: Preheat waffle iron according to manufacturer's instructions. In a large bowl, whisk flour, sugar, baking powder, and salt; set aside.",
+  "Step 2: Whisk milk and eggs and add to flour: In a small bowl, whisk milk and eggs; pour over flour mixture, and whisk gently to combine (don't overmix). " ,
+  "Step 3: Add melted butter: Gently whisk in butter.",
+  "Step 4: Cook waffles: Following manufacturer's instructions, cook waffles until deep brown and crisp. (For a standard waffle iron, pour a generous 1/2 cup of batter into center, spreading to within 1/2 inch of edges, and close; waffle will cook in 2 to 3 minutes.)",
+  "Step 5: Serve warm: Serve warm, with maple syrup and butter, as desired"]
+  },
+
+  { name: 'Pancakes',
+  img: "choco-pancakes.png",
+  size: 4,
+  time: 20,
+  desc: "This simple recipe will become your go-to for making fluffy pancakes from scratch.  By Martha Stewart!",
+  ingr: ["1 cup all-purpose flour, (spooned and leveled)", "2 tablespoons sugar", 
+    "2 teaspoons baking powder", "½ teaspoon salt", "1 cup milk", "2 tablespoons unsalted butter, melted, or vegetable oil",
+    "1 large egg", "1 tablespoon vegetable oil"], 
+  steps: ["Step 1: Gather ingredients and preheat oven: Preheat oven to 200 degrees. Have a baking sheet or heatproof platter ready to keep cooked pancakes warm in the oven.",
+  "Step 2: Mix dry ingredients: In a small bowl, whisk together flour, sugar, baking powder, and salt; set aside.",
+  "Step 3: Mix wet ingredients: In a medium bowl, whisk together milk, butter (or oil), and egg.",
+  "Step 4: Combine wet and dry ingredients: Add dry ingredients to milk mixture; whisk until just moistened. (Do not overmix; a few small lumps are fine.)",
+  "Step 5: Heat and oil skillet or griddle: Heat a large skillet (nonstick or cast-iron) or griddle over medium. Fold a sheet of paper towel in half, and moisten with oil; carefully rub skillet with oiled paper towel.",
+  "Step 6: Spoon batter onto skillet or griddle: For each pancake, spoon 2 to 3 tablespoons of batter onto skillet, using the back of the spoon to spread batter into a round (you should be able to fit 2 to 3 in a large skillet).",
+  "Step 7: Cook first side: Cook until surface of pancakes have some bubbles and a few have burst, 1 to 2 minutes.",
+  "Step 8: Flip pancakes: Flip carefully with a thin spatula, and cook until browned on the underside, 1 to 2 minutes more.",
+  "Step 9:Serve immediately, or keep warm in oven: Transfer to a baking sheet or platter; cover loosely with aluminum foil, and keep warm in oven. Continue with more oil and remaining batter. (You'll have 12 to 15 pancakes.) Serve warm, with desired toppings."]
+  },
+
+  { name: 'Easy Chicken Noodle Soup',
+  img: "noodle-soup.png",
+  size: 6,
+  time: 35,
+  desc: "Homemade chicken noodle soup is pure comfort in a bowl.", 
+  ingr: ["1 tablespoon olive oil", "2 stalks celery, diced small", "2 medium carrots, diced medium", 
+    "1 medium yellow onion, diced small", "Salt and pepper", "4 cups chicken broth", "1 ¼ pounds boneless, skinless chicken breasts", 
+    "6 ounces vermicelli or angel-hair pasta, broken into 1 ½-inch pieces", "¼ cup chopped fresh dill"],
+  steps: ["Step 1: Sauté celery, carrots, and onions: In a large pot, heat oil over medium-high. Add celery, carrots, and onion and cook until celery and carrots are crisp-tender, about 5 minutes; season with salt and pepper.",
+  "Step 2: Add broth and water: Add broth and 4 cups water and bring to a boil.",
+  "Step 3: Cook chicken: Add chicken, reduce to a simmer, and cover. Cook until chicken is cooked through, about 10 minutes.",
+  "Step 4: Shred chicken: With tongs, remove chicken and chop or shred into bite-size pieces.",
+  "Step 5: Cook pasta: Add pasta to pot and cook until tender, about 4 minutes; season with salt and pepper.",
+  "Step 6: Serve: To serve, stir in chicken and dill."]
+  },
+
+  { name: 'Pan-Fried Steak',
+  img: "steak.png",
+  size: 2,
+  time: 15,
+  desc: "Make a restaurant-quality steak in 15 minutes.",
+  ingr: ["2 strip steaks (each about 1 inch thick), room temperature", "Kosher salt and freshly ground pepper",
+  "1 teaspoon unsalted butter"],
+  steps: ["Step 1: Heat pan and season steaks: Heat a large heavy-bottomed skillet (preferably cast iron) over high 5 minutes. Generously season steaks with salt and pepper.",
+  "Step 2: Cook steaks: Add 1/2 teaspoon butter to pan, then immediately top with one steak. Repeat with remaining 1/2 teaspoon butter and steak. Cook without moving steaks until a golden brown crust forms, 3 to 4 minutes.",
+  "Step 3: Turn steaks and cook: Turn and cook 2 minutes more for rare, or 3 to 4 minutes more for medium-rare.",
+  "Step 4: Rest, then slice: Transfer to a cutting board and let rest 5 minutes. Slice steaks against the grain; serve with sauce, if desired."]
+  },
+
+  { name:"Caramelized Shallot Pasta",
+  img: "shallot-pasta.png",
+  size: 4,
+  time: 40,
+  desc: "Pasta with a shallot and tomato sauce",
+  ingr: ["1/4 cup Olive Oil", "6 Large Shallots, thinly sliced", " 6 Garlic Cloves", 
+    "1 Tube Tomato Paste", " 10 Ounces Pasta"], 
+  steps: ["1. Heat oil in a pan over medium heat. Add shallots and garlic. Fry unlike shallots are browned.", 
+  "2. Add tomato paste and cook until the center turns dark red (brick colored). Set sauce aside.", 
+  "3. In a separate pot, cook pasta according to package instructions", "4. Mix together and serve"]
+  }, 
+
+  { name: "Spicy Shrimp Stir-Fry",
+  img: "spicy-shrimp.png",
+  size: 2,
+  time: 30,
+  desc: "Quick and flavorful shrimp stir-fry with a spicy kick.",
+  ingr: ["2 tbsp Soy Sauce", "1 lb Shrimp, peeled and deveined", "1 Red Bell Pepper, sliced", 
+  "1 cup Snow Peas", "3 tbsp Sriracha Sauce", "8 oz Rice Noodles"],
+  steps: ["1. In a wok, heat soy sauce over medium-high heat.", "2. Add shrimp and stir-fry until pink and opaque.", 
+  "3. Toss in sliced bell pepper and snow peas, stir-fry until vegetables are crisp-tender.", 
+  "4. Mix in Sriracha sauce.", "5. Cook rice noodles according to package instructions, then combine with the stir-fried ingredients."]
+  },
+
+  { name: "Lemon Herb Grilled Chicken",
+  img: "lemon-chicken.png",
+  size: 4,
+  time: 45,
+  desc: "Grilled chicken marinated with lemon and herbs for a fresh and zesty flavor.",
+  ingr:["4 Chicken Breasts", "1/4 cup Olive Oil", "2 Lemons, juiced", "2 tsp Dried Oregano", 
+  "4 Garlic Cloves, minced", "Salt and Pepper to taste"],
+  steps: ["1. In a bowl, mix olive oil, lemon juice, oregano, minced garlic, salt, and pepper.", 
+  "2. Marinate chicken breasts in the mixture for at least 30 minutes.", "3. Preheat grill to medium-high heat.", 
+  "4. Grill chicken for 6-8 minutes per side or until fully cooked.", "5. Serve hot with your favorite side dishes."]
+  },
+
+  { name: "Vegetarian Quinoa Salad",
+  img: "quinoa-salad.png",
+  size: 6,
+  time: 25,
+  desc: "A refreshing and nutritious quinoa salad with colorful vegetables.",
+  ingr: ["1 cup Quinoa, cooked", "1 cup Cherry Tomatoes, halved", "1 Cucumber, diced", 
+  "1/2 Red Onion, finely chopped", "1/4 cup Feta Cheese, crumbled", "2 tbsp Balsamic Vinaigrette"],
+  steps: ["1. In a large bowl, combine cooked quinoa, cherry tomatoes, cucumber, and red onion.", 
+  "2. Gently fold in crumbled feta cheese.", "3. Drizzle with balsamic vinaigrette and toss until well coated.", 
+  "4. Serve chilled as a refreshing salad side dish.", "5. Optional: Add grilled chicken for a protein boost."]
+  },
+
+  { name: "Teriyaki Salmon Bowls",
+  img: "teriyaki-salmon.png",
+  size: 3,
+  time: 35,
+  desc: "Delicious teriyaki-glazed salmon served over a bed of fluffy rice and steamed vegetables.",
+  ingr: ["3 Salmon Fillets", "1/2 cup Teriyaki Sauce", "2 cups White Rice, cooked", "1 cup Broccoli Florets, steamed", 
+  "1 Carrot, julienned", "Sesame Seeds for garnish"],
+  steps: ["1. Preheat oven to 400°F (200°C).", "2. Place salmon fillets on a baking sheet and brush with teriyaki sauce.", 
+  "3. Bake for 15-20 minutes or until salmon flakes easily.", "4. In bowls, assemble cooked rice, steamed broccoli, and julienned carrot.", 
+  "5. Top with teriyaki-glazed salmon and garnish with sesame seeds."]
+  },
+
+  { name: "Black Bean and Corn Quesadillas",
+  img: "black-bean-quesadillas.png",
+  size: 4,
+  time: 20,
+  desc: "Quick and satisfying quesadillas filled with black beans, corn, and gooey cheese.",
+  ingr: ["1 can Black Beans, drained and rinsed", "1 cup Corn Kernels", "1 cup Shredded Cheddar Cheese", "1/2 Red Bell Pepper, diced", 
+  "8 Flour Tortillas", "Sour Cream and Salsa for serving"],
+  steps: ["1. In a bowl, mix black beans, corn, diced red bell pepper, and shredded cheddar cheese.", "2. Place a tortilla on a hot griddle or skillet.", 
+  "3. Spoon the bean and cheese mixture onto one half of the tortilla.", "4. Fold the other half over the filling, press down gently, and cook until the tortilla is golden brown on both sides.", 
+  "5. Repeat with remaining tortillas. Serve with sour cream and salsa."]
+  }
+]
+
 // Create-Account route
 const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z]).{8,}$/;
 
@@ -106,11 +276,34 @@ app.post('/api/create-account', async (req, res) => {
       username: newName,
       username: newUsername,
       password: hashedPassword,
+      profilePicture: "/profile_pic.png"
     });
 
     // Save the user to the database
     try {
       await newUser.save();
+
+      // Create and associate default ingredients with the new user
+      const userDefaultIngredients = defaultIngredients.map(ingredient => ({
+        ...ingredient,
+        user_id: newUser._id, // Replace with your ingredient schema's user reference
+        amount: 1,
+        lastViewed: Date.now()
+      }));
+
+      // Insert default ingredients into the database
+      await Ingredient.insertMany(userDefaultIngredients);
+
+      // Create and associate default recipes with the new user
+      const userDefaultRecipes = defaultRecipes.map(recipe => ({
+        ...recipe,
+        user_id: newUser._id, // Replace with your ingredient schema's user reference
+        lastViewed: Date.now()
+      }));
+      
+      // Insert default recipes into the database
+      await Recipe.insertMany(userDefaultRecipes);
+
       const token = jwt.sign({ userId: newUser._id, username: newUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
       
       // Add console log to see the JWT token
@@ -125,6 +318,8 @@ app.post('/api/create-account', async (req, res) => {
         status: 'failed',
       });
     }
+  
+    
   } catch (error) {
     console.error('Unhandled error in create-account route:', error);
     res.status(500).json({
