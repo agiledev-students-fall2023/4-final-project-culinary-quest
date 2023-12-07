@@ -887,7 +887,9 @@ app.get("/api/recipes/search", verifyToken, async (req, res) => {
 
     // If the user is filtering by available ingredients
     if (req.query.z == "true") {
-      let aIngr = await Ingredient.find({ amount: { $ne: "0" }, user_id: userId }); // Pulls all non-zero ingredients for the current user
+      let aIngr = await Ingredient.find({ amount: { $ne: "Out of Stock" }, user_id: userId }); // Pulls all non-zero ingredients for the current user
+      console.log(aIngr)
+      console.log(aIngr.map(ingredient => ingredient.name))
 
       // If searchTerms are present, it pulls recipes filtering by available ingredients and search terms for the current user. If not, it pulls recipes only filtering by available ingredients for the current user.
       if (searchTerms != '') {
@@ -895,7 +897,7 @@ app.get("/api/recipes/search", verifyToken, async (req, res) => {
           $and: [
             { $or: [{ name: searchTerms }, { desc: searchTerms }, { ingr: searchTerms }] },
             { user_id: userId },
-            { ingr: { $in: aIngr.map(ingredient => ingredient._id) } }
+            { ingr: { $in: aIngr.map(ingredient => ingredient.name) } }
           ]
         }).sort({ lastViewed: -1 });
         res.json({ recipes: recipes, status: "All good - recipes received" });
