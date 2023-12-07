@@ -8,12 +8,18 @@
     src: url("fonts/cream.ttf");
 }
 
+.settingstitle{
+    position: absolute;
+    top:20px;
+}
+
 .profile-container {
+    padding-top: 60px;
     display: flex;
     flex-direction: column;
     align-items: center; /* Center everything horizontally */
     max-width: 600px;
-    margin: 50px auto;
+    /* margin: 50px auto; */
 }
 
 .profile-picture {
