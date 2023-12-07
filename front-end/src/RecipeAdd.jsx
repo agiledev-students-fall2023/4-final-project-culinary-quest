@@ -12,7 +12,7 @@ const RecipeAdd = () => {
   const [steps, setSteps] = useState('');
   const [imageSrc, setImageSrc] = useState(null);
   const navigate = useNavigate();
-  const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
+  const REACT_APP_SERVER_HOSTNAME = process.env.REACT_APP_BACKEND_URL;
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -31,7 +31,7 @@ const RecipeAdd = () => {
       return;
     }
 
-    const finalImageSrc = imageSrc || '/recipe-icon.png';
+    const finalImageSrc = imageSrc || 'recipe-icon.png';
     const ingredientsArray = ingr.split(',').map(ingredient => ingredient.trim());
 
 

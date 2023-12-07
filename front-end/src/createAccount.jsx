@@ -15,10 +15,11 @@ function CreateAccount() {
   const navigate = useNavigate();
 
   const handleCreateAccount = async () => {
+    const REACT_APP_SERVER_HOSTNAME = process.env.REACT_APP_BACKEND_URL;
     try {
       console.log('Sending request to create account:', { newName, newUsername, newPassword, newRePassword });
 
-      const response = await axios.post("http://localhost:3001/api/create-account", {
+      const response = await axios.post(`${REACT_APP_SERVER_HOSTNAME}/api/create-account`, {
         newName,
         newUsername,
         newPassword,

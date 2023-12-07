@@ -7,13 +7,14 @@ function UpdatePhone() {
     const [newPhone, setNewPhone] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
+    const REACT_APP_SERVER_HOSTNAME = process.env.REACT_APP_BACKEND_URL;
 
     const handleUpdatePhone = async () => {
         if (newPhone) {
             setErrorMessage('');
 
             // Make the POST request to the back-end
-            const response = await axios.post('http://localhost:3001/api/update-phone', {
+            const response = await axios.post(`${REACT_APP_SERVER_HOSTNAME}/api/update-phone`, {
                 newPhone
             });
 

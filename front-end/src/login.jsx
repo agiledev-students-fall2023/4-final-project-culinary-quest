@@ -10,8 +10,9 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    const REACT_APP_SERVER_HOSTNAME = process.env.REACT_APP_BACKEND_URL;
     try {
-      const response = await axios.post("http://localhost:3001/api/login", {
+      const response = await axios.post(`${REACT_APP_SERVER_HOSTNAME}/api/login`, {
         username,
         password,
       });

@@ -12,7 +12,7 @@ if (token) {
 const Home = () => {
   const [recentIngredients, setRecentIngredients] = useState([]);
   const [recentRecipes, setRecentRecipes] = useState([]);
-  const REACT_APP_SERVER_HOSTNAME = 'http://localhost:3001';
+  const REACT_APP_SERVER_HOSTNAME = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     // Fetch the ingredients from the backend

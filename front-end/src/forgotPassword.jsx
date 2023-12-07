@@ -10,12 +10,13 @@ function ForgotPassword() {
   const navigate = useNavigate();
 
   const handleForgotPassword = async () => {
+    const REACT_APP_SERVER_HOSTNAME = process.env.REACT_APP_BACKEND_URL;
     if (username) {
       setErrorMessage("");
 
       try {
         // Make the POST request to the back-end
-        const response = await axios.post("http://localhost:3001/api/forgot-password", {
+        const response = await axios.post(`${REACT_APP_SERVER_HOSTNAME}/api/forgot-password`, {
           username,
         });
 
