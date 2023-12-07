@@ -42,6 +42,7 @@ const IndivRecipe = (props)  => {
     }, [id])
 
     return (
+        <div classname="container">
         <div className="recipe-view">
             <h1>View Recipe</h1>
             <label className="title-label">{recipe.name}</label>
@@ -57,13 +58,14 @@ const IndivRecipe = (props)  => {
             <label className="text-box">{Array.isArray(recipe.ingr) ? recipe.ingr.join(', ') : recipe.ingr}</label>
 
             <label className="text-label">Recipe Steps:</label>
-            <label className="text-box">{recipe.steps}</label>
+            <label className="text-box-recipesteps">{recipe.steps}</label>
 
             <div className="button-container">
                 <Link to={`/recipe-edit/${recipe._id}`} className="button">Edit Recipe</Link>
 
                 <Link to="/recipe-inventory" className="button">Recipe Inventory</Link> {/* for now home should point to recipe inventory later*/}
             </div>
+        </div>
         </div>
     );
 };
